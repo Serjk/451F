@@ -38,6 +38,13 @@
 7. Использование MVC
 
 
+usefull links:
+
+cluster: Jboss
+http://habrahabr.ru/post/190196/
+
+
+
 
 
  

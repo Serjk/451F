@@ -17,8 +17,7 @@ public class HibernateUtil {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
             sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
-            ejb3Configuration = new Ejb3Configuration()
-                    .configure("/hibernate.cfg.xml");
+            ejb3Configuration = new Ejb3Configuration().configure("hibernate.cfg.xml");
         } catch (Throwable ex) {
             throw new ExceptionInInitializerError(ex);
         }

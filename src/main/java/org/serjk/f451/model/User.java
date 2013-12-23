@@ -14,11 +14,14 @@ public class User {
     private long id;
     private String firstName;
     private String lastName;
+    private String address;
+    private UserType type;
+
 
     public User(){}
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     public long getId(){
         return this.id;
@@ -44,5 +47,23 @@ public class User {
 
     public void setLastName(String lastName){
         this.lastName = lastName;
+    }
+
+    @Column(name="ADDRESS")
+    public String getAddress(){
+        return this.address;
+    }
+
+    public void setAddress(String address){
+        this.address = address;
+    }
+
+    @Column(name = "TYPE")
+    public UserType getType(){
+        return this.type;
+    }
+
+    public void  setType(UserType type){
+        this.type = type;
     }
 }

@@ -35,3 +35,20 @@ General information
 	7. Исполняемая архитектура
 
 Прототип системы 2-3 основных функции.
+
+
+// Db tutorial
+
+1. install postgres
+sudo apt-get install postgresql
+
+2. login in postgres
+sudo -u postgres psql postgres
+
+3. create user
+CREATE USER test WITH PASSWORD 'test';
+4. create db
+CREATE DATABASE f;
+5. grant access
+GRANT ALL PRIVILEGES ON DATABASE f to test;
+

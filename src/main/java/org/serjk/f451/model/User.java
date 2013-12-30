@@ -17,8 +17,12 @@ public class User {
     private String address;
     private UserType type;
 
-
-    public User(){}
+    public User(String firstName, String lastName, String address, UserType type) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.type = type;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

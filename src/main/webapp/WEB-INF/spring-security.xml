@@ -1,0 +1,30 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.0.3.xsd">
+
+    <http auto-config="true">
+        <intercept-url pattern="/report*" access="ROLE_HABITANT" />
+    </http>
+
+    <authentication-manager>
+        <authentication-provider>
+            <user-service>
+                <user name="user" password="123" authorities="ROLE_HABITANT" />
+                <user name="habitant" password="123" authorities="ROLE_HABITANT" />
+                <user name="habitant1" password="123" authorities="ROLE_HABITANT" />
+                <user name="habitant2" password="123" authorities="ROLE_HABITANT" />
+
+                <user name="policeman" password="123" authorities="ROLE_POLICE" />
+
+                <user name="fireman" password="123" authorities="ROLE_FIREMAN" />
+
+                <user name="official" password="123" authorities="ROLE_OFFICIAL" />
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+
+ </beans:beans>

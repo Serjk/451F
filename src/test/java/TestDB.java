@@ -10,14 +10,14 @@ import javax.persistence.EntityManager;
  */
 public class TestDB extends TestCase {
     public static void main(String[] args) {
-        EntityManager em = HibernateUtil.getEjb3Configuration()
-                .buildEntityManagerFactory().createEntityManager();
-        em.getTransaction().begin();
-        User usr = new User();
-        usr.setFirstName("Ivan");
-        usr.setLastName("Ivanov");
-        em.persist(usr);
-        em.getTransaction().commit();
-        HibernateUtil.getSessionFactory().close();
-    }
+//        EntityManager em = HibernateUtil.getEjb3Configuration()
+//                .buildEntityManagerFactory().createEntityManager();
+//        em.getTransaction().begin();
+//        User usr = new User();
+//        usr.setFirstName("Ivan");
+//        usr.setLastName("Ivanov");
+//        em.persist(usr);
+//        em.getTransaction().commit();
+//        HibernateUtil.getSessionFactory().close();
+  }
 }

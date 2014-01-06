@@ -6,12 +6,8 @@
 <body>
 
 <h2>Report</h2>
-<form:form method="POST" action="/addReport">
+<form:form method="POST" action="/represult">
     <table>
-        <tr>
-            <td><form:label path="id">ID</form:label></td>
-            <td><form:input path="id" /></td>
-        </tr>
         <tr>
             <td><form:label path="text">Text</form:label></td>
             <td><form:input path="text" /></td>

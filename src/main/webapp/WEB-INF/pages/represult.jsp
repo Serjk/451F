@@ -1,5 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -14,9 +12,18 @@
         <td>${text}</td>
     </tr>
     <tr>
+        <td>Date</td>
+        <td>${date}</td>
+    </tr>
+    <tr>
         <td>ID</td>
         <td>${id}</td>
     </tr>
+    <tr>
+        <td>User suspect</td>
+        <td>${suspect}</td>
+    </tr>
+
 </table>
 </body>
 </html>

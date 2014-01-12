@@ -2,7 +2,6 @@ package org.serjk.f451.model;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Date;
 /**
  * @author Koyushev Sergey (mailto: serjk91@gmail.com)
  */
@@ -29,34 +28,7 @@ public class Report {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "suspect_id")
-
     private User suspect;
-
-    public Report(String text, Date date, User reporter, User suspect) {
-        this.text = text;
-        this.date = date;
-        this.reporter = reporter;
-        this.suspect = suspect;
-    }
-
-    public Report(String text, User suspect, User reporter) {
-        this.text = text;
-        this.date = new Date();
-        this.suspect = suspect;
-        this.reporter = reporter;
-    }
-
-    public Report (User suspect, User reporter) {
-        this.date = new Date();
-        this.suspect = suspect;
-        this.reporter = reporter;
-    }
-
-//    public Report () {
-//        this.date = new Date();
-//        this.suspect  = new User("Suspect_FirstName","Suspect_SecondName","Suspect_Address", UserType.HABITANT);
-//        this.reporter = new User("Reporter_FirstName","Reporter_SecondName","Reporter_Address", UserType.HABITANT);
-//    }
 
     public long getId(){
         return this.id;

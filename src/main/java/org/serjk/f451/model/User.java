@@ -1,7 +1,5 @@
 package org.serjk.f451.model;
 
-
-
 import javax.persistence.*;
 
 /**
@@ -11,22 +9,30 @@ import javax.persistence.*;
 @Table(name = "USER")
 public class User {
 
-    private long id;
-    private String firstName;
-    private String lastName;
-    private String address;
-    private UserType type;
-
-    public User(String firstName, String lastName, String address, UserType type) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.type = type;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
+    private long id;
+
+    @Column(name = "FIRST_NAME")
+    private String firstName;
+
+    @Column(name = "LAST_NAME")
+    private String lastName;
+
+    @Column(name = "LOGIN")
+    private String login;
+
+    @Column(name = "PASSWORD")
+    private String password;
+
+    @Column(name="ADDRESS")
+    private String address;
+
+    @Column(name = "TYPE")
+    private UserType type;
+
+
     public long getId(){
         return this.id;
     }
@@ -35,7 +41,6 @@ public class User {
         this.id = id;
     }
 
-    @Column(name = "FIRST_NAME")
     public String getFirstName(){
         return this.firstName;
     }
@@ -44,7 +49,7 @@ public class User {
         this.firstName = firstName;
     }
 
-    @Column(name = "LAST_NAME")
+
     public String getLastName(){
         return this.lastName;
     }
@@ -53,7 +58,23 @@ public class User {
         this.lastName = lastName;
     }
 
-    @Column(name="ADDRESS")
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
     public String getAddress(){
         return this.address;
     }
@@ -62,7 +83,7 @@ public class User {
         this.address = address;
     }
 
-    @Column(name = "TYPE")
+
     public UserType getType(){
         return this.type;
     }

@@ -1,4 +1,4 @@
-package org.serjk.f451.service.Impl;
+package org.serjk.f451.service;
 
 import org.serjk.f451.dao.UserDAO;
 import org.serjk.f451.model.User;
@@ -32,4 +32,5 @@ public class UserServiceImpl implements UserService {
     public void removeUser(long id) {
         userDAO.removeUser(id);
     }
+
 }

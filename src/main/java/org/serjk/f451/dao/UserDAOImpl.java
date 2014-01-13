@@ -1,4 +1,4 @@
-package org.serjk.f451.dao.Impl;
+package org.serjk.f451.dao;
 
 
 import org.hibernate.Session;

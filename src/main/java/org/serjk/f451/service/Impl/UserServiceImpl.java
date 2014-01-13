@@ -1,6 +1,6 @@
 package org.serjk.f451.service.Impl;
 
-import org.serjk.f451.DAO.UserDAO;
+import org.serjk.f451.dao.UserDAO;
 import org.serjk.f451.model.User;
 import org.serjk.f451.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

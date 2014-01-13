@@ -1,4 +1,4 @@
-package org.serjk.f451.DAO;
+package org.serjk.f451.dao;
 
 import junit.framework.TestCase;
 import org.springframework.beans.factory.annotation.Autowired;

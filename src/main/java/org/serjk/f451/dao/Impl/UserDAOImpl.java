@@ -1,9 +1,9 @@
-package org.serjk.f451.DAO.Impl;
+package org.serjk.f451.dao.Impl;
 
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.serjk.f451.DAO.UserDAO;
+import org.serjk.f451.dao.UserDAO;
 import org.serjk.f451.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

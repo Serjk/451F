@@ -1,7 +1,6 @@
-package org.serjk.f451.DAO;
+package org.serjk.f451.dao;
 
 import org.serjk.f451.model.User;
-import org.serjk.f451.model.UserType;
 
 import java.util.List;
 

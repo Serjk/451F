@@ -1,4 +1,4 @@
-package org.serjk.f451.service;
+package org.serjk.f451.service.impl;
 
 import org.serjk.f451.dao.UserDAO;
 import org.serjk.f451.model.User;

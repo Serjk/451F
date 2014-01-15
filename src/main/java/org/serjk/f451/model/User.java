@@ -6,7 +6,7 @@ import javax.persistence.*;
  * @author Koyushev Sergey (mailto: serjk91@gmail.com)
  */
 @Entity
-@Table(name = "USER")
+@Table(name = "F_USER")
 public class User {
 
     @Id
@@ -29,32 +29,30 @@ public class User {
     @Column(name="ADDRESS")
     private String address;
 
-    @Column(name = "TYPE")
-    private UserType type;
+//    @Column(name = "TYPE")
+//    private UserType type;
 
-
-    public long getId(){
-        return this.id;
+    public long getId() {
+        return id;
     }
 
-    private void setId(long id){
+    public void setId(long id) {
         this.id = id;
     }
 
-    public String getFirstName(){
-        return this.firstName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstName(String firstName){
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-
-    public String getLastName(){
-        return this.lastName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastName(String lastName){
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
@@ -74,21 +72,20 @@ public class User {
         this.password = password;
     }
 
-
-    public String getAddress(){
-        return this.address;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAddress(String address){
+    public void setAddress(String address) {
         this.address = address;
     }
 
 
-    public UserType getType(){
-        return this.type;
-    }
-
-    public void  setType(UserType type){
-        this.type = type;
-    }
+//    public UserType getType(){
+//        return this.type;
+//    }
+//
+//    public void  setType(UserType type){
+//        this.type = type;
+//    }
 }

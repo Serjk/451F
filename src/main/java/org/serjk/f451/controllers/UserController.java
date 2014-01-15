@@ -25,7 +25,7 @@ public class UserController {
     public String listUser(Map<String, Object> map) {
 
         map.put("user", new User());
-        map.put("userList", userService.listUser());
+        map.put("listUser", userService.listUser());
 
         return "user";
     }
@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @RequestMapping("/delete/{userId}")
-    public String deleteContact(@PathVariable("userId") long userId) {
+    public String deleteUser(@PathVariable("userId") long userId) {
 
         userService.removeUser(userId);
 

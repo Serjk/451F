@@ -13,6 +13,8 @@ public interface UserDAO {
 
     public List<User> listContact();
 
+    public User get(String login);
+
     public void removeUser(long id);
 
 }

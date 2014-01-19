@@ -1,0 +1,61 @@
+package org.serjk.f451.service.impl;
+
+import org.serjk.f451.dao.UserDAO;
+import org.serjk.f451.model.User;
+import org.serjk.f451.model.UserType;
+import org.serjk.f451.security.CustomUser;
+import org.serjk.f451.security.UserGrantedAuthority;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @author Koyushev Sergey (mailto: serjk91@gmail.com)
+ */
+
+@Service
+public class UserLoginService implements UserDetailsService {
+
+    @Autowired
+    private UserDAO userDAO;
+
+    private Map<String,String> roles = new HashMap<String,String>();
+
+    public UserLoginService()
+    {
+        roles.put("ROLE_USER","User");
+        roles.put("ROLE_OFFICIAL","Official");
+        roles.put("ROLE_FIREMAN","Fireman");
+        roles.put("ROLE_POLICE","Police");
+    }
+
+    public Map<String,String> getRoles()
+    {
+        return roles;
+    }
+
+
+    @Override
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException, DataAccessException {
+        if (login != null && !login.equals(""))
+        {
+            User user = userDAO.get(login);
+            if (user == null) {
+                return null;
+            }
+            String role = "ROLE_USER";
+            if (!user.getRole().equals("")) role = user.getRole();
+            GrantedAuthority grantedAuth = new UserGrantedAuthority(role);
+            return new CustomUser(user.getId(), user.getLogin(), user.getPassword(), new GrantedAuthority[]{ grantedAuth });
+        } else {
+            return null;
+        }
+    }
+}

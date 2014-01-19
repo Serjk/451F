@@ -21,34 +21,44 @@
 
 	<table>
 		<tr>
-			<td><form:label path="firstName">
+			<td>
 				<spring:message code="label.firstname" />
-			</form:label></td>
+			</td>
 			<td><form:input path="firstName" /></td>
 		</tr>
 		<tr>
-			<td><form:label path="lastName">
+			<td>
 				<spring:message code="label.lastname" />
-			</form:label></td>
+			</td>
 			<td><form:input path="lastName" /></td>
 		</tr>
 		<tr>
-			<td><form:label path="login">
+			<td>
 				<spring:message code="label.login" />
-			</form:label></td>
+			</td>
 			<td><form:input path="login" /></td>
 		</tr>
 		<tr>
-			<td><form:label path="address">
+			<td>
 				<spring:message code="label.address" />
-			</form:label></td>
+			</td>
 			<td><form:input path="address" /></td>
 		</tr>
 		<tr>
-            <td><form:label path="password">
+            <td>
                 <spring:message code="label.password" />
-            </form:label></td>
-            <td><form:input path="password" /></td>
+            </td>
+            <td><form:input type="password" path="password" /></td>
+        </tr>
+        <tr>
+            <td>
+                <spring:message code="label.role" />
+            </td>
+            <td>
+                 <form:select path="role">
+                     <form:options items="${roles}" />;
+                 </form:select>
+             </td>
         </tr>
 		<tr>
 			<td colspan="2"><input type="submit"
@@ -63,17 +73,18 @@
 		<tr>
 			<th><spring:message code="label.firstname" /></th>
 			<th><spring:message code="label.login" /></th>
+			<th><spring:message code="label.role" /></th>
 			<th>&nbsp;</th>
 		</tr>
 		<c:forEach items="${listUser}" var="user">
 			<tr>
 				<td>${user.lastName}, ${user.firstName}</td>
 				<td>${user.login}</td>
+				<td>${user.role}</td>
 				<td><a href="delete/${user.id}"><spring:message code="label.delete" /></a></td>
 			</tr>
 		</c:forEach>
 	</table>
 </c:if>
-
 </body>
 </html>

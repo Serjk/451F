@@ -7,6 +7,12 @@ import org.hibernate.SessionFactory;
 import org.serjk.f451.dao.UserDAO;
 import org.serjk.f451.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +43,15 @@ public  class UserDAOImpl implements UserDAO {
     public List<User> listContact() {
         Query query = openSession().createQuery("from User");
         return query.list();
+    }
 
+    @Override
+    @Transactional
+    public User get(String login) {
+        Query query = openSession().createQuery("FROM User  as u WHERE u.login='"+login+"'");
+
+       if (query.list().isEmpty()) return null; else
+           return (User) query.list().get(0);
     }
 
     @Transactional

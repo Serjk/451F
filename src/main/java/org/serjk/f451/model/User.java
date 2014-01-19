@@ -29,8 +29,8 @@ public class User {
     @Column(name="ADDRESS")
     private String address;
 
-//    @Column(name = "TYPE")
-//    private UserType type;
+    @Column(name = "ROLE")
+    private String role;
 
     public long getId() {
         return id;
@@ -81,11 +81,11 @@ public class User {
     }
 
 
-//    public UserType getType(){
-//        return this.type;
-//    }
-//
-//    public void  setType(UserType type){
-//        this.type = type;
-//    }
+    public String getRole(){
+        return this.role;
+    }
+
+    public void  setRole(String role){
+        this.role = role;
+    }
 }

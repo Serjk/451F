@@ -5,5 +5,5 @@ package org.serjk.f451.model;
  */
 
 public enum UserType {
-    HABITANT,POLICE,FIREMAN,OFFICIAL
+    USER,POLICE,FIREMAN,OFFICIAL
 }

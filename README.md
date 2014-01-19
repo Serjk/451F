@@ -52,3 +52,11 @@ CREATE DATABASE f;
 5. grant access
 GRANT ALL PRIVILEGES ON DATABASE f to test;
 
+//https
+
+#generate ssl certificate
+mvn keytool:generateKeyPair
+
+#clean ssl certificate
+mvn keytool:clean
+

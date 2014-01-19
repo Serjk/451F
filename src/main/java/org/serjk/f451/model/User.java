@@ -5,6 +5,7 @@ import javax.persistence.*;
 /**
  * @author Koyushev Sergey (mailto: serjk91@gmail.com)
  */
+
 @Entity
 @Table(name = "F_USER")
 public class User {

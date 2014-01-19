@@ -29,6 +29,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> listReportUser(String lastName, String firstName) {
+        return userDAO.listReportUser(lastName, firstName);
+    }
+
+
+    @Override
     public void removeUser(long id) {
         userDAO.removeUser(id);
     }

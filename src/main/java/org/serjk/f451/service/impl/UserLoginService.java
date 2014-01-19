@@ -7,7 +7,9 @@ import org.serjk.f451.security.CustomUser;
 import org.serjk.f451.security.UserGrantedAuthority;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -41,6 +43,14 @@ public class UserLoginService implements UserDetailsService {
         return roles;
     }
 
+    public  long getLoginUserId(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String login = authentication.getName();
+        long id = userDAO.getUserIdByLogin(login);
+        System.out.println("User login : "+login);
+        System.out.println("User id: "+id);
+        return id;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException, DataAccessException {

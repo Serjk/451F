@@ -9,15 +9,15 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf8">
 	<title><spring:message code="label.title" /></title>
 </head>
+
 <body>
-
-<a href="<c:url value="/logout" />">
-	<spring:message code="label.logout" />
-</a>
+    <a href="<c:url value="/user/index" />">
+        <spring:message code="label.indexTitle" />
+    </a>
   
-<h2><spring:message code="label.title" /></h2>
+    <h2><spring:message code="label.title" /></h2>
 
-<form:form method="post" action="add" commandName="user">
+<form:form method="post" action="/admin/user/add" commandName="user">
 
 	<table>
 		<tr>
@@ -67,8 +67,8 @@
 	</table>
 </form:form>
 
-<h3><spring:message code="label.users" /></h3>
 <c:if test="${!empty listUser}">
+    <h3><spring:message code="label.users" /></h3>
 	<table class="data">
 		<tr>
 			<th><spring:message code="label.firstname" /></th>
@@ -81,7 +81,7 @@
 				<td>${user.lastName}, ${user.firstName}</td>
 				<td>${user.login}</td>
 				<td>${user.role}</td>
-				<td><a href="delete/${user.id}"><spring:message code="label.delete" /></a></td>
+				<td><a href="admin/user/delete/${user.id}"><spring:message code="label.delete" /></a></td>
 			</tr>
 		</c:forEach>
 	</table>

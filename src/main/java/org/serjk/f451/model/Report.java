@@ -1,12 +1,14 @@
 package org.serjk.f451.model;
 
 import javax.persistence.*;
-import java.util.Date;
+
+
 /**
  * @author Koyushev Sergey (mailto: serjk91@gmail.com)
  */
+
 @Entity
-@Table(name = "REPORT")
+@Table(name = "F_REPORT")
 public class Report {
 
     @Id
@@ -14,60 +16,66 @@ public class Report {
     @Column(name = "ID")
     private long id;
 
-    @Column(name = "TEXT")
-    private String text;
+    @Column(name = "Summary")
+    private String summary;
 
-    @Column(name = "DATE")
-    @Temporal(value=TemporalType.DATE)
-    private Date date;
+    @Column(name = "Description")
+    private String description;
 
+    @Column(name = "Date")
+    private String date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "reporter_id")
-    private User reporter;
+    @Column(name = "ReportId")
+    private long  reporterId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "suspect_id")
-    private User suspect;
+    @Column(name = "SuspectId")
+    private long suspectId;
 
     public long getId(){
         return this.id;
     }
 
-    private void setId(long id){
+    public void setId(long id){
         this.id = id;
     }
 
-
-    public String getText(){
-        return this.text;
+    public String getDescription(){
+        return this.description;
     }
 
-    public void setText(String text){
-        this.text = text;
+    public void setDescription(String description){
+        this.description = description;
     }
 
-    public User getReporter(){
-        return this.reporter;
+    public String getSummary(){
+        return this.summary;
     }
 
-    public void setReporter(User reporter){
-        this.reporter = reporter;
+    public void setSummary(String summary){
+        this.summary = summary;
     }
 
-    public User getSuspect(){
-        return this.suspect;
+    public long getReporterId(){
+        return this.reporterId;
     }
 
-    public void setSuspect(User suspect){
-        this.suspect = suspect;
+    public void setReporterId(long reporterId){
+        this.reporterId = reporterId;
     }
 
-    public Date getDate(){
+    public long getSuspectId(){
+        return this.suspectId;
+    }
+
+    public void setSuspectId(long suspectId){
+        this.suspectId = suspectId;
+    }
+
+    public String getDate(){
         return this.date;
     }
 
-    public void setDate(Date date){
+    public void setDate(String date){
         this.date= date;
     }
 }

@@ -27,34 +27,23 @@ public class UserController {
     @Autowired
     private UserLoginService userLoginService;
 
-    @RequestMapping("/index")
+    @RequestMapping("/admin/user")
     public String listUser(Model model) {
-
         model.addAttribute("user", new User());
         model.addAttribute("listUser", userService.listUser());
         model.addAttribute("roles", userLoginService.getRoles());
         return "user";
     }
 
-    @RequestMapping("/")
-    public String home() {
-        return "redirect:/index";
-    }
-
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute("user") User user,
-                             BindingResult result) {
-
+    @RequestMapping(value = "/admin/user/add", method = RequestMethod.POST)
+    public String addUser(@ModelAttribute("user") User user, BindingResult result) {
         userService.addUser(user);
-
-        return "redirect:/index";
+        return "redirect:/admin/user";
     }
 
-    @RequestMapping("/delete/{userId}")
+    @RequestMapping("/admin/user/delete/{userId}")
     public String deleteUser(@PathVariable("userId") long userId) {
-
         userService.removeUser(userId);
-
-        return "redirect:/index";
+        return "redirect:/admin/user";
     }
 }

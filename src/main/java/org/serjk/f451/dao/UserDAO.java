@@ -13,7 +13,11 @@ public interface UserDAO {
 
     public List<User> listContact();
 
+    public List<User> listReportUser(String lastName, String firstName);
+
     public User get(String login);
+
+    public long getUserIdByLogin(String login);
 
     public void removeUser(long id);
 

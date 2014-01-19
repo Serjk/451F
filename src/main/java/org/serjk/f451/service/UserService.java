@@ -13,6 +13,8 @@ public interface UserService {
 
     public List<User> listUser();
 
+    public List<User> listReportUser(String lastName, String firstName);
+
     public void removeUser(long id);
 
 }

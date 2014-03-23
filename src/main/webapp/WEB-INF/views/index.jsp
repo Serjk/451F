@@ -7,42 +7,58 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf8">
-        <title><spring:message code="label.indexTitle" /></title>
+        <title><spring:message code="label.title.index" /></title>
     </head>
 
 <body>
-        <h2><spring:message code="label.indexTitle" /></h2>
+        <h2><spring:message code="label.title.index" /></h2>
 
         <a href="<c:url value="/logout" />">
-            <spring:message code="label.logout" />
+            <spring:message code="label.login.logout" />
         </a>
         <br>
         <a href="<c:url value="/login.jsp" />">
-            <spring:message code="label.login" />
+            <spring:message code="label.login.submit" />
         </a>
         <br>
         <a href="<c:url value="/user/report/find" />">
-            <spring:message code="label.report.toUser" />
+            <spring:message code="label.title.find" />
         </a>
         <br>
-        <a href="<c:url value="/user/myreports" />">
-            <spring:message code="label.user.myreports" />
+        <a href="<c:url value="/user/reports/my" />">
+            <spring:message code="label.title.myreports" />
         </a>
         <br>
-        <a href="<c:url value="/user/reportstome" />">
-            <spring:message code="label.user.reportstome" />
+        <a href="<c:url value="/user/report/tome" />">
+            <spring:message code="label.title.reportstome" />
         </a>
         <br>
-        <a href="<c:url value="/user/news" />">
-            <spring:message code="label.user.news" />
+        <a href="<c:url value="/user/report/all" />">
+            <spring:message code="label.title.reports" />
+        </a>
+        <br>
+        <a href="<c:url value="/user/report/fireman/all" />">
+            <spring:message code="label.title.fireman.all" />
+        </a>
+        <br>
+        <a href="<c:url value="/user/report/fireman/assignedtome" />">
+            <spring:message code="label.title.fireman.assignee" />
+        </a>
+        <br>
+        <a href="<c:url value="/user/report/police/all" />">
+            <spring:message code="label.title.policeman.all" />
+        </a>
+        <br>
+        <a href="<c:url value="/user/report/police/assignedtome" />">
+            <spring:message code="label.title.policeman.assignee" />
         </a>
         <br>
         <a href="<c:url value="/admin/user" />">
-            <spring:message code="label.adminUser" />
+            <spring:message code="label.title.manageUser" />
         </a>
         <br>
-        <a href="<c:url value="/admin/user" />">
-            <spring:message code="label.adminUser" />
+        <a href="<c:url value="/user/report/news" />">
+            <spring:message code="label.title.news" />
         </a>
     </body>
 </html>

@@ -11,9 +11,13 @@ public interface ReportService {
 
     public void addReport(Report report);
 
+    public Report getReport(long reportId);
+
     public List<Report> listReport();
 
-    public List<Report> listReportCurentUser(long userId);
+    public List<Report> listMyReports(long userId);
+
+    public List<Report> listReportedToMe(long userId);
 
     public void removeReport(long id);
 

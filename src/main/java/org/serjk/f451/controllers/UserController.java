@@ -22,7 +22,7 @@ public class UserController {
     @Autowired
     private UserLoginService userLoginService;
 
-    @RequestMapping("/admin/index")
+    @RequestMapping("/admin/user")
     public String listUser(Model model) {
 
         model.addAttribute("user", new User());
@@ -31,7 +31,7 @@ public class UserController {
         return "user";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/user/add", method = RequestMethod.POST)
     public String addUser(@RequestParam(value ="firstName") String firstName,
                           @RequestParam(value ="lastName") String lastName,
                           @RequestParam(value ="login") String login,
@@ -54,7 +54,7 @@ public class UserController {
         return "redirect:/admin/user";
     }
 
-    @RequestMapping("/delete/{userId}")
+    @RequestMapping("/admin/user/delete/{userId}")
     public String deleteUser(@PathVariable("userId") long userId) {
 
         userService.removeUser(userId);

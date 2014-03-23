@@ -38,10 +38,9 @@ public  class ReportDAOImpl implements ReportDAO {
 
     @Override
     @Transactional
-    public Report get(long id) {
-
-        Query query = openSession().createQuery("FROM Report  as u WHERE u.id="+Long.toString(id));
-
+    public Report getReport(long id) {
+       Query query = openSession().createQuery("FROM Report  as r WHERE r.id=:id");
+       query.setParameter("id",id);
        if (query.list().isEmpty()) return null; else
            return (Report) query.list().get(0);
     }
@@ -52,5 +51,19 @@ public  class ReportDAOImpl implements ReportDAO {
         if (report!=null) {
             sessionFactory.getCurrentSession().delete(report);
         }
+    }
+
+    @Transactional
+    public List<Report>  listReportedToMe(long userId){
+        Query query = openSession().createQuery("FROM Report as r where r.suspectId=:userId");
+        query.setParameter("userId",userId);
+        return query.list();
+    }
+
+    @Transactional
+    public List<Report>  listMyReports(long userId){
+        Query query = openSession().createQuery("FROM Report as r where r.reporterId=:userId");
+        query.setParameter("userId",userId);
+        return query.list();
     }
 }

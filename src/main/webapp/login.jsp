@@ -6,26 +6,26 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf8">
-	<title><spring:message code="label.title" /></title>
+	<title><spring:message code="label.title.login" /></title>
 </head>
 <body>
 
-<a href="<c:url value="/index" />">
-	<spring:message code="label.users" />
+<a href="<c:url value="/user/index" />">
+	<spring:message code="label.title.index" />
 </a><br/>
 
 <c:if test="${not empty param.error}">
-	<font color="red"> <spring:message code="label.loginerror" />
+	<font color="red"> <spring:message code="label.login.loginerror" />
 	: ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message} </font>
 </c:if>
 <form action="<c:url value='j_spring_security_check' />" method='POST'>
 <table>
 	<tr>
-		<td align="right"><spring:message code="label.userLogin" /></td>
+		<td align="right"><spring:message code="label.login.login" /></td>
 		<td><input type="text" name="j_username" /></td>
 	</tr>
 	<tr>
-		<td align="right"><spring:message code="label.password" /></td>
+		<td align="right"><spring:message code="label.login.password" /></td>
 		<td><input type="password" name="j_password" /></td>
 	</tr>
 	<tr>

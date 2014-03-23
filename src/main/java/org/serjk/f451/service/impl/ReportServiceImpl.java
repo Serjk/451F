@@ -33,7 +33,25 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
+    public Report getReport(long reportId){
+        return reportDAO.getReport(reportId);
+    }
+    @Override
+    public List<Report> listMyReports(long userId) {
+
+        return reportDAO.listMyReports(userId);
+    }
+
+    @Override
+    public List<Report> listReportedToMe(long userId) {
+
+        return reportDAO.listReportedToMe(userId);
+    }
+
+    @Override
     public void removeReport(long id) {
         reportDAO.removeReport(id);
     }
+
+
 }

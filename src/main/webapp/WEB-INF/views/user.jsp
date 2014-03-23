@@ -7,52 +7,52 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf8">
-	<title><spring:message code="label.title" /></title>
+	<title><spring:message code="label.title.manageUser" /></title>
 </head>
 
 <body>
     <a href="<c:url value="/user/index" />">
-        <spring:message code="label.indexTitle" />
+        <spring:message code="label.title.index" />
     </a>
   
-    <h2><spring:message code="label.title" /></h2>
+    <h2><spring:message code="label.title.manageUser" /></h2>
 
 <form:form method="post" action="/admin/user/add" commandName="user">
 
 	<table>
 		<tr>
 			<td>
-				<spring:message code="label.firstname" />
+				<spring:message code="label.user.firstname" />
 			</td>
 			<td><form:input path="firstName" /></td>
 		</tr>
 		<tr>
 			<td>
-				<spring:message code="label.lastname" />
+				<spring:message code="label.user.lastname" />
 			</td>
 			<td><form:input path="lastName" /></td>
 		</tr>
 		<tr>
 			<td>
-				<spring:message code="label.login" />
+				<spring:message code="label.user.login" />
 			</td>
 			<td><form:input path="login" /></td>
 		</tr>
 		<tr>
 			<td>
-				<spring:message code="label.address" />
+				<spring:message code="label.user.address" />
 			</td>
 			<td><form:input path="address" /></td>
 		</tr>
 		<tr>
             <td>
-                <spring:message code="label.password" />
+                <spring:message code="label.user.password" />
             </td>
             <td><form:input type="password" path="password" /></td>
         </tr>
         <tr>
             <td>
-                <spring:message code="label.role" />
+                <spring:message code="label.user.role" />
             </td>
             <td>
                  <form:select path="role">
@@ -62,18 +62,18 @@
         </tr>
 		<tr>
 			<td colspan="2"><input type="submit"
-				value="<spring:message code="label.addUser"/>" /></td>
+				value="<spring:message code="label.user.adduser"/>" /></td>
 		</tr>
 	</table>
 </form:form>
 
 <c:if test="${!empty listUser}">
-    <h3><spring:message code="label.users" /></h3>
+    <h3><spring:message code="label.user.users" /></h3>
 	<table class="data">
 		<tr>
-			<th><spring:message code="label.firstname" /></th>
-			<th><spring:message code="label.login" /></th>
-			<th><spring:message code="label.role" /></th>
+			<th><spring:message code="label.user.firstname" /></th>
+			<th><spring:message code="label.user.login" /></th>
+			<th><spring:message code="label.user.role" /></th>
 			<th>&nbsp;</th>
 		</tr>
 		<c:forEach items="${listUser}" var="user">
@@ -81,7 +81,7 @@
 				<td>${user.lastName}, ${user.firstName}</td>
 				<td>${user.login}</td>
 				<td>${user.role}</td>
-				<td><a href="admin/user/delete/${user.id}"><spring:message code="label.delete" /></a></td>
+				<td><a href="/admin/user/delete/${user.id}"><spring:message code="label.user.delete" /></a></td>
 			</tr>
 		</c:forEach>
 	</table>

@@ -21,17 +21,14 @@
             </td>
             <td><form:input path="summary" /></td>
         </tr>
-
         <tr>
             <td>
                 <spring:message code="label.report.description" />
             </td>
             <td><form:input path="description" /></td>
         </tr>
-
         <tr>
-            <td colspan="2"><input type="submit"
-                                value="<spring:message code="label.report.toUser"/>" /></td>
+            <td colspan="2"><input type="submit" value="<spring:message code="label.report.reportto"/>" /></td>
         </tr>
     </table>
 

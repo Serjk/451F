@@ -56,15 +56,13 @@ public class ReportController {
 
     @RequestMapping(value = "/user/report/add/{suspectId}", method = RequestMethod.GET)
     public String addPreReport(@PathVariable("suspectId") long suspect,
-                            @ModelAttribute("report") Report report,
-                            BindingResult result, Model model ) {
+                            @ModelAttribute("report") Report report) {
         suspectId=suspect;
         return "report";
     }
 
     @RequestMapping(value = "/user/report/add", method = RequestMethod.POST)
-    public String addReport(@ModelAttribute("report") Report report,
-                            BindingResult result, Model model ) {
+    public String addReport(@ModelAttribute("report") Report report) {
         long reporterId = userLoginService.getLoginUserId();
         report.setReporterId(reporterId);
         report.setSuspectId(suspectId);

@@ -33,7 +33,6 @@ public class UserServiceImpl implements UserService {
         return userDAO.listReportUser(lastName, firstName);
     }
 
-
     @Override
     public void removeUser(long id) {
         userDAO.removeUser(id);

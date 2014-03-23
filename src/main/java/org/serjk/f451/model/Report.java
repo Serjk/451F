@@ -31,6 +31,12 @@ public class Report {
     @Column(name = "SuspectId")
     private long suspectId;
 
+    @Column(name = "Step")
+    private String step;
+
+    @Column(name = "Assignee")
+    private String assignee;
+
     public long getId(){
         return this.id;
     }
@@ -77,5 +83,21 @@ public class Report {
 
     public void setDate(String date){
         this.date= date;
+    }
+
+    public String getStep(){
+        return step;
+    }
+
+    public void setStep(String step){
+        this.step= step;
+    }
+
+    public String getAssignee(){
+        return this.assignee;
+    }
+
+    public void setAssignee(String assignee){
+        this.assignee= assignee;
     }
 }

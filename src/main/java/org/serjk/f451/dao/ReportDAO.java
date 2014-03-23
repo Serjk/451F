@@ -13,7 +13,11 @@ public interface ReportDAO {
 
     public List<Report> listRepContact();
 
-    public Report get(long id);
+    public Report getReport(long id);
+
+    public List<Report>  listMyReports(long userId);
+
+    public List<Report>  listReportedToMe(long userId);
 
     public void removeReport(long id);
 

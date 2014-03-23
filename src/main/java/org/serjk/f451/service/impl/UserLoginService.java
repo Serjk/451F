@@ -32,10 +32,10 @@ public class UserLoginService implements UserDetailsService {
 
     public UserLoginService()
     {
-        roles.put("ROLE_USER","User");
-        roles.put("ROLE_OFFICIAL","Official");
-        roles.put("ROLE_FIREMAN","Fireman");
-        roles.put("ROLE_POLICE","Police");
+        roles.put(UserType.ROLE_USER.toString(),"User");
+        roles.put(UserType.ROLE_OFFICIAL.toString(),"Official");
+        roles.put(UserType.ROLE_FIREMAN.toString(),"Fireman");
+        roles.put(UserType.ROLE_POLICE.toString(),"Police");
     }
 
     public Map<String,String> getRoles()
@@ -60,7 +60,7 @@ public class UserLoginService implements UserDetailsService {
             if (user == null) {
                 return null;
             }
-            String role = "ROLE_USER";
+            String role = UserType.ROLE_USER.toString();
             if (!user.getRole().equals("")) role = user.getRole();
             GrantedAuthority grantedAuth = new UserGrantedAuthority(role);
             return new CustomUser(user.getId(), user.getLogin(), user.getPassword(), new GrantedAuthority[]{ grantedAuth });

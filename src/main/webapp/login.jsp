@@ -21,11 +21,11 @@
 <form action="<c:url value='j_spring_security_check' />" method='POST'>
 <table>
 	<tr>
-		<td align="right"><spring:message code="label.login.login" /></td>
+		<td align="right"><spring:message code="label.login.login"/></td>
 		<td><input type="text" name="j_username" /></td>
 	</tr>
 	<tr>
-		<td align="right"><spring:message code="label.login.password" /></td>
+		<td align="right"><spring:message code="label.login.password"/></td>
 		<td><input type="password" name="j_password" /></td>
 	</tr>
 	<tr>

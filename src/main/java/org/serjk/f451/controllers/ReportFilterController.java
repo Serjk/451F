@@ -41,7 +41,7 @@ public class ReportFilterController {
         return "reportfilter";
     }
 
-    @RequestMapping("/user/reports/my")
+    @RequestMapping("/user/report/my")
     public String listReportMy(Model model) {
         long currentUser = userLoginService.getLoginUserId();
         model.addAttribute("listReport", reportService.listMyReports(currentUser));

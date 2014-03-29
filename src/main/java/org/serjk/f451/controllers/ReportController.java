@@ -33,7 +33,6 @@ public class ReportController {
 
     @Autowired
     private UserService userService;
-    private long suspectId;
 
     @RequestMapping("/user/report/find")
     public String findReport(Model model) {
@@ -47,26 +46,23 @@ public class ReportController {
     }
 
     @RequestMapping(value = "/user/report/new", method = RequestMethod.POST)
-    public String addReport(@ModelAttribute("report") Report report,
-                            @RequestParam("lastName") String lastName,
+    public String addReport(@RequestParam("lastName") String lastName,
                             @RequestParam("firstName") String firstName, Model model) {
         model.addAttribute("listSuspectUser", userService.listReportUser(lastName,firstName));
         return "finduser";
     }
 
-    @RequestMapping(value = "/user/report/add/{suspectId}", method = RequestMethod.GET)
-    public String addPreReport(@PathVariable("suspectId") long suspect,
-                            @ModelAttribute("report") Report report) {
-        suspectId=suspect;
-        return "report";
-    }
-
     @RequestMapping(value = "/user/report/add", method = RequestMethod.POST)
-    public String addReport(@ModelAttribute("report") Report report) {
+    public String addNewReport(@RequestParam("id") String id,
+                               @RequestParam("summary") String summary,
+                               @RequestParam("description") String description) {
+        Report report = new Report();
         long reporterId = userLoginService.getLoginUserId();
         report.setReporterId(reporterId);
-        report.setSuspectId(suspectId);
+        report.setSuspectId(Long.parseLong(id));
+        report.setSummary(summary);
+        report.setDescription(description);
         reportService.addReport(report);
-        return "redirect:/user/index";
+        return "redirect:/user/report/find/"+String.valueOf(report.getId());
     }
 }

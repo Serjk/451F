@@ -39,11 +39,6 @@ public class ReportController {
         return "finduser";
     }
 
-     @RequestMapping("/user/report")
-    public String newReport(Model model) {
-        model.addAttribute("report", new Report());
-        return "report";
-    }
 
     @RequestMapping(value = "/user/report/new", method = RequestMethod.POST)
     public String addReport(@RequestParam("lastName") String lastName,

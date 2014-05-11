@@ -20,7 +20,7 @@
 <div id="header">
     <div style="float: left;">
         <a class="header_logo" href="/">
-            <div style="display: table-cell;"><img src="res/img/flame.ico" width="50px" height="50px"/></div>
+            <div style="display: table-cell;"><img src="/resources/img/flame.ico" width="50px" height="50px"/></div>
             <div style="display: table-cell; vertical-align: middle; padding-left: 10px"><p>Главная</p></div>
         </a>
     </div>
@@ -89,7 +89,7 @@
                             <p>книгооборота в городе N.</p>
                         </div>
                         <div style="margin-top: 50px;">
-                            <img src="res/img/book.jpg"/>
+                            <img src="/resources//img/book.jpg"/>
                         </div>
                     </td>
                     <td style="vertical-align: bottom; background: url('/resources/img/book_left.jpg'); background-size: cover;">

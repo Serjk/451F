@@ -1,7 +1,7 @@
 package org.serjk.f451.model;
 
 import javax.persistence.*;
-
+import java.util.Date;
 
 /**
  * @author Koyushev Sergey (mailto: serjk91@gmail.com)
@@ -23,7 +23,7 @@ public class Report {
     private String description;
 
     @Column(name = "Date")
-    private String date;
+    private Date date;
 
     @Column(name = "ReportId")
     private long  reporterId;
@@ -31,11 +31,11 @@ public class Report {
     @Column(name = "SuspectId")
     private long suspectId;
 
-    @Column(name = "Step")
-    private String step;
+    @Column(name = "StepId")
+    private  long stepId;
 
     @Column(name = "Assignee")
-    private String assignee;
+    private long assignee;
 
     public long getId(){
         return this.id;
@@ -77,27 +77,27 @@ public class Report {
         this.suspectId = suspectId;
     }
 
-    public String getDate(){
+    public Date getDate(){
         return this.date;
     }
 
-    public void setDate(String date){
-        this.date= date;
+    public void setDate(){
+        this.date = new Date();
     }
 
-    public String getStep(){
-        return step;
+    public long getStepId(){
+        return stepId;
     }
 
-    public void setStep(String step){
-        this.step= step;
+    public void setStepId(long stepId){
+        this.stepId = stepId;
     }
 
-    public String getAssignee(){
+    public long getAssignee(){
         return this.assignee;
     }
 
-    public void setAssignee(String assignee){
+    public void setAssignee(long assignee){
         this.assignee= assignee;
     }
 }

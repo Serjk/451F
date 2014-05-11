@@ -1,5 +1,6 @@
 package org.serjk.f451.controllers;
 
+import org.serjk.f451.dao.UserDAO;
 import org.serjk.f451.model.User;
 import org.serjk.f451.service.UserService;
 import org.serjk.f451.service.impl.UserLoginService;
@@ -9,6 +10,8 @@ import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author Koyushev Sergey (mailto: serjk91@gmail.com)
@@ -59,5 +62,11 @@ public class UserController {
 
         userService.removeUser(userId);
         return "redirect:/admin/user";
+    }
+
+    @RequestMapping("/user/report/users")
+    public @ResponseBody List<User> getShopInJSON() {
+        List <User> users = userService.listUser();
+        return users;
     }
 }

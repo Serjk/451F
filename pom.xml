@@ -9,6 +9,7 @@
     <url>http://maven.apache.org</url>
     <properties>
         <org.springframework.version>3.0.5.RELEASE</org.springframework.version>
+        <jackson.version>1.9.10</jackson.version>
     </properties>
     <dependencies>
         <dependency>
@@ -93,6 +94,14 @@
             <artifactId>spring-orm</artifactId>
             <version>${org.springframework.version}</version>
         </dependency>
+
+        <!-- Jackson JSON Mapper -->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
     </dependencies>
     <repositories>
         <repository>

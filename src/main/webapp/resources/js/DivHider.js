@@ -26,7 +26,7 @@ $("#reg_button").click(function () {
 $("#blackblock").hide();
 $("#confirm_denun").hide();
 $("#confirm_denun2").hide();
-
+$("#assign_denun").hide();
 
  $("#blackblock").click(function () {
     $("#blackblock").hide();

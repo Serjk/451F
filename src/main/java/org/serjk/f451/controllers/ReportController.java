@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Map;
 
 /**
@@ -56,6 +58,7 @@ public class ReportController {
         report.setReporterId(reporterId);
         report.setSuspectId(Long.parseLong(id));
         report.setSummary(summary);
+        report.setDate();
         report.setDescription(description);
         reportService.addReport(report);
         return "redirect:/user/report/find/"+String.valueOf(report.getId());

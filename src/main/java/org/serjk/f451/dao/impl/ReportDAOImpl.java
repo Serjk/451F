@@ -49,7 +49,7 @@ public  class ReportDAOImpl implements ReportDAO {
     public void removeReport(long id) {
         Report report = (Report) openSession().load(Report.class, id);
         if (report!=null) {
-            sessionFactory.getCurrentSession().delete(report);
+            openSession().delete(report);
         }
     }
 

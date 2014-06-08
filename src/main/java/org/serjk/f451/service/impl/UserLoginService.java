@@ -2,7 +2,7 @@ package org.serjk.f451.service.impl;
 
 import org.serjk.f451.dao.UserDAO;
 import org.serjk.f451.model.User;
-import org.serjk.f451.model.UserType;
+import org.serjk.f451.model.enums.UserType;
 import org.serjk.f451.security.CustomUser;
 import org.serjk.f451.security.UserGrantedAuthority;
 import org.springframework.beans.factory.annotation.Autowired;

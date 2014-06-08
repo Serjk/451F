@@ -1,4 +1,4 @@
-package org.serjk.f451.model;
+package org.serjk.f451.model.enums;
 
 /**
  * @author Koyushev Sergey (mailto: serjk91@gmail.com)

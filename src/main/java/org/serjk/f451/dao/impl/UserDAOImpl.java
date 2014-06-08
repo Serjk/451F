@@ -97,7 +97,6 @@ public  class UserDAOImpl implements UserDAO {
             if (!query.list().isEmpty())
                 return  query.list();
         }
-
         return null;
     }
 }

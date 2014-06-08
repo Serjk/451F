@@ -34,7 +34,7 @@ public class Step {
     }
 
     public String getStepSummary(){
-        return this.stepName;
+        return this.stepSummary;
     }
 
     public void setStepSummary(String stepSummary){

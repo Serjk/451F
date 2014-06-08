@@ -64,7 +64,10 @@
                     <tr>
                         &nbsp;
                         <td><a href="/"><spring:message code="label.user.delete" /></a></td>
-                        <td><div class="denun"  onClick="setFormValue()"></div></td>
+
+                        <td><div><a href="#" onClick="setFormValue(${report.id})">Назначить исполнителя</a></div></td>
+
+                        <td><div><a href="#" onClick="setStepFormValue(${report.id})">Выбрать шаг</a></div></td>
                     </tr>
                 </table>
             </div>
@@ -73,25 +76,69 @@
         <div id="blackblock"></div>
 
         <div id="assign_denun">
-            <p>Список пользовтаелей:</p>
+            <p>Список исполнителей:</p>
+            <div class="box"></div>
+        </div>
 
+        <div id="step_denun">
+            <p>Список шагов:</p>
+            <div class="stepbox"></div>
         </div>
     </div>
 </body>
 <script>
+
     $(document).ready(function () {
         $("#blackblock").hide();
         $("#assign_denun").hide();
+        $("#step_denun").hide();
     })
 
     $("#blackblock").click(function () {
         $("#blackblock").hide();
-        $("#assign_denun").hide();;
+        $("#assign_denun").hide();
+        $("#step_denun").hide();
     });
 
-    function setFormValue(){
+    function setFormValue(reportId){
+
+        $('.box').empty();
+
+        $.ajax({
+            url: '/user/report/users',             // указываем URL и
+            dataType : "json",                     // тип загружаемых данных
+            success: function (data, textStatus) { // вешаем свой обработчик на функцию success
+                $.each(data, function(i, val) {    // обрабатываем полученные данные
+                    console.log(val.firstName);
+                    $('<div class=' + 'newbox'+val.id+'>').appendTo('.box');
+                    $('<a href='+'/user/report/assignee/'+reportId+'/'+val.id+'>').text(val.firstName+" "+val.lastName).appendTo('.newbox'+val.id);
+                });
+            }
+        });
+
         $("#blackblock").show();
         $("#assign_denun").show();
+    }
+
+
+    function setStepFormValue(reportId){
+
+        $('.stepbox').empty();
+
+        $.ajax({
+            url: '/user/report/steps',             // указываем URL и
+            dataType : "json",                     // тип загружаемых данных
+            success: function (data, textStatus) { // вешаем свой обработчик на функцию success
+                $.each(data, function(i, val) {    // обрабатываем полученные данные
+                    console.log(val.stepName);
+                    $('<div class=' + 'newstepbox'+val.id+'>').appendTo('.stepbox');
+                    $('<a href='+'/user/report/step/'+reportId+'/'+val.id+'>').text(val.stepName).appendTo('.newstepbox'+val.id);
+                });
+            }
+        });
+
+        $("#blackblock").show();
+        $("#step_denun").show();
     }
 </script>
 </html>

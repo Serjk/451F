@@ -5,5 +5,5 @@ package org.serjk.f451.model.enums;
  */
 
 public enum UserType {
-    ROLE_USER,ROLE_POLICE,ROLE_FIREMAN,ROLE_OFFICIAL
+    ROLE_USER,ROLE_POLICE,ROLE_FIREMAN,ROLE_OFFICIAL,ROLE_ADMIN
 }

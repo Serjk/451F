@@ -40,5 +40,4 @@ public class Step {
     public void setStepSummary(String stepSummary){
         this.stepSummary = stepSummary;
     }
-
 }

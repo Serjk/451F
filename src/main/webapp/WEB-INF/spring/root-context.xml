@@ -21,6 +21,7 @@
     <!-- Определяем папки, в которых будем автоматически искать бины-компоненты (@Component, @Service)  -->
     <context:component-scan base-package="org.serjk.f451.dao" />
     <context:component-scan base-package="org.serjk.f451.service" />
+    <context:component-scan base-package="org.serjk.f451.service.impl" />
 
     <!-- Файл с настройками ресурсов для работы с данными (Data Access Resources) -->
     <import resource="data.xml" />

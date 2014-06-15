@@ -13,7 +13,13 @@ public interface UserService {
 
     public List<User> listUser();
 
+    public User getUserById(long userId);
+
     public List<User> listReportUser(String lastName, String firstName);
+
+    public List<User> getFiremanAssigners();
+
+    public List<User> getPolicemanAssigners();
 
     public void removeUser(long id);
 

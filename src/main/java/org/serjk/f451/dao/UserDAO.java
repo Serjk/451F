@@ -15,10 +15,14 @@ public interface UserDAO {
 
     public List<User> listReportUser(String lastName, String firstName);
 
-    public User get(String login);
-
-    public long getUserIdByLogin(String login);
+    public User getUserById(long userId);
 
     public void removeUser(long id);
+
+    public User getUserByLogin(String login);
+
+    public List<User> getFiremanAssigners();
+
+    public List<User> getPolicemanAssigners();
 
 }

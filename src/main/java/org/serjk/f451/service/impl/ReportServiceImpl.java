@@ -1,6 +1,6 @@
 package org.serjk.f451.service.impl;
 
-import org.serjk.f451.model.Step;
+import org.serjk.f451.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,12 +51,6 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public void assignReport(long assigneId,long reportId)
-    {
-        reportDAO.assignReport(assigneId,reportId);
-    }
-
-    @Override
     public void moveReportToStep(long stepId,long reportId)
     {
         reportDAO.moveReportToStep(stepId,reportId);
@@ -67,16 +61,14 @@ public class ReportServiceImpl implements ReportService {
         reportDAO.removeReport(id);
     }
 
-    public void addStep(Step step) {
-        reportDAO.addStep(step);
-
+    @Override
+    public void assignReportToFireman(long firemanId,long reportId){
+        reportDAO.assignReportToFireman(firemanId,reportId);
     }
 
-    public Step getStep(long stepId) {
-        return  reportDAO.getStep(stepId);
+    @Override
+    public void assignReportToPoliceman(long policemanId,long reportId){
+        reportDAO.assignReportToPoliceman(policemanId, reportId);
     }
 
-    public List<Step> listStep(){
-        return reportDAO.listStep();
-    }
 }

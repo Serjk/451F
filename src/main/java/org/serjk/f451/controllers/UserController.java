@@ -65,7 +65,7 @@ public class UserController {
     }
 
     @RequestMapping("/user/report/users")
-    public @ResponseBody List<User> getUserInJSON() {
+    public @ResponseBody List<User> getShopInJSON() {
         List <User> users = userService.listUser();
         return users;
     }

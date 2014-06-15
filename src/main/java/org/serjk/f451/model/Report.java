@@ -34,8 +34,15 @@ public class Report {
     @Column(name = "StepId")
     private  long stepId;
 
-    @Column(name = "Assignee")
-    private long assignee;
+
+    @Column(name = "FiremanId")
+    private long firemanId;
+
+    @Column(name = "PolicemanId")
+    private long policemanId;
+
+    @Column(name = "CountBook")
+    private long countBook;
 
     public long getId(){
         return this.id;
@@ -93,11 +100,27 @@ public class Report {
         this.stepId = stepId;
     }
 
-    public long getAssignee(){
-        return this.assignee;
+    public long getCountBook(){
+        return this.countBook;
     }
 
-    public void setAssignee(long assignee){
-        this.assignee= assignee;
+    public void setCountBook(long countBook){
+        this.countBook = countBook;
+    }
+
+    public long getFiremanId(){
+        return this.firemanId;
+    }
+
+    public void setFiremanId(long firemanId){
+        this.firemanId = firemanId;
+    }
+
+    public long getPolicemanId(){
+        return this.policemanId;
+    }
+
+    public void setPolicemanId(long policemanId){
+        this.policemanId = policemanId;
     }
 }

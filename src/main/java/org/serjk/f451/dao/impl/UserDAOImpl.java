@@ -47,11 +47,21 @@ public  class UserDAOImpl implements UserDAO {
 
     @Override
     @Transactional
-    public User get(String login) {
+    public User getUserByLogin(String login) {
         Query query = openSession().createQuery("FROM User  as u WHERE u.login='"+login+"'");
 
        if (query.list().isEmpty()) return null; else
            return (User) query.list().get(0);
+    }
+
+    @Override
+    @Transactional
+    public User getUserById(long userId) {
+        Query query = openSession().createQuery("FROM User as  u where  u.id=:userId");
+        query.setParameter("userId", userId);
+        if (query.list().isEmpty()) return null; else
+            return   (User)  query.uniqueResult();
+
     }
 
     @Transactional
@@ -98,5 +108,21 @@ public  class UserDAOImpl implements UserDAO {
                 return  query.list();
         }
         return null;
+    }
+
+    @Transactional
+    public List<User> getFiremanAssigners(){
+        Query query = openSession().createQuery("FROM User as user WHERE user.role=:role");
+        query.setParameter("role", "ROLE_FIREMAN");
+        if (query.list().isEmpty()) return null; else
+            return (List<User>) query.list();
+    }
+
+    @Transactional
+    public List<User> getPolicemanAssigners(){
+        Query query = openSession().createQuery("FROM User as user WHERE user.role=:role");
+        query.setParameter("role", "ROLE_POLICE");
+        if (query.list().isEmpty()) return null; else
+            return (List<User>) query.list();
     }
 }

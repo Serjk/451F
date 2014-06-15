@@ -1,27 +1,18 @@
 
 package org.serjk.f451.controllers;
 
-import org.serjk.f451.model.Step;
+import org.serjk.f451.error.ErrorInfo;
+import org.serjk.f451.model.User;
 import org.serjk.f451.service.impl.UserLoginService;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.serjk.f451.model.Report;
 import org.serjk.f451.service.ReportService;
 import org.serjk.f451.service.UserService;
-import org.serjk.f451.service.impl.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Koyushev Sergey (mailto: serjk91@gmail.com)
@@ -47,7 +38,7 @@ public class ReportController {
     @RequestMapping(value = "/user/report/new", method = RequestMethod.POST)
     public String addReport(@RequestParam("lastName") String lastName,
                             @RequestParam("firstName") String firstName, Model model) {
-        model.addAttribute("listSuspectUser", userService.listReportUser(lastName,firstName));
+        model.addAttribute("listSuspectUser", userService.listReportUser(lastName, firstName));
         return "finduser";
     }
 
@@ -56,7 +47,7 @@ public class ReportController {
                                @RequestParam("summary") String summary,
                                @RequestParam("description") String description) {
         Report report = new Report();
-        long reporterId = userLoginService.getLoginUserId();
+        long reporterId = userLoginService.getLoginUser().getId();
         report.setReporterId(reporterId);
         report.setSuspectId(Long.parseLong(id));
         report.setSummary(summary);
@@ -66,41 +57,63 @@ public class ReportController {
         return "redirect:/user/report/find/"+String.valueOf(report.getId());
     }
 
-    @RequestMapping(value = "/user/report/assignee/{reportId}/{assigneId}")
-    public String assignReport(@PathVariable("reportId") Long reportId,
-                               @PathVariable("assigneId") Long assigneId) {
-        reportService.assignReport(assigneId,reportId);
+    @RequestMapping(value = "/user/report/assignee/fireman/{reportId}/{firemanId}")
+    public String assignReportToFireman(@PathVariable("reportId") long reportId,
+                                        @PathVariable("firemanId") long firemanId) {
+        reportService.assignReportToFireman(firemanId, reportId);
+        return "redirect:/user/report/find/"+String.valueOf(reportId);
+    }
 
+    @RequestMapping(value = "/user/report/assignee/policeman/{reportId}/{policemanId}")
+    public String assignReportToPoliceman(@PathVariable("reportId") Long reportId,
+                                          @PathVariable("policemanId") Long policemanId) {
+        reportService.assignReportToPoliceman(policemanId, reportId);
         return "redirect:/user/report/find/"+String.valueOf(reportId);
     }
 
     @RequestMapping(value = "/user/report/step/{reportId}/{stepId}")
-    public String moveReportToStep(@PathVariable("reportId") Long reportId,
-                                   @PathVariable("stepId") Long stepId) {
-        reportService.moveReportToStep(stepId,reportId);
-        return "redirect:/user/report/find/"+String.valueOf(reportId);
-    }
+    public @ResponseBody ErrorInfo moveReportToStep(@PathVariable("reportId") Long reportId,
+                                                    @PathVariable("stepId") Long stepId) {
+        Report report = reportService.getReport(reportId);
+        ErrorInfo errorInfo =new ErrorInfo();
+        //Когда офицер полиции берёт в работу он должен назаначить исполнителя
+        if(stepId==91){
+            System.out.println("Whe are here");
+            if (userService.getUserById(report.getPolicemanId())==null){
+                errorInfo.setErrorCode("label.workflow.validation.policeman.empty");
+                errorInfo.setMessage("Не установлен полицейский офицер");
+                return errorInfo;
+            }
+            else{
+                reportService.moveReportToStep(stepId,reportId);
+                errorInfo.setErrorCode("label.workflow.validation.ok");
+                errorInfo.setMessage("Валидация прошла нормально");
+                return errorInfo;
+                //return "redirect:/user/report/find/"+String.valueOf(reportId);
+            }
+        }
 
-    @RequestMapping("/admin/steps")
-    public String listUser(Model model) {
-        model.addAttribute("step", new Step());
-        model.addAttribute("listStep", reportService.listStep());
-        return "steps";
-    }
+        if(stepId==91){
+            System.out.println("Whe are here");
+            if (userService.getUserById(report.getPolicemanId())==null){
+                errorInfo.setErrorCode("label.workflow.validation.policeman.empty");
+                errorInfo.setMessage("Не установлен полицейский офицер");
+                return errorInfo;
+            }
+            else{
+                reportService.moveReportToStep(stepId,reportId);
+                errorInfo.setErrorCode("label.workflow.validation.ok");
+                errorInfo.setMessage("Валидация прошла нормально");
+                return errorInfo;
+                //return "redirect:/user/report/find/"+String.valueOf(reportId);
+            }
+        }
+        //Для пердачи пожарному необходима проверка псом
+        //reportService.moveReportToStep(stepId,reportId);
 
-    @RequestMapping(value = "/admin/steps/new", method = RequestMethod.POST)
-    public String addStep(@RequestParam("stepName") String stepName,
-                          @RequestParam("stepSummary") String stepSummary) {
-        Step step  = new Step();
-        step.setStepName(stepName);
-        step.setStepSummary(stepSummary);
-        reportService.addStep(step);
-        return "redirect:/admin/steps";
-    }
-
-    @RequestMapping("/user/report/steps")
-    public @ResponseBody List<Step> getStepInJSON() {
-        List <Step> steps = reportService.listStep();
-        return steps;
+        //Когда пожарный берёт в работу то он должен назначтить исполнителя
+        //reportService.moveReportToStep(stepId,reportId);
+        //return "redirect:/user/report/find/"+String.valueOf(reportId);
+        return null;
     }
 }

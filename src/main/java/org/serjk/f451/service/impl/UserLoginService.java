@@ -36,6 +36,7 @@ public class UserLoginService implements UserDetailsService {
         roles.put(UserType.ROLE_OFFICIAL.toString(),"Official");
         roles.put(UserType.ROLE_FIREMAN.toString(),"Fireman");
         roles.put(UserType.ROLE_POLICE.toString(),"Police");
+        roles.put(UserType.ROLE_ADMIN.toString(),"Administrator");
     }
 
     public Map<String,String> getRoles()
@@ -43,20 +44,17 @@ public class UserLoginService implements UserDetailsService {
         return roles;
     }
 
-    public  long getLoginUserId(){
+    public  User getLoginUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String login = authentication.getName();
-        long id = userDAO.getUserIdByLogin(login);
-        System.out.println("User login : "+login);
-        System.out.println("User id: "+id);
-        return id;
+        return  userDAO.getUserByLogin(login);
     }
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException, DataAccessException {
         if (login != null && !login.equals(""))
         {
-            User user = userDAO.get(login);
+            User user = userDAO.getUserByLogin(login);
             if (user == null) {
                 return null;
             }

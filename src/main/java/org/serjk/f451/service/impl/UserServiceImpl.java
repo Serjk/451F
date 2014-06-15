@@ -38,4 +38,16 @@ public class UserServiceImpl implements UserService {
         userDAO.removeUser(id);
     }
 
+    @Override
+    public User getUserById(long userId){
+        return userDAO.getUserById(userId);
+    }
+
+    public List<User> getFiremanAssigners(){
+        return userDAO.getFiremanAssigners();
+    }
+
+    public List<User> getPolicemanAssigners(){
+        return userDAO.getPolicemanAssigners();
+    }
 }

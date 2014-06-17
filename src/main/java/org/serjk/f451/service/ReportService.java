@@ -20,11 +20,9 @@ public interface ReportService {
 
     public List<Report> listReportedToMe(long userId);
 
-    public void assignReportToFireman(long firemanId,long reportId);
+    public void assignReport(User user,Report report);
 
-    public void assignReportToPoliceman(long policemanId,long reportId);
-
-    public void moveReportToStep(long stepId,long reportId);
+    public void moveReportToStep(long stepId, Report report);
 
     public void removeReport(long id);
 

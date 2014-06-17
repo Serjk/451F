@@ -1,6 +1,10 @@
 package org.serjk.f451.controllers;
 
 import org.serjk.f451.model.Report;
+import org.serjk.f451.model.User;
+import org.serjk.f451.service.UserService;
+import org.serjk.f451.service.impl.UserLoginService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +19,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController {
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private UserLoginService userLoginService;
+
     @RequestMapping("/user/index")
     public String index(Model model) {
+        User loginUser  = userLoginService.getLoginUser();
+        model.addAttribute("loginUser",loginUser);
+
         return "index";
     }
 

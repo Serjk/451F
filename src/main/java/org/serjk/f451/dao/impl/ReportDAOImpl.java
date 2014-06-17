@@ -1,13 +1,12 @@
 package org.serjk.f451.dao.impl;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.serjk.f451.dao.ReportDAO;
 import org.serjk.f451.model.Report;
-import org.serjk.f451.model.Step;
 import org.serjk.f451.model.User;
-import org.serjk.f451.model.enums.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +23,8 @@ public  class ReportDAOImpl implements ReportDAO {
 
     @Autowired
     private SessionFactory sessionFactory;
+
+    static final Logger logger = Logger.getLogger(ReportDAOImpl.class);
 
     private Session openSession() {
         return sessionFactory.getCurrentSession();
@@ -73,31 +74,25 @@ public  class ReportDAOImpl implements ReportDAO {
     }
 
     @Transactional
-    public void moveReportToStep(long stepId, long reportId)
+    public void moveReportToStep(long stepId, Report report)
     {
-        Query query = openSession().createQuery("FROM Report as r where r.id=:reportId");
-        query.setParameter("reportId",reportId);
-        Report report = (Report) query.list().get(0);
         report.setStepId(stepId);
-        openSession().save(report);
+        openSession().update(report);
     }
 
     @Transactional
-    public void assignReportToFireman(long firemanId,long reportId){
-        Query query = openSession().createQuery("FROM Report  as r WHERE r.id=:reportId");
-        query.setParameter("reportId",reportId);
-        Report report = (Report) query.list().get(0);
-        report.setFiremanId(firemanId);
-        openSession().save(report);
-    }
-
-    @Transactional
-    public void assignReportToPoliceman(long policemanId,long reportId){
-        Query query = openSession().createQuery("FROM Report as r WHERE r.id=:reportId");
-        query.setParameter("reportId",reportId);
-        Report record = (Report) query.list().get(0);
-        record.setPolicemanId(policemanId);
-        openSession().save(record);
+    public void assignReport(User user, Report report){
+        if(user.getRole().equals("ROLE_FIREMAN")) {
+            report.setFiremanId(user.getId());
+            openSession().update(report);
+        }
+        else if (user.getRole().equals("ROLE_POLICE")){
+            report.setPolicemanId(user.getId());
+            openSession().update(report);
+        }
+        else {
+            logger.error(String.format("User with id %s not in Police or fireman role, user have %s role",user.getId(),user.getRole()));
+        }
     }
 
     @Transactional

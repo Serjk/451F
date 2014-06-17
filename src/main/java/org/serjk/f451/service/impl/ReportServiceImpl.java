@@ -51,9 +51,9 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public void moveReportToStep(long stepId,long reportId)
+    public void moveReportToStep(long stepId, Report report)
     {
-        reportDAO.moveReportToStep(stepId,reportId);
+        reportDAO.moveReportToStep(stepId, report);
     }
 
     @Override
@@ -62,13 +62,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public void assignReportToFireman(long firemanId,long reportId){
-        reportDAO.assignReportToFireman(firemanId,reportId);
+    public void assignReport(User user,Report report){
+        reportDAO.assignReport(user,report);
     }
-
-    @Override
-    public void assignReportToPoliceman(long policemanId,long reportId){
-        reportDAO.assignReportToPoliceman(policemanId, reportId);
-    }
-
 }

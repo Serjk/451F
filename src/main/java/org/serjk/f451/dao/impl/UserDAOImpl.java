@@ -29,7 +29,7 @@ public  class UserDAOImpl implements UserDAO {
 
     @Transactional
     public void addUser(User user) {
-        openSession().save(user);
+        openSession().saveOrUpdate(user);
     }
 
     @Transactional

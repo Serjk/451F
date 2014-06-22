@@ -3,31 +3,27 @@ package org.serjk.f451.model;
 import javax.persistence.*;
 import java.util.Date;
 
-/**
- * Created with IntelliJ IDEA.
- * User: kreker
- * Date: 02.05.14
- * Time: 18:03
- * To change this template use File | Settings | File Templates.
- */
-
 @Entity
-@Table(name = "F_BANK")
-public class Bank {
+@Table(name = "F_PAYMENT")
+public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     private long id;
 
-    @Column(name = "Buget")
-    private long buget;
+    @Column(name = "UserID")
+    private long userId;
 
     @Column(name = "WageID")
     private long wageId ;
 
     @Column(name = "Date")
     private Date date;
+
+    @Column(name = "Count")
+    private int count ;
+
 
     public long getId(){
         return this.id;
@@ -37,12 +33,12 @@ public class Bank {
         this.id = id;
     }
 
-    public long getBuget(){
-        return this.buget;
+    public long getUserId(){
+        return this.userId;
     }
 
-    public void setBuget(long buget){
-        this.buget = buget;
+    public void setUserId(long userId){
+        this.userId = userId;
     }
 
     public long getWageId(){
@@ -59,5 +55,13 @@ public class Bank {
 
     public void setDate(Date date){
         this.date =  date;
+    }
+
+    public int getCount(){
+        return this.count;
+    }
+
+    public void setId(int count){
+        this.count = count;
     }
 }

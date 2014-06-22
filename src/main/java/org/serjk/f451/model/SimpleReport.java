@@ -1,6 +1,5 @@
 package org.serjk.f451.model;
 
-import net.sf.ehcache.constructs.blocking.SelfPopulatingCache;
 
 import java.util.Date;
 

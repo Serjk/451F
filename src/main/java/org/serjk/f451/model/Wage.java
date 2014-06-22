@@ -13,6 +13,9 @@ public class Wage {
     @Column(name = "Cash")
     private long  cash;
 
+    @Column(name = "Type")
+    private String  type;
+
     public long getId(){
         return this.id;
     }
@@ -28,4 +31,13 @@ public class Wage {
     public void setCash(long cash){
         this.cash = cash;
     }
+
+    public String getType(){
+        return this.type;
+    }
+
+    public void setCash(String type){
+        this.type = type;
+    }
+
 }

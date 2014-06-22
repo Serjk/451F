@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.awt.color.ICC_Profile;
 import java.util.List;
 
 /**
@@ -32,7 +33,7 @@ public class WorkFlowDAOImpl implements WorkFlowDAO {
 
     @Transactional
     public void addTransition(Transition transition) {
-        openSession().save(transition);
+        openSession().saveOrUpdate(transition);
     }
 
     @Transactional
@@ -44,7 +45,7 @@ public class WorkFlowDAOImpl implements WorkFlowDAO {
 
     @Transactional
     public void addStep(Step step){
-        openSession().save(step);
+        openSession().saveOrUpdate(step);
     }
 
     @Transactional
@@ -77,5 +78,11 @@ public class WorkFlowDAOImpl implements WorkFlowDAO {
         query.setParameter("role",role);
         if (query.list().isEmpty()) return null; else
             return (List<Transition>) query.list();
+    }
+
+    @Transactional
+    public  void  runSqlQery(String sqlQuery){
+        Query query = openSession().createSQLQuery(sqlQuery);
+        query.executeUpdate();
     }
 }

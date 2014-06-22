@@ -3,6 +3,7 @@ package org.serjk.f451.controllers;
 import org.serjk.f451.dao.UserDAO;
 import org.serjk.f451.model.User;
 import org.serjk.f451.model.SimpleUser;
+import org.serjk.f451.service.InitService;
 import org.serjk.f451.service.UserService;
 import org.serjk.f451.service.impl.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    private InitService initService;
+
+    @Autowired
     private UserLoginService userLoginService;
 
     @RequestMapping("/admin/user")
@@ -33,6 +37,15 @@ public class UserController {
         model.addAttribute("listUser", userService.listUser());
         model.addAttribute("roles", userLoginService.getRoles());
         return "user";
+    }
+
+    @RequestMapping("/admin/services/startinit/")
+    public @ResponseBody
+    String startInitService () {
+        initService.initStepsTable();
+        initService.initTransitionsTable();
+        initService.initUsersTable();
+        return  "Started...";
     }
 
     @RequestMapping(value = "/admin/user/add", method = RequestMethod.POST)

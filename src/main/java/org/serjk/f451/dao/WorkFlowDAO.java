@@ -28,4 +28,5 @@ public interface WorkFlowDAO {
 
     public List<Transition> outgoingTransitionsID(long StepID,String role);
 
+    public  void  runSqlQery(String sqlQuery);
 }

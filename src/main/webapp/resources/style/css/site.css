@@ -1,14 +1,16 @@
 @font-face {
   font-family: grunge;
-  src: url("../../fonts/grunge.ttf");
+  src: url('../../fonts/grunge.ttf');
 }
+
 @font-face {
   font-family: blaze;
-  src: url("../../fonts/blaze.ttf");
+  src: url('../../fonts/blaze.ttf');
 }
+
 @font-face {
   font-family: of;
-  src: url("../../fonts/of.ttf");
+  src: url('../../fonts/of.ttf');
 }
 html {
   height: 100%;
@@ -139,7 +141,6 @@ a {
 div .block {
   padding-top: 10px;
   font-family: Arial, sans-serif;
-  text-indent: 20px;
   padding-left: 20px;
   padding-top: 20px;
 }
@@ -303,6 +304,7 @@ div .block {
 }
 .block_menu_button_a {
   margin-left: 10px;
+  margin-left: 10px;
   display: table-cell;
   vertical-align: middle;
   border: 1px solid #ff4413;
@@ -415,6 +417,8 @@ div .block {
                                                            text-decoration:none;
                                                            text-shadow:0px 1px 0px #854629;
                                                            text-align:center;
+                                                           margin-top:5px;
+                                                           margin-bottom:5px;
                                                        }
 .transition_button:hover {
     background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #bc3315), color-stop(1, #d0451b));
@@ -506,4 +510,78 @@ div .block {
     -webkit-box-shadow: -8px 15px 59px 16px rgba(0, 0, 0, 0.75), inset 0 1px 0 #ffffff;
     -moz-box-shadow: -8px 15px 59px 16px rgba(0, 0, 0, 0.75), inset 0 1px 0 #ffffff;
     box-shadow: -8px 15px 59px 16px rgba(0, 0, 0, 0.75), inset 0 1px 0 #ffffff;
+}
+
+
+thead {
+    text-align: center;
+    background: #000;
+    color: #fff;
+}
+
+#filter_result{
+    text-align: left;
+    font-size: 18px;
+}
+
+td {
+    width: auto;
+    padding: 0.3em;
+}
+
+.tbody {
+    background: #ccc;
+}
+
+div.pager {
+
+    margin: 1em 0;
+}
+
+div.pager span {
+    font-size: 14px;
+    display: inline-block;
+    width: 1.8em;
+    height: 1.8em;
+    line-height: 1.8;
+    text-align: center;
+    cursor: pointer;
+    background: #000;
+    color: #fff;
+    margin-right: 0.5em;
+}
+
+div.pager span.active {
+    background: #c00;
+}
+
+.info, .success, .warning, .error, .validation {
+    border: 1px solid;
+    margin: 5px 5px;
+    padding:5px 5px 5px 5px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    width:80%;
+}
+
+.info {
+    color: #00529B;
+    background-color: #BDE5F8;
+}
+.success {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+}
+.warning {
+    color: #9F6000;
+    background-color: #FEEFB3;
+
+}
+.error {
+    color: #D8000C;
+    background-color: #FFBABA;
+}
+
+div.ui-datepicker{
+    font-size:12px;
 }

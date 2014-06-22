@@ -12,14 +12,14 @@
     <link rel="shortcut icon" href="<c:url value="/resources/img/flame.ico"/>">
     <link href="<c:url value="/resources/style/css/site.css" />" rel="stylesheet">
     <script src="<c:url value="/resources/js/jquery.min.js"/>"></script>
-    <script src="<c:url value="/resources/js/TextSelect.js" />"></script>
+    <script src="<c:url value="/resources/js/TextSelect.js"/>"></script>
     <title><spring:message code="label.title.detals"/> ${report.id}</title>
 </head>
 
 <body>
     <div id="header">
         <div style="float: left;">
-            <a class="header_logo" href="index.html">
+            <a class="header_logo" href="/">
                 <div style="display: table-cell;"><img src="/resources/img/flame.ico" width="50px" height="50px"/></div>
                 <div style="display: table-cell; vertical-align: middle; padding-left: 10px"><p>Главная</p></div>
             </a>
@@ -30,7 +30,7 @@
             <div style="display: table-cell;">
                 <c:if test="${empty loginUser}">
                     <div class="header_button" id="login_button">
-                        <p>Вход</p>
+                        <p><spring:message code="label.header.login"/></p>
                     </div>
                 </c:if>
                 <div class="login-form">
@@ -53,7 +53,7 @@
             <div style="display: table-cell;">
                 <c:if test="${empty loginUser}">
                     <div class="header_button" id="reg_button">
-                        <p>Регистрация</p>
+                        <p><spring:message code="label.header.register"/></p>
                     </div>
                 </c:if>
                 <div class="reg-form">
@@ -63,7 +63,6 @@
                             <input class="login_input" name="email" type="email" placeholder="Email">
                             <input class="login_input" name="password" type="password" placeholder="Пароль">
                             <input class="login_input" name="password_check" type="password" placeholder="Повторите пароль">
-
                             <div>
                                 <input class="login_submit" type="submit" value="Зарегистрироваться">
                             </div>
@@ -75,14 +74,17 @@
     </div>
 
     <div id="page">
-        <div id="block_menu">
-            <a href="<c:url value="/user/report/all" />" class="block_menu_button"><spring:message code="label.title.reports" /></a>
-            <a href="<c:url value="/user/report/find" />" class="block_menu_button"> <spring:message code="label.title.find" /> </a>
-            <a href="<c:url value="/user/report/my" />" class="block_menu_button"><spring:message code="label.title.myreports"/> </a>
-            <a href="<c:url value="/user/report/tome" />" class="block_menu_button"><spring:message code="label.title.reportstome"/> </a>
-            <a href="<c:url value="/admin/user"  />" class="block_menu_button"><spring:message code="label.title.manageUser"/></a>
-            <a href="<c:url value="/"/>" class="block_menu_button"> <spring:message code="label.title.news"/></a>
-        </div>
+        <c:if test="${!empty loginUser}">
+            <div id="block_menu">
+                <a href="<c:url value="/user/report/find"/>" class="block_menu_button"> <spring:message code="label.title.find" /> </a>
+                <a href="<c:url value="/"/>" class="block_menu_button"> <spring:message code="label.title.news"/></a>
+                <a href="<c:url value="/user/report/archive"/>" class="block_menu_button"><spring:message code="label.title.arcive"/> </a>
+                <c:if test="${loginUser.role=='ROLE_ADMIN'}">
+                    <a href="<c:url value="/admin/user"/>" class="block_menu_button"><spring:message code="label.title.manageUser"/></a>
+                    <a href="<c:url value="/admin/workflow"/>" class="block_menu_button"><spring:message code="label.title.manageWorkFlow"/></a>
+                </c:if>
+            </div>
+        </c:if>
 
         <div id="content">
             <div class="block" style="text-align: left;">
@@ -98,7 +100,7 @@
                     </c:if>
                 </div>
 
-                <table table border="1px" style="width: auto" cellpadding="0" cellspacing="0">
+                <table style="width: auto" cellpadding="0" cellspacing="0">
 
                     <tr>
                         <td><spring:message code="label.reportdetals.summ"/></td>
@@ -114,7 +116,7 @@
                     </tr>
                     <tr>
                         <td><spring:message code="label.reportdetals.address"/></td>
-                        <td>${suspect.address}"</td>
+                        <td>${suspect.address}</td>
                     </tr>
                     <tr>
                         <td><spring:message code="label.reportdetals.reporterId"/></td>
@@ -129,6 +131,16 @@
                         <td><spring:message code="label.reportdetals.time"/></td>
                         <td><fmt:formatDate value="${report.date}" pattern="HH:mm:ss"/></td>
                     </tr>
+                    <tr>
+                        <td><spring:message code="label.reportdetals.bookcount"/></td>
+                        <c:if test="${report.countBook==-1}">
+                            <td>Пёс не проверил дом на наличие книг</td>
+                        </c:if>
+                        <c:if test="${report.countBook!=-1}">
+                            <td>${report.countBook}</td>
+                        </c:if>
+                    </tr>
+
                     <c:if test="${loginUser.role =='ROLE_POLICE'}">
                         <tr>
                             <td><spring:message code="label.reportdetals.policeman"/></td>
@@ -193,7 +205,7 @@
         </div>
 
         <div id="validate_workflow_denun">
-            <p>В ходе работы возникла следующая ошибка:</p>
+            <p id="info"></p>
             <div id="errorbox"></div>
         </div>
     </div>
@@ -233,6 +245,7 @@
         $("#assign_fireman_denun").hide();
         $("#validate_workflow_denun").hide();
         $("#step_denun").hide();
+        location.reload();
     });
 
     function assignReportToPoliceman(){
@@ -245,7 +258,9 @@
         $("#assign_fireman_denun").show();
     }
     function validateWorkFlowTransition(reportId, transitionStepOut){
-        var errorCodeArray = ["label.workflow.validation.firemanid.empty","label.workflow.validation.policeman.empty"];
+        var errorCodeArray = ["label.workflow.validation.error.firemanid.empty",
+                              "label.workflow.validation.error.policeman.empty",
+                              "label.workflow.validation.error.dogvalidation.empty"];
         $('#errorbox').empty();
         $.ajax({
             url: "/user/report/step/"+reportId+"/"+transitionStepOut,             // указываем URL и
@@ -256,12 +271,18 @@
                 if($.inArray(data.errorCode, errorCodeArray)!=-1){
                     console.log(data.errorCode);
                     console.log("нашли вхождение");
-                    $("<p>").text(data.message).appendTo('#errorbox');
-                    $("#blackblock").show();
-                    $("#validate_workflow_denun").show();
+                    $('#info').text("В ходе перехода обнаружена ошибка:");
+                    $('<p>').text(data.message).appendTo('#errorbox');
+                    $('#blackblock').show();
+                    $('#validate_workflow_denun').show();
                 }
-                else if (data.errorCode=="label.workflow.validation.ok"){
-                    console.log("Нет ошибок");
+                else if (data.errorCode=="label.workflow.validation.info.ok"){
+                    console.log(data.errorCode);
+                    console.log(data.message);
+                    $('#info').text("Переход удачно завершен:");
+                    $("<p>").text(data.message).appendTo('#errorbox');
+                    //$("#blackblock").show();
+                    //$("#validate_workflow_denun").show();
                     location.reload();
                 }
             }

@@ -1,6 +1,7 @@
 package org.serjk.f451.service.impl;
 
 import org.serjk.f451.dao.UserDAO;
+import org.serjk.f451.model.SimpleUser;
 import org.serjk.f451.model.User;
 import org.serjk.f451.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,4 +51,9 @@ public class UserServiceImpl implements UserService {
     public List<User> getPolicemanAssigners(){
         return userDAO.getPolicemanAssigners();
     }
+
+    public SimpleUser getSimpleUserById(long userId){
+        return  userDAO.getSimpleUserById(userId);
+    }
+
 }

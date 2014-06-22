@@ -1,7 +1,7 @@
 package org.serjk.f451.dao;
 
 import org.serjk.f451.model.User;
-
+import org.serjk.f451.model.SimpleUser;
 import java.util.List;
 
 /**
@@ -16,6 +16,8 @@ public interface UserDAO {
     public List<User> listReportUser(String lastName, String firstName);
 
     public User getUserById(long userId);
+
+    public SimpleUser getSimpleUserById(long userId);
 
     public void removeUser(long id);
 

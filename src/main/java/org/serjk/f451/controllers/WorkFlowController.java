@@ -1,5 +1,6 @@
 package org.serjk.f451.controllers;
 
+import org.serjk.f451.model.SimpleUser;
 import org.serjk.f451.model.Step;
 import org.serjk.f451.model.Transition;
 import org.serjk.f451.model.User;
@@ -34,8 +35,7 @@ public class WorkFlowController {
 
 
     @RequestMapping("/admin/workflow")
-    public String listUser(Model model) {
-
+    public String getWorkFlowAdmin(Model model) {
         model.addAttribute("transition", new Transition());
         model.addAttribute("listTransition", workFlowService.listTransition());
         model.addAttribute("permission", userLoginService.getRoles());
@@ -45,7 +45,7 @@ public class WorkFlowController {
     }
 
     @RequestMapping(value = "/admin/workflow/transition/new", method = RequestMethod.POST)
-    public String addUser(@RequestParam(value ="name") String name,
+    public String setNewTransition(@RequestParam(value ="name") String name,
                           @RequestParam(value ="stepIn") long stepIn,
                           @RequestParam(value ="stepOut") long stepOut,
                           @RequestParam(value ="permission") String permission) {
@@ -61,13 +61,19 @@ public class WorkFlowController {
 
 
     @RequestMapping(value = "/admin/workflow/step/new", method = RequestMethod.POST)
-    public String addStep(@RequestParam("stepName") String stepName,
+    public String setNewStep(@RequestParam("stepName") String stepName,
                           @RequestParam("stepSummary") String stepSummary) {
         Step step  = new Step();
         step.setStepName(stepName);
         step.setStepSummary(stepSummary);
         workFlowService.addStep(step);
         return "redirect:/admin/workflow";
+    }
+
+    @RequestMapping("/user/workflow/step/{stepId}")
+    public @ResponseBody
+    Step getStepInJSON(@PathVariable("stepId") long stepId) {
+        return workFlowService.getStep(stepId);
     }
 
 }

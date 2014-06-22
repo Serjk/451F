@@ -1,24 +1,23 @@
 
 package org.serjk.f451.controllers;
 
+
 import org.serjk.f451.error.ErrorInfo;
-import org.serjk.f451.model.Step;
-import org.serjk.f451.model.Transition;
-import org.serjk.f451.model.User;
+import org.serjk.f451.model.*;
 import org.serjk.f451.service.WorkFlowService;
 import org.serjk.f451.service.impl.UserLoginService;
-import org.serjk.f451.model.Report;
 import org.serjk.f451.service.ReportService;
 import org.serjk.f451.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * @author Koyushev Sergey (mailto: serjk91@gmail.com)
@@ -42,6 +41,8 @@ public class ReportController {
 
     @RequestMapping("/user/report/find")
     public String findReport(Model model) {
+        User loginUser = userLoginService.getLoginUser();
+        model.addAttribute("loginUser",loginUser);
         return "finduser";
     }
 
@@ -62,7 +63,10 @@ public class ReportController {
         report.setReporterId(reporterId);
         report.setSuspectId(Long.parseLong(id));
         report.setSummary(summary);
-        report.setDate();
+        report.setCountBook(-1);
+        report.setDate(new Date());
+        report.setStepId(122);
+
         report.setDescription(description);
         reportService.addReport(report);
         return "redirect:/user/report/find/"+String.valueOf(report.getId());
@@ -74,7 +78,7 @@ public class ReportController {
         Report report = reportService.getReport(reportId);
         User user = userService.getUserById(firemanId);
         if (user!=null &&  report!=null)
-            reportService.assignReport(user,report);
+            reportService.setReportAssigne(user, report);
         else
             logger.error(String.format("No valid user with ID %s",firemanId));
         return "redirect:/user/report/find/"+String.valueOf(reportId);
@@ -86,7 +90,7 @@ public class ReportController {
         Report report = reportService.getReport(reportId);
         User user = userService.getUserById(policemanId);
         if (user!=null &&  report!=null)
-            reportService.assignReport(user,report);
+            reportService.setReportAssigne(user, report);
         else
             logger.error(String.format("No valid user with ID %s",policemanId));
         return "redirect:/user/report/find/"+String.valueOf(reportId);
@@ -96,42 +100,62 @@ public class ReportController {
     public @ResponseBody ErrorInfo moveReportToStep(@PathVariable("reportId") Long reportId,
                                                     @PathVariable("stepId") Long stepId) {
         Report report = reportService.getReport(reportId);
-        ErrorInfo errorInfo =new ErrorInfo();
+        ErrorInfo errorInfo = new ErrorInfo();
+        int RejectedStepID = 127;
+
         //Когда офицер полиции берёт в работу он должен назаначить исполнителя
         logger.info(String.format("Step id -  %s, start validation",stepId));
         if(stepId==91 && userService.getUserById(report.getPolicemanId())==null){
-            errorInfo.setErrorCode("label.workflow.validation.policeman.empty");
-            errorInfo.setMessage("Не установлен полицейский офицер");
+            errorInfo.setErrorCode("label.workflow.validation.error.policeman.empty");
+            errorInfo.setMessage("Не установлен полицейский офицер, ответственный за расследование");
             logger.error(String.format("Step id -  %s, validation filed - no policeman ID",report.getStepId()));
             return errorInfo;
         }
         else if(stepId==92){
-            //функция генерации колличества книг
-            reportService.moveReportToStep(stepId,report);
-            logger.error(String.format("Step id -  %s, electric dof find books",report.getStepId()));
+            //генерируем колличество книг
+            Random rn = new Random();
+            int bookCount = rn.nextInt(101);
+
+            if(bookCount>0){
+                 errorInfo.setErrorCode("label.workflow.validation.info.ok");
+                 errorInfo.setMessage(String.format("Пёс нашёл %s книг, можно передавать запрос пожарным", bookCount));
+                 report.setStepId(stepId);
+                report.setCountBook(bookCount);
+                 reportService.setReport(report);
+                 logger.error(String.format("Step id -  %s, electric dof find books",report.getStepId()));
+            }
+            else {
+                errorInfo.setErrorCode("label.workflow.validation.info.ok");
+                errorInfo.setMessage(String.format("Пёс нашёл не нашел книг, запрос отклонён", bookCount));
+                report.setStepId(RejectedStepID);
+                reportService.setReport(report);
+                logger.error(String.format("Step id -  %s, electric dof find books",report.getStepId()));
+            }
             return errorInfo;
         }
         else if(stepId==98 && report.getCountBook()==-1){
-            errorInfo.setErrorCode("label.workflow.validation.nodogvalidation.empty");
+            errorInfo.setErrorCode("label.workflow.validation.error.dogvalidation.empty");
             errorInfo.setMessage("Пёс не проверил дом на наличие книг");
             logger.error(String.format("Step id -  %s, validation filed - no electric dog repo",report.getStepId()));
             return errorInfo;
         }
         else if(stepId==99 && userService.getUserById(report.getFiremanId())==null){
-            errorInfo.setErrorCode("label.workflow.validation.firemanid.empty");
+            errorInfo.setErrorCode("label.workflow.validation.error.firemanid.empty");
             errorInfo.setMessage("Не установлен пожарный офицер, пожарный расчет не может выехать, пока не установлен пожарный офицер");
             logger.error(String.format("Step id -  %s, validation filed - no fireman ID",report.getStepId()));
             return errorInfo;
         }
         else if(stepId==666){
-            //автоматически устанавливаетя время закрытия запроса и считаем общее время в обработке
-            errorInfo.setMessage("Не установлен пожарный офицер, вы не можете выехать, пока не установите офицер");
+            //автоматически устанавливаетя время закрытия запроса
+            errorInfo.setErrorCode("label.workflow.validation.info.ok");
+            errorInfo.setMessage("Работы по запросу завершены, проставлена дата закрытия");
             logger.error(String.format("Step id -  %s, validation filed - no fireman ID",report.getStepId()));
             return errorInfo;
         }
         else{
-            reportService.moveReportToStep(stepId,report);
-            errorInfo.setErrorCode("label.workflow.validation.ok");
+            report.setStepId(stepId);
+            reportService.setReport(report);
+            errorInfo.setErrorCode("label.workflow.validation.info.ok");
             errorInfo.setMessage("Валидация прошла нормально");
             logger.error("Step id -  ${report.getStepId()}, validation passed, new step ${stepId}");
             return errorInfo;
@@ -139,23 +163,30 @@ public class ReportController {
         //необходима проверка на наличие бюджета, необходимого на выполнение задания
     }
 
-    @RequestMapping("/user/report/all")
+    @RequestMapping("/user/report/archive")
     public String listReportAll(Model model) {
-        model.addAttribute("listReport", reportService.listReport());
+        User loginUser = userLoginService.getLoginUser();
+        List <Step> step = workFlowService.listStep();
+        model.addAttribute("listStep", step);
+        model.addAttribute("loginUser",loginUser);
+        model.addAttribute("listReport", reportService.getReportList());
         return "reportfilter";
     }
 
     @RequestMapping("/user/report/tome")
     public String listReportToMe(Model model) {
-        long currentUser = userLoginService.getLoginUser().getId();
-        model.addAttribute("listReport", reportService.listReportedToMe(currentUser));
+        User currentUser = userLoginService.getLoginUser();
+        model.addAttribute("listReport", reportService.getToMeReportList(currentUser));
         return "reportfilter";
     }
 
-    @RequestMapping("/user/report/my")
-    public String listReportMy(Model model) {
-        long currentUser = userLoginService.getLoginUser().getId();
-        model.addAttribute("listReport", reportService.listMyReports(currentUser));
+
+
+    @RequestMapping("/user/report/assignee/currenuser")
+    public String assignedToMe(Model model) {
+        User loginUser = userLoginService.getLoginUser();
+        model.addAttribute("loginUser",loginUser);
+        model.addAttribute("listReport", reportService.getAssignedToMeReportList(loginUser));
         return "reportfilter";
     }
 
@@ -189,4 +220,63 @@ public class ReportController {
 
         return "reportdetals";
     }
+
+    @RequestMapping(value = "/user/rest/report/tome")
+    public @ResponseBody
+    List<SimpleReport>  getToMeSimpleReportList() {
+        User currentUser = userLoginService.getLoginUser();
+        return  reportService.getToMeSimpleReportList(currentUser);
+    }
+
+    @RequestMapping(value = "/user/rest/report/assignee/currentuser")
+    public @ResponseBody
+    List<SimpleReport>  getAssignedToMeSimpleReportList() {
+        User currentUser = userLoginService.getLoginUser();
+        return  reportService.getAssignedToMeSimpleReportList(currentUser);
+    }
+
+    @RequestMapping(value = "/user/rest/report/archive")
+    public  @ResponseBody
+    List<SimpleReport>  getSimpleReportList() {
+        return  reportService.getSimpleReportList();
+    }
+
+    @RequestMapping(value = "/user/rest/report/my")
+    public  @ResponseBody
+    List<SimpleReport>  getMySimpleReportList() {
+        User currentUser = userLoginService.getLoginUser();
+        return  reportService.getMySimpleReportList(currentUser);
+    }
+
+    @RequestMapping(value = "/user/rest/report/assignee/policeman")
+    public @ResponseBody
+    List<SimpleReport>  getInProgressPoliceSimpleReportList() {
+        return  reportService.getInProgressPoliceSimpleReportList();
+    }
+
+    @RequestMapping(value = "/user/rest/report/assignee/fireman")
+    public @ResponseBody
+    List<SimpleReport>  getInProgressFiremanSimpleReportList() {
+        return  reportService.getInProgressFiremanSimpleReportList();
+    }
+
+    @RequestMapping(value = "/user/rest/report/date/{starttimestamp}/{endtimestamp}")
+    public @ResponseBody
+    List<SimpleReport>  getDateRangeSimpleReportList(@PathVariable("starttimestamp") long starttimestamp,
+                                                     @PathVariable("endtimestamp") long endtimestamp) {
+        return  reportService.getDateRangeSimpleReportList(starttimestamp, endtimestamp);
+    }
+
+    @RequestMapping(value = "/user/rest/report/assignee/empty")
+    public @ResponseBody
+    List<SimpleReport>  getUnasigneedSimpleReportList() {
+        return  reportService.getUnasigneedSimpleReportList();
+    }
+
+    @RequestMapping(value = "/user/rest/report/step/{stepId}")
+    public @ResponseBody
+    List<SimpleReport>  getByStepSimpleReportList(@PathVariable("stepId") long stepId) {
+        return  reportService.getByStepSimpleReportList(stepId);
+    }
+
 }

@@ -1,6 +1,7 @@
 package org.serjk.f451.service;
 
 import org.serjk.f451.model.Report;
+import org.serjk.f451.model.SimpleReport;
 import org.serjk.f451.model.User;
 
 import java.util.List;
@@ -14,16 +15,38 @@ public interface ReportService {
 
     public Report getReport(long reportId);
 
-    public List<Report> listReport();
+    public List<Report> getReportList();
 
-    public List<Report> listMyReports(long userId);
+    public List<Report> getMyReportList(User user);
 
-    public List<Report> listReportedToMe(long userId);
-
-    public void assignReport(User user,Report report);
-
-    public void moveReportToStep(long stepId, Report report);
+    public List<Report> getToMeReportList(User user);
 
     public void removeReport(long id);
+
+    public List <Report>  getAssignedToMeReportList(User user);
+
+    public List<SimpleReport>  getToMeSimpleReportList(User user);
+
+    public List<SimpleReport>  getMySimpleReportList(User user);
+
+    public List<SimpleReport> getAssignedToMeSimpleReportList(User user);
+
+    public List<SimpleReport> getSimpleReportList();
+
+    public List<SimpleReport> getInProgressPoliceSimpleReportList();
+
+    public List<SimpleReport>  getInProgressFiremanSimpleReportList();
+
+    public List<SimpleReport>  getDateRangeSimpleReportList(long starttimestamp,
+                                                            long endtimestamp);
+
+    public List<SimpleReport>  getUnasigneedSimpleReportList();
+
+    public List<SimpleReport>  getByStepSimpleReportList(long stepId);
+
+    public void setReportAssigne(User user,Report report);
+
+    public void setReport(Report report);
+
 
 }

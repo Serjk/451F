@@ -1,6 +1,7 @@
 package org.serjk.f451.dao;
 
 import org.serjk.f451.model.Report;
+import org.serjk.f451.model.SimpleReport;
 import org.serjk.f451.model.User;
 
 import java.util.Date;
@@ -9,25 +10,44 @@ import java.util.List;
 /**
  * @author Koyushev Sergey (mailto: serjk91@gmail.com)
  */
+
 public interface ReportDAO {
 
     public void addReport(Report report);
 
-    public List<Report> listRepContact();
+    public List<Report> getReportList();
 
     public Report getReport(long id);
 
-    public List<Report>  listMyReports(long userId);
+    public List<Report>  getMyReportList(User user);
 
-    public List<Report>  listReportedToMe(long userId);
+    public List<Report>  getToMeReportList(User user);
 
-    public void moveReportToStep(long stepId, Report report);
+    public List<Report> getAssignedToMeReportList(User user);
+
+    public void setReport(Report report);
 
     public void removeReport(long id);
 
-    public void assignReport(User user,Report report);
+    public void setReportAssigne(User user,Report report);
 
-    public void setRecordCountBook(long reportId, long countBook);
+    public List<SimpleReport>  getToMeSimpleReportList(User user);
 
-    public void setRecordResolutionDate(long reportId, Date date);
+    public List<SimpleReport>  getMySimpleReportList(User user);
+
+    public List<SimpleReport> getAssignedToMeSimpleReportList  (User user);
+
+    public List<SimpleReport> getSimpleReportList();
+
+    public List<SimpleReport> getInProgressPoliceSimpleReportList();
+
+    public List<SimpleReport>  getInProgressFiremanSimpleReportList();
+
+    public List<SimpleReport>  getDateRangeSimpleReportList(long starttimestamp,
+                                                            long endtimestamp);
+
+    public List<SimpleReport>  getUnasigneedSimpleReportList();
+
+    public List<SimpleReport>  getByStepSimpleReportList(long stepId);
+
 }

@@ -2,6 +2,7 @@ package org.serjk.f451.controllers;
 
 import org.serjk.f451.dao.UserDAO;
 import org.serjk.f451.model.User;
+import org.serjk.f451.model.SimpleUser;
 import org.serjk.f451.service.UserService;
 import org.serjk.f451.service.impl.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,14 +60,12 @@ public class UserController {
 
     @RequestMapping("/admin/user/delete/{userId}")
     public String deleteUser(@PathVariable("userId") long userId) {
-
         userService.removeUser(userId);
         return "redirect:/admin/user";
     }
 
-    @RequestMapping("/user/report/users")
-    public @ResponseBody List<User> getShopInJSON() {
-        List <User> users = userService.listUser();
-        return users;
+    @RequestMapping("/user/report/user/{userId}")
+    public @ResponseBody SimpleUser getSimpleUserInJSON(@PathVariable("userId") long userId) {
+       return userService.getSimpleUserById(userId);
     }
 }

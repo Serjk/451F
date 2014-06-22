@@ -17,17 +17,20 @@
 <body>
 <div id="header">
     <div style="float: left;">
-        <a class="header_logo" href="index.html">
-            <div style="display: table-cell;"><img src="res/img/flame.ico" width="50px" height="50px"/></div>
+        <a class="header_logo" href="/">
+            <div style="display: table-cell;"><img src="/resources/img/flame.ico" width="50px" height="50px"/></div>
             <div style="display: table-cell; vertical-align: middle; padding-left: 10px"><p>Главная</p></div>
         </a>
     </div>
-    <div style="float: right;">
 
+    <div></div>
+    <div style="float: right;">
         <div style="display: table-cell;">
-            <div class="header_button" id="login_button">
-                <p>Вход</p>
-            </div>
+            <c:if test="${empty loginUser}">
+                <div class="header_button" id="login_button">
+                    <p><spring:message code="label.header.login"/></p>
+                </div>
+            </c:if>
             <div class="login-form">
                 <form action="<c:url value='j_spring_security_check' />" method='POST'>
                     <div class="inputs-block">
@@ -40,13 +43,17 @@
                 </form>
             </div>
         </div>
-        <div style="display: table-cell;">
-           <a href="<c:url value="/logout" />" class="header_button"><spring:message code="label.login.logout" /> </a>
-        </div>
-        <div style="display: table-cell;">
-            <div class="header_button" id="reg_button">
-                <p>Регистрация</p>
+        <c:if test="${!empty loginUser}">
+            <div style="display: table-cell;">
+                <a href="<c:url value="/logout" />" class="header_button"><spring:message code="label.login.logout"/></a>
             </div>
+        </c:if>
+        <div style="display: table-cell;">
+            <c:if test="${empty loginUser}">
+                <div class="header_button" id="reg_button">
+                    <p><spring:message code="label.header.register"/></p>
+                </div>
+            </c:if>
             <div class="reg-form">
                 <form>
                     <div class="inputs-block">
@@ -63,16 +70,21 @@
         </div>
     </div>
 </div>
+
 <div id="page">
+    <c:if test="${!empty loginUser}">
+        <div id="block_menu">
+            <a href="<c:url value="/user/report/find"/>" class="block_menu_button"> <spring:message code="label.title.find" /> </a>
+            <a href="<c:url value="/"/>" class="block_menu_button"> <spring:message code="label.title.news"/></a>
+            <a href="<c:url value="/user/report/archive"/>" class="block_menu_button"><spring:message code="label.title.arcive"/> </a>
 
-    <div id="block_menu">
-        <a href="<c:url value="/" />" class="block_menu_button"><spring:message code="label.title.index" /></a>
-        <a href="<c:url value="/user/report/all" />" class="block_menu_button"><spring:message code="label.title.reports" /></a>
-        <a href="<c:url value="/user/report/my" />" class="block_menu_button"><spring:message code="label.title.myreports"/> </a>
-        <a href="<c:url value="/user/report/tome" />" class="block_menu_button"><spring:message code="label.title.reportstome"/> </a>
-        <a href="<c:url value="/admin/user"  />" class="block_menu_button"><spring:message code="label.title.manageUser"/></a>
+            <c:if test="${loginUser.role=='ROLE_ADMIN'}">
+                <a href="<c:url value="/admin/user"/>" class="block_menu_button"><spring:message code="label.title.manageUser"/></a>
+                <a href="<c:url value="/admin/workflow"/>" class="block_menu_button"><spring:message code="label.title.manageWorkFlow"/></a>
+            </c:if>
+        </div>
+    </c:if>
 
-    </div>
     <div id="content">
         <div class="block" style="text-align: left;">
             <p class="page_title">Новый донос</p>
@@ -81,17 +93,6 @@
             <form action="/user/report/new" method="post">
                 <p> <spring:message code="label.find.firstname"/><input type="text" name="firstName" value="">
                     <spring:message code="label.find.lastname" /> <input type="text" name="lastName" value="">
-                    Адрес: <select name="street">
-                        <option disabled>Улица</option>
-                        <option value="null"> </option>
-                        <option value="Димитрова">Димитрова</option>
-                    </select>
-                    <select name="home">
-                        <option disabled>Дом</option>
-                        <option value="null"> </option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                    </select>
                     <input type="submit" value="<spring:message code="label.find.find"/>"/>
                 </p>
             </form>

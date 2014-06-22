@@ -1,5 +1,6 @@
 package org.serjk.f451.service;
 
+import org.serjk.f451.model.SimpleUser;
 import org.serjk.f451.model.User;
 
 import java.util.List;
@@ -22,5 +23,7 @@ public interface UserService {
     public List<User> getPolicemanAssigners();
 
     public void removeUser(long id);
+
+    public SimpleUser getSimpleUserById(long userId);
 
 }

@@ -18,7 +18,7 @@
     <!-- Отображение видов на jsp-файлы, лежащие в папке /WEB-INF/views -->
     <beans:bean
             class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <beans:property name="prefix" value="/WEB-INF/views/" />
+        <beans:property name="prefix" value="/WEB-INF/views/"/>
         <beans:property name="suffix" value=".jsp" />
     </beans:bean>
     <!-- Файл с настройками контроллеров -->

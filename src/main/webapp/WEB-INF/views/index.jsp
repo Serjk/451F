@@ -77,14 +77,18 @@
 
     <div id="page">
 
-        <div id="block_menu">
-            <a href="<c:url value="/user/report/all" />" class="block_menu_button"><spring:message code="label.title.reports" /></a>
-            <a href="<c:url value="/user/report/find" />" class="block_menu_button"> <spring:message code="label.title.find" /> </a>
-            <a href="<c:url value="/user/report/my" />" class="block_menu_button"><spring:message code="label.title.myreports"/> </a>
-            <a href="<c:url value="/user/report/tome" />" class="block_menu_button"><spring:message code="label.title.reportstome"/> </a>
-            <a href="<c:url value="/admin/user"  />" class="block_menu_button"><spring:message code="label.title.manageUser"/></a>
-            <a href="<c:url value="/"/>" class="block_menu_button"/> <spring:message code="label.title.news"/></a>
-        </div>
+        <c:if test="${!empty loginUser}">
+            <div id="block_menu">
+                <a href="<c:url value="/user/report/find"/>" class="block_menu_button"> <spring:message code="label.title.find" /> </a>
+                <a href="<c:url value="/"/>" class="block_menu_button"> <spring:message code="label.title.news"/></a>
+                <a href="<c:url value="/user/report/archive"/>" class="block_menu_button"><spring:message code="label.title.arcive"/> </a>
+                <c:if test="${loginUser.role=='ROLE_ADMIN'}">
+                    <a href="<c:url value="/admin/user"/>" class="block_menu_button"><spring:message code="label.title.manageUser"/></a>
+                    <a href="<c:url value="/admin/workflow"/>" class="block_menu_button"><spring:message code="label.title.manageWorkFlow"/></a>
+                </c:if>
+            </div>
+        </c:if>
+
         <div id="content">
             <div class="block">
                 <table border="0px" cellspacing="10" style="width: 100%; margin-top: 20px" >

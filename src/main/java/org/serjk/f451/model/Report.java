@@ -88,8 +88,8 @@ public class Report {
         return this.date;
     }
 
-    public void setDate(){
-        this.date = new Date();
+    public void setDate(Date date){
+        this.date = date;
     }
 
     public long getStepId(){

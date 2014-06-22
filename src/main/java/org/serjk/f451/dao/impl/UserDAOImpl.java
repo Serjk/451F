@@ -6,16 +6,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.serjk.f451.dao.UserDAO;
 import org.serjk.f451.model.User;
+import org.serjk.f451.model.SimpleUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 
@@ -62,6 +56,24 @@ public  class UserDAOImpl implements UserDAO {
         if (query.list().isEmpty()) return null; else
             return   (User)  query.uniqueResult();
 
+    }
+
+    @Override
+    @Transactional
+    public SimpleUser getSimpleUserById (long userId) {
+        Query query = openSession().createQuery("FROM User as  u where  u.id=:userId");
+        query.setParameter("userId", userId);
+        SimpleUser simpleUser =new SimpleUser();
+
+        if (query.list().isEmpty()) return null;
+
+        User user =  (User)  query.uniqueResult();
+        simpleUser.setFirstName(user.getFirstName());
+        simpleUser.setLastName(user.getLastName());
+        simpleUser.setAddress(user.getAddress());
+        simpleUser.setRole(user.getRole());
+        simpleUser.setId(user.getId());
+        return simpleUser;
     }
 
     @Transactional

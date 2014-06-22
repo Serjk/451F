@@ -1,5 +1,6 @@
 package org.serjk.f451.service.impl;
 
+import org.serjk.f451.model.SimpleReport;
 import org.serjk.f451.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,8 +30,8 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public List<Report> listReport() {
-        return reportDAO.listRepContact();
+    public List<Report> getReportList() {
+        return reportDAO.getReportList();
     }
 
     @Override
@@ -39,21 +40,18 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public List<Report> listMyReports(long userId) {
-
-        return reportDAO.listMyReports(userId);
+    public List<Report> getMyReportList(User user) {
+        return reportDAO.getMyReportList(user);
     }
 
     @Override
-    public List<Report> listReportedToMe(long userId) {
-
-        return reportDAO.listReportedToMe(userId);
+    public List<Report> getToMeReportList(User user) {
+        return reportDAO.getToMeReportList(user);
     }
 
     @Override
-    public void moveReportToStep(long stepId, Report report)
-    {
-        reportDAO.moveReportToStep(stepId, report);
+    public void setReport(Report report){
+        reportDAO.setReport(report);
     }
 
     @Override
@@ -62,7 +60,58 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public void assignReport(User user,Report report){
-        reportDAO.assignReport(user,report);
+    public void setReportAssigne(User user,Report report){
+        reportDAO.setReportAssigne(user,report);
     }
+
+    @Override
+    public  List <Report> getAssignedToMeReportList (User user){
+        return  reportDAO.getAssignedToMeReportList(user);
+    }
+
+    public List<SimpleReport>  getToMeSimpleReportList(User user){
+        return  reportDAO.getToMeSimpleReportList(user);
+    }
+
+    @Override
+    public List<SimpleReport>  getMySimpleReportList(User user){
+        return  reportDAO.getMySimpleReportList(user);
+    }
+
+    @Override
+    public List<SimpleReport> getAssignedToMeSimpleReportList  (User user){
+        return  reportDAO.getAssignedToMeSimpleReportList(user);
+    }
+
+    @Override
+    public List<SimpleReport> getSimpleReportList(){
+        return  reportDAO.getSimpleReportList();
+    }
+
+    @Override
+    public List<SimpleReport> getInProgressPoliceSimpleReportList(){
+        return  reportDAO.getInProgressPoliceSimpleReportList();
+    }
+
+    @Override
+    public List<SimpleReport>  getInProgressFiremanSimpleReportList(){
+        return  reportDAO.getInProgressFiremanSimpleReportList();
+    }
+
+    @Override
+    public List<SimpleReport>  getDateRangeSimpleReportList(long starttimestamp,
+                                                            long endtimestamp){
+        return reportDAO.getDateRangeSimpleReportList(starttimestamp,endtimestamp);
+    }
+
+    @Override
+    public List<SimpleReport>  getUnasigneedSimpleReportList(){
+        return  reportDAO.getUnasigneedSimpleReportList();
+    }
+
+    @Override
+    public List<SimpleReport>  getByStepSimpleReportList(long stepId){
+         return  reportDAO.getByStepSimpleReportList(stepId);
+    }
+
 }

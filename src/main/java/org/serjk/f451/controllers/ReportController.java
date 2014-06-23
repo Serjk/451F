@@ -49,6 +49,8 @@ public class ReportController {
     @RequestMapping(value = "/user/report/new", method = RequestMethod.POST)
     public String addReport(@RequestParam("lastName") String lastName,
                             @RequestParam("firstName") String firstName, Model model) {
+        User loginUser = userLoginService.getLoginUser();
+        model.addAttribute("loginUser",loginUser);
         model.addAttribute("listSuspectUser", userService.listReportUser(lastName, firstName));
         return "finduser";
     }

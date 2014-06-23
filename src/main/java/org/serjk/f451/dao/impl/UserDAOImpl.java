@@ -1,6 +1,7 @@
 package org.serjk.f451.dao.impl;
 
 
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -28,20 +29,20 @@ public  class UserDAOImpl implements UserDAO {
     }
 
     @Transactional
-    public void addUser(User user) {
+    public void addUser(User user) throws HibernateException {
         openSession().saveOrUpdate(user);
     }
 
     @Transactional
     @SuppressWarnings("unchecked")
-    public List<User> listContact() {
+    public List<User> listContact() throws HibernateException{
         Query query = openSession().createQuery("from User");
         return query.list();
     }
 
     @Override
     @Transactional
-    public User getUserByLogin(String login) {
+    public User getUserByLogin(String login) throws HibernateException {
         Query query = openSession().createQuery("FROM User  as u WHERE u.login='"+login+"'");
 
        if (query.list().isEmpty()) return null; else
@@ -50,7 +51,7 @@ public  class UserDAOImpl implements UserDAO {
 
     @Override
     @Transactional
-    public User getUserById(long userId) {
+    public User getUserById(long userId) throws HibernateException {
         Query query = openSession().createQuery("FROM User as  u where  u.id=:userId");
         query.setParameter("userId", userId);
         if (query.list().isEmpty()) return null; else
@@ -60,7 +61,7 @@ public  class UserDAOImpl implements UserDAO {
 
     @Override
     @Transactional
-    public SimpleUser getSimpleUserById (long userId) {
+    public SimpleUser getSimpleUserById (long userId) throws HibernateException {
         Query query = openSession().createQuery("FROM User as  u where  u.id=:userId");
         query.setParameter("userId", userId);
         SimpleUser simpleUser =new SimpleUser();
@@ -77,7 +78,7 @@ public  class UserDAOImpl implements UserDAO {
     }
 
     @Transactional
-    public long getUserIdByLogin(String login){
+    public long getUserIdByLogin(String login) {
         Query query = openSession().createQuery("select u.id from User  u where  u.login=:login");
         query.setParameter("login", login);
         if (query.list().isEmpty()) return 0; else
@@ -85,7 +86,7 @@ public  class UserDAOImpl implements UserDAO {
     }
 
     @Transactional
-    public void removeUser(long id) {
+    public void removeUser(long id) throws HibernateException {
         User user = (User) openSession().load(User.class, id);
         if (user!=null) {
             sessionFactory.getCurrentSession().delete(user);
@@ -93,7 +94,7 @@ public  class UserDAOImpl implements UserDAO {
     }
 
     @Transactional
-    public List<User> listReportUser(String lastName, String firstName) {
+    public List<User> listReportUser(String lastName, String firstName) throws HibernateException {
 
         Query query;
 
@@ -123,17 +124,9 @@ public  class UserDAOImpl implements UserDAO {
     }
 
     @Transactional
-    public List<User> getFiremanAssigners(){
+    public List<User> getUsersByRole(String role) throws HibernateException {
         Query query = openSession().createQuery("FROM User as user WHERE user.role=:role");
-        query.setParameter("role", "ROLE_FIREMAN");
-        if (query.list().isEmpty()) return null; else
-            return (List<User>) query.list();
-    }
-
-    @Transactional
-    public List<User> getPolicemanAssigners(){
-        Query query = openSession().createQuery("FROM User as user WHERE user.role=:role");
-        query.setParameter("role", "ROLE_POLICE");
+        query.setParameter("role", role);
         if (query.list().isEmpty()) return null; else
             return (List<User>) query.list();
     }

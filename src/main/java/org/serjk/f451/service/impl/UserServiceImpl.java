@@ -3,6 +3,7 @@ package org.serjk.f451.service.impl;
 import org.serjk.f451.dao.UserDAO;
 import org.serjk.f451.model.SimpleUser;
 import org.serjk.f451.model.User;
+import org.serjk.f451.model.enums.UserType;
 import org.serjk.f451.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,11 +46,11 @@ public class UserServiceImpl implements UserService {
     }
 
     public List<User> getFiremanAssigners(){
-        return userDAO.getFiremanAssigners();
+        return userDAO.getUsersByRole(UserType.ROLE_FIREMAN.name());
     }
 
     public List<User> getPolicemanAssigners(){
-        return userDAO.getPolicemanAssigners();
+        return userDAO.getUsersByRole(UserType.ROLE_POLICE.name());
     }
 
     public SimpleUser getSimpleUserById(long userId){

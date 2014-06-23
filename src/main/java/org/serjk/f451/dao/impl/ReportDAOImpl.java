@@ -6,11 +6,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.serjk.f451.dao.ReportDAO;
 import org.serjk.f451.dao.UserDAO;
-import org.serjk.f451.dao.WorkFlowDAO;
 import org.serjk.f451.model.Report;
 import org.serjk.f451.model.SimpleReport;
 import org.serjk.f451.model.User;
-import org.serjk.f451.model.Step;
+import org.serjk.f451.model.enums.Step;
+import org.serjk.f451.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,8 +33,7 @@ public  class ReportDAOImpl implements ReportDAO {
     private UserDAO userDAO;
 
     @Autowired
-    private WorkFlowDAO workFlowDAO;
-
+    private ReportService reportService;
 
     static final Logger logger = Logger.getLogger(ReportDAOImpl.class);
 
@@ -131,7 +130,7 @@ public  class ReportDAOImpl implements ReportDAO {
         User policeman = userDAO.getUserById(report.getPolicemanId());
         User suspect = userDAO.getUserById(report.getSuspectId());
         User reporter = userDAO.getUserById(report.getReporterId());
-        Step step =workFlowDAO.getStep(report.getStepId());
+        Step step =reportService.getStepById(report.getStepId());
 
         simpleReport.setFiremanDisplayName(getUserDisplayName(fireman));
         simpleReport.setPolicemanDisplayName(getUserDisplayName(policeman));
@@ -190,7 +189,7 @@ public  class ReportDAOImpl implements ReportDAO {
     }
 
     @Transactional
-    public List<SimpleReport>  getByStepSimpleReportList(long stepId){
+    public List<SimpleReport>  getByStepSimpleReportList(int stepId){
         List <Report> reportList = getByStepReportList(stepId);
         return checkNull(reportList);
     }
@@ -203,9 +202,9 @@ public  class ReportDAOImpl implements ReportDAO {
                 .createQuery("FROM Report  AS r WHERE" +
                         " r.stepId=:step1 OR r.stepId=:step2" +
                         " OR  r.stepId=:step3");
-        query.setParameter("step1", 122L);
-        query.setParameter("step2", 91L);
-        query.setParameter("step3", 92L);
+        query.setParameter("step1", 1);
+        query.setParameter("step2", 2);
+        query.setParameter("step3", 3);
         if (query.list().isEmpty()) return null; else
             return (List<Report>) query.list();
     }
@@ -216,9 +215,9 @@ public  class ReportDAOImpl implements ReportDAO {
                 .createQuery("FROM Report  AS r WHERE" +
                         " r.stepId=:step1 OR r.stepId=:step2" +
                         " OR  r.stepId=:step3");
-        query.setParameter("step1", 104L);
-        query.setParameter("step2", 98L);
-        query.setParameter("step3", 99L);
+        query.setParameter("step1", 4);
+        query.setParameter("step2", 4);
+        query.setParameter("step3", 6);
         if (query.list().isEmpty()) return null; else
             return (List<Report>) query.list();
     }
@@ -243,7 +242,7 @@ public  class ReportDAOImpl implements ReportDAO {
             return (List<Report>) query.list();
     }
 
-    public List<Report>  getByStepReportList(long stepId){
+    public List<Report>  getByStepReportList(int stepId){
         Query query = openSession().createQuery("FROM Report  AS r WHERE r.stepId=:stepId");
         query.setParameter("stepId", stepId);
         if (query.list().isEmpty()) return null; else

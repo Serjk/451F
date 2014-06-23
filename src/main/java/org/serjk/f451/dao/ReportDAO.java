@@ -3,6 +3,8 @@ package org.serjk.f451.dao;
 import org.serjk.f451.model.Report;
 import org.serjk.f451.model.SimpleReport;
 import org.serjk.f451.model.User;
+import org.serjk.f451.model.enums.Step;
+import org.serjk.f451.model.enums.Transition;
 
 import java.util.Date;
 import java.util.List;
@@ -48,6 +50,7 @@ public interface ReportDAO {
 
     public List<SimpleReport>  getUnasigneedSimpleReportList();
 
-    public List<SimpleReport>  getByStepSimpleReportList(long stepId);
+    public List<SimpleReport>  getByStepSimpleReportList(int stepId);
+
 
 }

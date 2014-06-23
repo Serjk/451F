@@ -3,6 +3,8 @@ package org.serjk.f451.service;
 import org.serjk.f451.model.Report;
 import org.serjk.f451.model.SimpleReport;
 import org.serjk.f451.model.User;
+import org.serjk.f451.model.enums.Step;
+import org.serjk.f451.model.enums.Transition;
 
 import java.util.List;
 
@@ -42,11 +44,16 @@ public interface ReportService {
 
     public List<SimpleReport>  getUnasigneedSimpleReportList();
 
-    public List<SimpleReport>  getByStepSimpleReportList(long stepId);
+    public List<SimpleReport>  getByStepSimpleReportList(int stepId);
 
     public void setReportAssigne(User user,Report report);
 
     public void setReport(Report report);
 
+    public List <Transition> getOutgoingTransitionsID(int stepId, String role);
+
+    public Step getStepById(int stepId);
+
+    public List <Step> getStepList();
 
 }

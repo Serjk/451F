@@ -32,7 +32,7 @@ public class Report {
     private long suspectId;
 
     @Column(name = "StepId")
-    private  long stepId;
+    private  int stepId;
 
 
     @Column(name = "FiremanId")
@@ -92,11 +92,11 @@ public class Report {
         this.date = date;
     }
 
-    public long getStepId(){
+    public int getStepId(){
         return stepId;
     }
 
-    public void setStepId(long stepId){
+    public void setStepId(int stepId){
         this.stepId = stepId;
     }
 

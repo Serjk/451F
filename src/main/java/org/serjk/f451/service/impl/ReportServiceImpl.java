@@ -2,12 +2,18 @@ package org.serjk.f451.service.impl;
 
 import org.serjk.f451.model.SimpleReport;
 import org.serjk.f451.model.User;
+import org.serjk.f451.model.enums.Step;
+import org.serjk.f451.model.enums.Transition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.serjk.f451.dao.ReportDAO;
 import org.serjk.f451.model.Report;
 import org.serjk.f451.service.ReportService;
+
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -110,8 +116,37 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public List<SimpleReport>  getByStepSimpleReportList(long stepId){
+    public List<SimpleReport>  getByStepSimpleReportList(int stepId){
          return  reportDAO.getByStepSimpleReportList(stepId);
     }
 
+    @Override
+    public Step getStepById(int id){
+        for (Step step : Step.values() ){
+             if(step.getId()==id)
+                 return step;
+        }
+        return  null;
+    }
+
+    @Override
+    public List <Transition> getOutgoingTransitionsID(int stepId, String role){
+
+
+        List <Transition>  transitionList  =  new ArrayList<Transition>();
+
+        for (Transition transition : Transition.values()){
+            if(transition.getStepIn()==stepId && transition.getPermission().equals(role))
+                transitionList.add(transition);
+        }
+         if (transitionList.isEmpty() )return  null;
+            else  return  transitionList;
+
+    }
+
+    @Override
+    public List <Step> getStepList(){
+        List <Step>  stepList= Arrays.asList(Step.values());
+        return  stepList;
+    }
 }

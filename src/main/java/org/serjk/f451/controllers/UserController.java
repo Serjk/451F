@@ -42,8 +42,6 @@ public class UserController {
     @RequestMapping("/admin/services/startinit/")
     public @ResponseBody
     String startInitService () {
-        initService.initStepsTable();
-        initService.initTransitionsTable();
         initService.initUsersTable();
         return  "Started...";
     }

@@ -1,14 +1,9 @@
 package org.serjk.f451.service.impl;
 
 import org.serjk.f451.dao.UserDAO;
-import org.serjk.f451.dao.WorkFlowDAO;
-import org.serjk.f451.model.Step;
-import org.serjk.f451.model.Transition;
-import org.serjk.f451.model.User;
 import org.serjk.f451.service.InitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,65 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class InitServiceImpl implements InitService {
 
-    @Autowired
-    WorkFlowDAO workFlowDAO;
 
     @Autowired
     UserDAO userDAO;
 
-    @Override
-    public void initStepsTable(){
-        long[] id  = {91, 92, 98, 99, 104, 122, 127};
-
-        String [] name  = {"Обработка полицией", "Проверка псом",
-                "Обработка пожарными","Сожжение",
-                "Отчет о выезде",     "Новый донос",
-                "Отклонен"};
-
-        String [] summary  = {"Полиция ищет виновных",
-                "Пёс вынюхивает книги",
-                "Пожарные готовятся к выезду",
-                "Пожарные сжигают книги",
-                "Пожарные подготавливают отчет, в котором указывают колличество соженых книг",
-                "Донос впервые попадает в полицию",
-                "Донос отклонен"};
-
-
-        for (int i = 0; i<id.length; i++){
-            String sqlQuery = "INSERT INTO f_step( id, stepname, stepsummary) VALUES ("
-                    +id[i]+",'"+name[i]+"','"+summary[i]+"');";
-            workFlowDAO.runSqlQery(sqlQuery);
-        }
-    }
-
-    @Override
-    public void initTransitionsTable(){
-
-       long[] id  = {96, 100, 101, 102, 105, 123 };
-
-        String [] name  = {"Передать Псу",      "Вернуть офицеру",
-                           "Передать пожарным", "Сжечь книги",
-                           "Подготовить отчет", "Взять в работу" };
-
-        long [] stepIn  = {91, 92, 91, 98, 99,122 };
-
-        long [] stepOut  = {92, 91, 98, 99, 104, 91 };
-
-        String [] permission = {"ROLE_POLICE",
-                                "ROLE_POLICE",
-                                "ROLE_POLICE",
-                                "ROLE_FIREMAN",
-                                "ROLE_FIREMAN",
-                                "ROLE_POLICE" };
-
-
-        for (int i = 0; i < id.length; i++){
-            String sqlQuery = "INSERT INTO f_transition(" +
-                    "id, name, stepin, stepout, permission)"+
-            "VALUES ("+id[i]+",'"+name[i]+"',"+stepIn[i]+","+stepOut[i]+",'"+permission[i]+"');";
-            workFlowDAO.runSqlQery(sqlQuery);
-        }
-    }
 
     @Override
     public void initUsersTable(){
@@ -116,7 +56,6 @@ public class InitServiceImpl implements InitService {
             "VALUES ("+id[i]+",'"+firstName[i]+"','"+lastName[i]+"','"+login[i]+
                     "','"+password[i]+"','"+addres[i]+ "','"+role[i]+"');";
 
-            workFlowDAO.runSqlQery(sqlQuery);
         }
     }
 }

@@ -4,7 +4,8 @@ package org.serjk.f451.controllers;
 
 import org.serjk.f451.error.ErrorInfo;
 import org.serjk.f451.model.*;
-import org.serjk.f451.service.WorkFlowService;
+import org.serjk.f451.model.enums.Step;
+import org.serjk.f451.model.enums.Transition;
 import org.serjk.f451.service.impl.UserLoginService;
 import org.serjk.f451.service.ReportService;
 import org.serjk.f451.service.UserService;
@@ -34,8 +35,6 @@ public class ReportController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private WorkFlowService workFlowService;
 
     static final Logger logger = Logger.getLogger(ReportController.class);
 
@@ -65,7 +64,7 @@ public class ReportController {
         report.setSummary(summary);
         report.setCountBook(-1);
         report.setDate(new Date());
-        report.setStepId(122);
+        report.setStepId(1);
 
         report.setDescription(description);
         reportService.addReport(report);
@@ -98,20 +97,20 @@ public class ReportController {
 
     @RequestMapping(value = "/user/report/step/{reportId}/{stepId}")
     public @ResponseBody ErrorInfo moveReportToStep(@PathVariable("reportId") Long reportId,
-                                                    @PathVariable("stepId") Long stepId) {
+                                                    @PathVariable("stepId") int stepId) {
         Report report = reportService.getReport(reportId);
         ErrorInfo errorInfo = new ErrorInfo();
-        int RejectedStepID = 127;
+        int RejectedStepID = 7;
 
         //Когда офицер полиции берёт в работу он должен назаначить исполнителя
         logger.info(String.format("Step id -  %s, start validation",stepId));
-        if(stepId==91 && userService.getUserById(report.getPolicemanId())==null){
+        if(stepId==2 && userService.getUserById(report.getPolicemanId())==null){
             errorInfo.setErrorCode("label.workflow.validation.error.policeman.empty");
             errorInfo.setMessage("Не установлен полицейский офицер, ответственный за расследование");
             logger.error(String.format("Step id -  %s, validation filed - no policeman ID",report.getStepId()));
             return errorInfo;
         }
-        else if(stepId==92){
+        else if(stepId==3){
             //генерируем колличество книг
             Random rn = new Random();
             int bookCount = rn.nextInt(101);
@@ -133,13 +132,13 @@ public class ReportController {
             }
             return errorInfo;
         }
-        else if(stepId==98 && report.getCountBook()==-1){
+        else if(stepId==4 && report.getCountBook()==-1){
             errorInfo.setErrorCode("label.workflow.validation.error.dogvalidation.empty");
             errorInfo.setMessage("Пёс не проверил дом на наличие книг");
             logger.error(String.format("Step id -  %s, validation filed - no electric dog repo",report.getStepId()));
             return errorInfo;
         }
-        else if(stepId==99 && userService.getUserById(report.getFiremanId())==null){
+        else if(stepId==5 && userService.getUserById(report.getFiremanId())==null){
             errorInfo.setErrorCode("label.workflow.validation.error.firemanid.empty");
             errorInfo.setMessage("Не установлен пожарный офицер, пожарный расчет не может выехать, пока не установлен пожарный офицер");
             logger.error(String.format("Step id -  %s, validation filed - no fireman ID",report.getStepId()));
@@ -166,7 +165,7 @@ public class ReportController {
     @RequestMapping("/user/report/archive")
     public String listReportAll(Model model) {
         User loginUser = userLoginService.getLoginUser();
-        List <Step> step = workFlowService.listStep();
+        List <Step> step = reportService.getStepList();
         model.addAttribute("listStep", step);
         model.addAttribute("loginUser",loginUser);
         model.addAttribute("listReport", reportService.getReportList());
@@ -179,8 +178,6 @@ public class ReportController {
         model.addAttribute("listReport", reportService.getToMeReportList(currentUser));
         return "reportfilter";
     }
-
-
 
     @RequestMapping("/user/report/assignee/currenuser")
     public String assignedToMe(Model model) {
@@ -195,12 +192,13 @@ public class ReportController {
 
         String role = userLoginService.getLoginUser().getRole();
         Report report  = reportService.getReport(reportId);
-        List<Transition> transitions = workFlowService.outgoingTransitionsID(report.getStepId(),role);
+        List<Transition> transitions =
+                reportService.getOutgoingTransitionsID(report.getStepId(),role);
         User fireman =  userService.getUserById(report.getFiremanId());
         User policeman =  userService.getUserById(report.getPolicemanId());
         User reporter =  userService.getUserById(report.getReporterId());
         User suspect =  userService.getUserById(report.getSuspectId());
-        Step step  = workFlowService.getStep(report.getStepId());
+        Step step  = reportService.getStepById(report.getStepId());
         List<User> policemanAssigners  = userService.getPolicemanAssigners();
         List<User> firemanAssigners = userService.getFiremanAssigners();
         User loginUser  = userLoginService.getLoginUser();
@@ -275,52 +273,15 @@ public class ReportController {
 
     @RequestMapping(value = "/user/rest/report/step/{stepId}")
     public @ResponseBody
-    List<SimpleReport>  getByStepSimpleReportList(@PathVariable("stepId") long stepId) {
+    List<SimpleReport>  getByStepSimpleReportList(@PathVariable("stepId") int stepId) {
         return  reportService.getByStepSimpleReportList(stepId);
     }
 
 
-
-    @RequestMapping("/admin/workflow")
-    public String getWorkFlowAdmin(Model model) {
-        model.addAttribute("transition", new Transition());
-        model.addAttribute("listTransition", workFlowService.listTransition());
-        model.addAttribute("permission", userLoginService.getRoles());
-        model.addAttribute("step", new Step());
-        model.addAttribute("listStep", workFlowService.listStep());
-        return "workflow";
-    }
-
-    @RequestMapping(value = "/admin/workflow/transition/new", method = RequestMethod.POST)
-    public String setNewTransition(@RequestParam(value ="name") String name,
-                                   @RequestParam(value ="stepIn") long stepIn,
-                                   @RequestParam(value ="stepOut") long stepOut,
-                                   @RequestParam(value ="permission") String permission) {
-
-        Transition transition = new Transition();
-        transition.setName(name);
-        transition.setStepIn(stepIn);
-        transition.setStepOut(stepOut);
-        transition.setPermission(permission);
-        workFlowService.addTransition(transition);
-        return "redirect:/admin/workflow";
-    }
-
-
-    @RequestMapping(value = "/admin/workflow/step/new", method = RequestMethod.POST)
-    public String setNewStep(@RequestParam("stepName") String stepName,
-                             @RequestParam("stepSummary") String stepSummary) {
-        Step step  = new Step();
-        step.setStepName(stepName);
-        step.setStepSummary(stepSummary);
-        workFlowService.addStep(step);
-        return "redirect:/admin/workflow";
-    }
-
     @RequestMapping("/user/workflow/step/{stepId}")
     public @ResponseBody
-    Step getStepInJSON(@PathVariable("stepId") long stepId) {
-        return workFlowService.getStep(stepId);
+    Step getStepInJSON(@PathVariable("stepId") int stepId) {
+        return reportService.getStepById(stepId);
     }
 
 }

@@ -8,8 +8,6 @@
     <session-factory>
         <mapping class="org.serjk.f451.model.User"/>
         <mapping class="org.serjk.f451.model.Report"/>
-        <mapping class="org.serjk.f451.model.Step"/>
-        <mapping class="org.serjk.f451.model.Transition"/>
         <mapping class="org.serjk.f451.model.Bank"/>
         <mapping class="org.serjk.f451.model.News"/>
         <mapping class="org.serjk.f451.model.Wage"/>

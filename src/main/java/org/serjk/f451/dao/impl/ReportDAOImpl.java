@@ -150,18 +150,6 @@ public  class ReportDAOImpl implements ReportDAO {
     }
 
     @Transactional
-    public List<SimpleReport> getInProgressPoliceSimpleReportList(){
-        List <Report> reportList = getInProgressPoliceReportList();
-        return checkNull(reportList);
-    }
-
-    @Transactional
-    public List<SimpleReport>  getInProgressFiremanSimpleReportList(){
-        List <Report> reportList = getInProgressFiremanReportList();
-        return checkNull(reportList);
-    }
-
-    @Transactional
     public List<SimpleReport>  getDateRangeSimpleReportList(long starttimestamp,
                                                             long endtimestamp){
         List <Report> reportList = getDateRangeReportList(starttimestamp,endtimestamp);
@@ -267,7 +255,5 @@ public  class ReportDAOImpl implements ReportDAO {
             logger.error(String.format("User with id %s not in Police or fireman role, user have %s role",user.getId(),user.getRole()));
         }
     }
-
-
 
 }

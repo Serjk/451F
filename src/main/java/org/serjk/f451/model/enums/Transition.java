@@ -10,11 +10,9 @@ package org.serjk.f451.model.enums;
 public enum  Transition {
 
     TRANSITION1("Взять в работу",    1, 2, "ROLE_POLICE"),
-    TRANSITION2("Передать Псу",      2, 3, "ROLE_POLICE"),
-    TRANSITION3("Вернуть офицеру",   3, 2, "ROLE_POLICE"),
-    TRANSITION4("Передать пожарным", 2, 4, "ROLE_POLICE"),
-    TRANSITION5("Сжечь книги",       4, 5, "ROLE_FIREMAN"),
-    TRANSITION6("Подготовить отчет", 5, 6, "ROLE_FIREMAN");
+    TRANSITION4("Передать пожарным", 2, 3, "ROLE_POLICE"),
+    TRANSITION5("Сжечь книги",       3, 4, "ROLE_FIREMAN"),
+    TRANSITION6("Подготовить отчет", 4, 5, "ROLE_FIREMAN");
 
     private final String name;
     private final int stepIn;

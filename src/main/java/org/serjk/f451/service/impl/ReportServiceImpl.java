@@ -95,16 +95,6 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public List<SimpleReport> getInProgressPoliceSimpleReportList(){
-        return  reportDAO.getInProgressPoliceSimpleReportList();
-    }
-
-    @Override
-    public List<SimpleReport>  getInProgressFiremanSimpleReportList(){
-        return  reportDAO.getInProgressFiremanSimpleReportList();
-    }
-
-    @Override
     public List<SimpleReport>  getDateRangeSimpleReportList(long starttimestamp,
                                                             long endtimestamp){
         return reportDAO.getDateRangeSimpleReportList(starttimestamp,endtimestamp);

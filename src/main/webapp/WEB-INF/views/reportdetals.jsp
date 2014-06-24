@@ -184,7 +184,7 @@
                 <c:if test="${!empty policemanAssigners}">
                     <c:forEach items="${policemanAssigners}" var="policemanAssignee">
                         <div>
-                            <a href="/user/report/assignee/policeman/${report.id}/${policemanAssignee.id}">${policemanAssignee.firstName} ${policemanAssignee.firstName}</a>
+                            <a href="/user/report/assignee/policeman/${report.id}/${policemanAssignee.id}">${policemanAssignee.firstName} ${policemanAssignee.lastName}</a>
                         </div>
                     </c:forEach>
                 </c:if>
@@ -197,7 +197,7 @@
                 <c:if test="${!empty firemanAssigners}">
                     <c:forEach items="${firemanAssigners}" var="firemanAssignee">
                         <div>
-                            <a href="/user/report/assignee/fireman/${report.id}/${firemanAssignee.id}">${firemanAssignee.firstName} ${firemanAssignee.firstName}</a>
+                            <a href="/user/report/assignee/fireman/${report.id}/${firemanAssignee.id}">${firemanAssignee.firstName} ${firemanAssignee.lastName}</a>
                         </div>
                     </c:forEach>
                 </c:if>

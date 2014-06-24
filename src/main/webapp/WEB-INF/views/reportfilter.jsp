@@ -89,7 +89,7 @@
 
 <div id="content">
     <div class="block" style="text-align: left;">
-        <div class="error">Не найдено ни одного запроса</div>
+        <div class="error">Не найдено ни одного запроса, выберите иное условие поиска</div>
         <div class="warning">
 
 
@@ -107,10 +107,6 @@
                 <a href="#" class="transition_button" onclick="getSimpleReportList(2)">Назначенные на меня</a> &nbsp;
                 <a href="#" class="transition_button" onclick="getSimpleReportList(3)">Созданные мной</a> &nbsp;
                 <a href="#" class="transition_button" onclick="getSimpleReportList(4)">Без исполнителя</a>
-                <a href="#" class="transition_button" onclick="getSimpleReportList(5)">На обработке полиции</a> &nbsp;
-                <a href="#" class="transition_button" onclick="getSimpleReportList(6)">На обработке пожарных</a>
-
-
             </div>
 
             <div>

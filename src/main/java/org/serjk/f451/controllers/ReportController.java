@@ -103,7 +103,7 @@ public class ReportController {
                                                     @PathVariable("stepId") int stepId) {
         Report report = reportService.getReport(reportId);
         ErrorInfo errorInfo = new ErrorInfo();
-        int RejectedStepID = 7;
+        int RejectedStepID = 6;
 
         //Когда офицер полиции берёт в работу он должен назаначить исполнителя
         logger.info(String.format("Step id -  %s, start validation",stepId));
@@ -114,17 +114,18 @@ public class ReportController {
             return errorInfo;
         }
         else if(stepId==3){
-            //генерируем колличество книг
+
             Random rn = new Random();
             int bookCount = rn.nextInt(101);
 
             if(bookCount>0){
-                 errorInfo.setErrorCode("label.workflow.validation.info.ok");
-                 errorInfo.setMessage(String.format("Пёс нашёл %s книг, можно передавать запрос пожарным", bookCount));
-                 report.setStepId(stepId);
+                errorInfo.setErrorCode("label.workflow.validation.info.ok");
+                errorInfo.setMessage(String.format("Пёс нашёл %s книг, можно передавать запрос пожарным", bookCount));
+                report.setStepId(stepId);
                 report.setCountBook(bookCount);
-                 reportService.setReport(report);
-                 logger.error(String.format("Step id -  %s, electric dof find books",report.getStepId()));
+                reportService.setReport(report);
+                logger.error(String.format("Step id -  %s, electric dof find books",report.getStepId()));
+                return errorInfo;
             }
             else {
                 errorInfo.setErrorCode("label.workflow.validation.info.ok");
@@ -132,25 +133,13 @@ public class ReportController {
                 report.setStepId(RejectedStepID);
                 reportService.setReport(report);
                 logger.error(String.format("Step id -  %s, electric dof find books",report.getStepId()));
+                return errorInfo;
             }
-            return errorInfo;
+
         }
-        else if(stepId==4 && report.getCountBook()==-1){
-            errorInfo.setErrorCode("label.workflow.validation.error.dogvalidation.empty");
-            errorInfo.setMessage("Пёс не проверил дом на наличие книг");
-            logger.error(String.format("Step id -  %s, validation filed - no electric dog repo",report.getStepId()));
-            return errorInfo;
-        }
-        else if(stepId==5 && userService.getUserById(report.getFiremanId())==null){
+        else if(stepId==4 && userService.getUserById(report.getFiremanId())==null){
             errorInfo.setErrorCode("label.workflow.validation.error.firemanid.empty");
             errorInfo.setMessage("Не установлен пожарный офицер, пожарный расчет не может выехать, пока не установлен пожарный офицер");
-            logger.error(String.format("Step id -  %s, validation filed - no fireman ID",report.getStepId()));
-            return errorInfo;
-        }
-        else if(stepId==666){
-            //автоматически устанавливаетя время закрытия запроса
-            errorInfo.setErrorCode("label.workflow.validation.info.ok");
-            errorInfo.setMessage("Работы по запросу завершены, проставлена дата закрытия");
             logger.error(String.format("Step id -  %s, validation filed - no fireman ID",report.getStepId()));
             return errorInfo;
         }
@@ -247,18 +236,6 @@ public class ReportController {
     List<SimpleReport>  getMySimpleReportList() {
         User currentUser = userLoginService.getLoginUser();
         return  reportService.getMySimpleReportList(currentUser);
-    }
-
-    @RequestMapping(value = "/user/rest/report/assignee/policeman")
-    public @ResponseBody
-    List<SimpleReport>  getInProgressPoliceSimpleReportList() {
-        return  reportService.getInProgressPoliceSimpleReportList();
-    }
-
-    @RequestMapping(value = "/user/rest/report/assignee/fireman")
-    public @ResponseBody
-    List<SimpleReport>  getInProgressFiremanSimpleReportList() {
-        return  reportService.getInProgressFiremanSimpleReportList();
     }
 
     @RequestMapping(value = "/user/rest/report/date/{starttimestamp}/{endtimestamp}")

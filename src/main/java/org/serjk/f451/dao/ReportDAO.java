@@ -41,10 +41,6 @@ public interface ReportDAO {
 
     public List<SimpleReport> getSimpleReportList();
 
-    public List<SimpleReport> getInProgressPoliceSimpleReportList();
-
-    public List<SimpleReport>  getInProgressFiremanSimpleReportList();
-
     public List<SimpleReport>  getDateRangeSimpleReportList(long starttimestamp,
                                                             long endtimestamp);
 

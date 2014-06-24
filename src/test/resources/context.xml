@@ -13,7 +13,7 @@
     <!-- Настраивает управление транзакциями с помощью аннотации @Transactional -->
     <tx:annotation-driven transaction-manager="transactionManager" />
 
-    <context:component-scan base-package="org.serjk.f451.dao" />
+    <context:component-scan base-package="org.serjk.f451.dao"/>
 
     <!-- Менеджер транзакций -->
     <bean id="transactionManager"

@@ -121,15 +121,6 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public Step getStepById(int id){
-        for (Step step : Step.values() ){
-             if(step.getId()==id)
-                 return step;
-        }
-        return  null;
-    }
-
-    @Override
     public List <Transition> getOutgoingTransitionsID(int stepId, String role){
 
 
@@ -142,11 +133,5 @@ public class ReportServiceImpl implements ReportService {
          if (transitionList.isEmpty() )return  null;
             else  return  transitionList;
 
-    }
-
-    @Override
-    public List <Step> getStepList(){
-        List <Step>  stepList= Arrays.asList(Step.values());
-        return  stepList;
     }
 }

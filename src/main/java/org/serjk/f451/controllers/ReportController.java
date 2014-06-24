@@ -9,6 +9,7 @@ import org.serjk.f451.model.enums.Transition;
 import org.serjk.f451.service.impl.UserLoginService;
 import org.serjk.f451.service.ReportService;
 import org.serjk.f451.service.UserService;
+import org.serjk.f451.util.StepUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -167,7 +168,7 @@ public class ReportController {
     @RequestMapping("/user/report/archive")
     public String listReportAll(Model model) {
         User loginUser = userLoginService.getLoginUser();
-        List <Step> step = reportService.getStepList();
+        List <Step> step = StepUtil.getStepList();
         model.addAttribute("listStep", step);
         model.addAttribute("loginUser",loginUser);
         model.addAttribute("listReport", reportService.getReportList());
@@ -200,7 +201,7 @@ public class ReportController {
         User policeman =  userService.getUserById(report.getPolicemanId());
         User reporter =  userService.getUserById(report.getReporterId());
         User suspect =  userService.getUserById(report.getSuspectId());
-        Step step  = reportService.getStepById(report.getStepId());
+        Step step  = StepUtil.getStepById(report.getStepId());
         List<User> policemanAssigners  = userService.getPolicemanAssigners();
         List<User> firemanAssigners = userService.getFiremanAssigners();
         User loginUser  = userLoginService.getLoginUser();
@@ -283,7 +284,7 @@ public class ReportController {
     @RequestMapping("/user/workflow/step/{stepId}")
     public @ResponseBody
     Step getStepInJSON(@PathVariable("stepId") int stepId) {
-        return reportService.getStepById(stepId);
+        return StepUtil.getStepById(stepId);
     }
 
 }

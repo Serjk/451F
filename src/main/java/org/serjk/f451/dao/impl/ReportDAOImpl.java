@@ -10,7 +10,7 @@ import org.serjk.f451.model.Report;
 import org.serjk.f451.model.SimpleReport;
 import org.serjk.f451.model.User;
 import org.serjk.f451.model.enums.Step;
-import org.serjk.f451.service.ReportService;
+import org.serjk.f451.util.StepUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,9 +31,6 @@ public  class ReportDAOImpl implements ReportDAO {
 
     @Autowired
     private UserDAO userDAO;
-
-    @Autowired
-    private ReportService reportService;
 
     static final Logger logger = Logger.getLogger(ReportDAOImpl.class);
 
@@ -130,7 +127,7 @@ public  class ReportDAOImpl implements ReportDAO {
         User policeman = userDAO.getUserById(report.getPolicemanId());
         User suspect = userDAO.getUserById(report.getSuspectId());
         User reporter = userDAO.getUserById(report.getReporterId());
-        Step step =reportService.getStepById(report.getStepId());
+        Step step = StepUtil.getStepById(report.getStepId());
 
         simpleReport.setFiremanDisplayName(getUserDisplayName(fireman));
         simpleReport.setPolicemanDisplayName(getUserDisplayName(policeman));
@@ -184,7 +181,7 @@ public  class ReportDAOImpl implements ReportDAO {
 
     @Transactional
     public List<SimpleReport>  getUnasigneedSimpleReportList(){
-        List <Report> reportList = getUnasigneedReportList();
+        List <Report> reportList = getUnasignedReportList();
         return checkNull(reportList);
     }
 
@@ -236,7 +233,7 @@ public  class ReportDAOImpl implements ReportDAO {
     }
 
     @Transactional
-    public List<Report>  getUnasigneedReportList(){
+    public List<Report> getUnasignedReportList(){
         Query query = openSession().createQuery("FROM Report  AS r WHERE r.policemanId=0 OR r.firemanId=0 ");
         if (query.list().isEmpty()) return null; else
             return (List<Report>) query.list();

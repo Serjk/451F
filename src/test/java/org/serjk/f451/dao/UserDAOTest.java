@@ -6,6 +6,7 @@ import org.serjk.f451.BaseTest;
 import org.serjk.f451.model.User;
 import org.serjk.f451.model.enums.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import static org.junit.Assert.assertNull;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class UserDAOTest extends BaseTest {
 
     @Autowired

@@ -8,6 +8,15 @@ public class ErrorInfo {
     private String errorCode;
     private String message;
 
+    public  ErrorInfo(String errorCode, String message){
+        this.errorCode =  errorCode;
+        this.message =message;
+    }
+
+    public  ErrorInfo(){
+        this("","");
+    }
+
     public  void setMessage(String message){
         this.message =message;
     }

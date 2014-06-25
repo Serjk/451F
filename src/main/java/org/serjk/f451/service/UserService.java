@@ -16,6 +16,8 @@ public interface UserService {
 
     public User getUserById(long userId);
 
+    public User getUserByLogin(String login);
+
     public List<User> listReportUser(String lastName, String firstName);
 
     public List<User> getFiremanAssigners();

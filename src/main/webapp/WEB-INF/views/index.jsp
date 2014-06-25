@@ -37,7 +37,7 @@
                 <div class="login-form">
                     <form action="<c:url value='j_spring_security_check' />" method='POST'>
                         <div class="inputs-block">
-                            <input type="text" name="j_username" placeholder="Email"/>
+                            <input type="text" name="j_username" placeholder="Логин"/>
                             <input type="password" name="j_password" placeholder="Пароль"/>
                             <div>
                                 <input type="submit" value="Войти" />
@@ -58,18 +58,20 @@
                     </div>
                 </c:if>
                 <div class="reg-form">
-                    <form>
-                        <div class="inputs-block">
-                            <input class="login_input" name="name" type="name" placeholder="Имя">
-                            <input class="login_input" name="email" type="email" placeholder="Email">
-                            <input class="login_input" name="password" type="password" placeholder="Пароль">
-                            <input class="login_input" name="password_check" type="password" placeholder="Повторите пароль">
 
+                        <div class="inputs-block">
+                            <input class="reg_input" id="input_firstName" type="name" placeholder="Имя">
+                            <input class="reg_input" id="input_lastName" type="name" placeholder="Фамилия">
+                            <input class="reg_input" id="input_address" type="name" placeholder="Адрес">
+                            <input class="reg_input" id="input_login" type="name" placeholder="Логин">
+                            <input class="reg_input" id="input_password1" type="password" placeholder="П ароль">
+                            <input class="reg_input" id="input_password2" type="password" placeholder="Повторите пароль">
                             <div>
-                                <input class="login_submit" type="submit" value="Зарегистрироваться">
+                                <a href="#" class="transition_button" onclick="addUser()">Зарегистрироваться</a>
                             </div>
+                            <div id="reg_result" ></div>
                         </div>
-                    </form>
+
                 </div>
             </div>
         </div>
@@ -80,11 +82,10 @@
         <c:if test="${!empty loginUser}">
             <div id="block_menu">
                 <a href="<c:url value="/user/report/find"/>" class="block_menu_button"> <spring:message code="label.title.find" /> </a>
-                <a href="<c:url value="/"/>" class="block_menu_button"> <spring:message code="label.title.news"/></a>
+                <a href="<c:url value="/user/news"/>" class="block_menu_button"> <spring:message code="label.title.news"/></a>
                 <a href="<c:url value="/user/report/archive"/>" class="block_menu_button"><spring:message code="label.title.arcive"/> </a>
-                <c:if test="${loginUser.role=='ROLE_ADMIN'}">
+                <c:if test="${loginUser.role=='ROLE_OFFICIAL'}">
                     <a href="<c:url value="/admin/user"/>" class="block_menu_button"><spring:message code="label.title.manageUser"/></a>
-                    <a href="<c:url value="/admin/workflow"/>" class="block_menu_button"><spring:message code="label.title.manageWorkFlow"/></a>
                 </c:if>
             </div>
         </c:if>
@@ -121,4 +122,46 @@
     </div>
 
 </body>
+
+<script>
+    function addUser() {
+
+        var firstName = $("#input_firstName").val();
+        var lastName = $("#input_lastName").val();
+        var login = $("#input_login").val();
+        var address = $("#input_address").val();
+        var password1 = $("#input_password1").val();
+        var password2 = $("#input_password2").val();
+
+        var dataIn = "firstName=" + firstName + "&lastName=" + lastName +
+                "&login=" + login + "&address=" + address +
+                "&password1=" + password1 + "&password2=" + password2;
+
+        console.log(firstName);
+        if (firstName == "" || lastName == "" || login == "" ||
+            address == "" || password1 == "" || password2 == "") {
+            $("#reg_result").text("Заполните все поля")
+        }
+        else {
+
+            $.ajax({
+                url: "/rest/admin/user/add",  // указываем URL и
+                dataType: "json",
+                async: false,
+                type: "POST",
+                data: dataIn,
+                success: function (data, textStatus) { // вешаем свой обработчик на функцию success
+                    if (!$.isEmptyObject(data)) {
+                        console.log(data);
+                        $("#reg_result").text(data.message);
+                        if (data.errorCode == "rest.createuser.success") {
+                            $(".reg_input").val("");
+
+                        }
+                    }
+                }
+            });
+        }
+    }
+    </script>
 </html>

@@ -28,49 +28,12 @@
 
         <div></div>
         <div style="float: right;">
-            <div style="display: table-cell;">
-                <c:if test="${empty loginUser}">
-                    <div class="header_button" id="login_button">
-                        <p><spring:message code="label.header.login"/></p>
-                    </div>
-                </c:if>
-                <div class="login-form">
-                    <form action="<c:url value='j_spring_security_check' />" method='POST'>
-                        <div class="inputs-block">
-                            <input type="text" name="j_username" placeholder="Email"/>
-                            <input type="password" name="j_password" placeholder="Пароль"/>
-                            <div>
-                                <input type="submit" value="Войти" />
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
             <c:if test="${!empty loginUser}">
                 <div style="display: table-cell;">
                     <a href="<c:url value="/logout" />" class="header_button"><spring:message code="label.login.logout"/></a>
                 </div>
             </c:if>
-            <div style="display: table-cell;">
-                <c:if test="${empty loginUser}">
-                    <div class="header_button" id="reg_button">
-                        <p><spring:message code="label.header.register"/></p>
-                    </div>
-                </c:if>
-                <div class="reg-form">
-                    <form>
-                        <div class="inputs-block">
-                            <input class="login_input" name="name" type="name" placeholder="Имя">
-                            <input class="login_input" name="email" type="email" placeholder="Email">
-                            <input class="login_input" name="password" type="password" placeholder="Пароль">
-                            <input class="login_input" name="password_check" type="password" placeholder="Повторите пароль">
-                            <div>
-                                <input class="login_submit" type="submit" value="Зарегистрироваться">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+
         </div>
     </div>
 
@@ -78,11 +41,10 @@
         <c:if test="${!empty loginUser}">
         <div id="block_menu">
             <a href="<c:url value="/user/report/find"/>" class="block_menu_button"> <spring:message code="label.title.find" /> </a>
-            <a href="<c:url value="/"/>" class="block_menu_button"> <spring:message code="label.title.news"/></a>
+            <a href="<c:url value="/user/news"/>" class="block_menu_button"> <spring:message code="label.title.news"/></a>
             <a href="<c:url value="/user/report/archive"/>" class="block_menu_button"><spring:message code="label.title.arcive"/> </a>
-            <c:if test="${loginUser.role=='ROLE_ADMIN'}">
+            <c:if test="${loginUser.role=='ROLE_OFFICIAL'}">
                 <a href="<c:url value="/admin/user"/>" class="block_menu_button"><spring:message code="label.title.manageUser"/></a>
-                <a href="<c:url value="/admin/workflow"/>" class="block_menu_button"><spring:message code="label.title.manageWorkFlow"/></a>
             </c:if>
         </div>
         </c:if>
@@ -127,8 +89,6 @@
                 <a href="#" class="transition_button"onclick="getSimpleReportList(7)">Выбрать</a>
             </div>
                 </c:if>
-
-
 
         </div>
             <p id ="res_hed" >Результат запроса:</p>

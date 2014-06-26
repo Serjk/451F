@@ -28,4 +28,6 @@ public interface UserService {
 
     public SimpleUser getSimpleUserById(long userId);
 
+    public List<SimpleUser> getSimpleUserList ();
+
 }

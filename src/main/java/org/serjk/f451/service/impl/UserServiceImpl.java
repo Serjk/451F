@@ -62,4 +62,7 @@ public class UserServiceImpl implements UserService {
         return  userDAO.getSimpleUserById(userId);
     }
 
+    public List<SimpleUser> getSimpleUserList (){
+        return userDAO.getSimpleUserList();
+    }
 }

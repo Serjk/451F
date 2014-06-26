@@ -11,6 +11,8 @@ import org.serjk.f451.model.SimpleUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -43,8 +45,7 @@ public  class UserDAOImpl implements UserDAO {
     @Override
     @Transactional
     public User getUserByLogin(String login) throws HibernateException {
-        Query query = openSession().createQuery("FROM User  as u WHERE u.login='"+login+"'");
-
+       Query query = openSession().createQuery("FROM User  as u WHERE u.login='"+login+"'");
        if (query.list().isEmpty()) return null; else
            return (User) query.list().get(0);
     }
@@ -67,15 +68,39 @@ public  class UserDAOImpl implements UserDAO {
         SimpleUser simpleUser =new SimpleUser();
 
         if (query.list().isEmpty()) return null;
-
-        User user =  (User)  query.uniqueResult();
-        simpleUser.setFirstName(user.getFirstName());
-        simpleUser.setLastName(user.getLastName());
-        simpleUser.setAddress(user.getAddress());
-        simpleUser.setRole(user.getRole());
-        simpleUser.setId(user.getId());
-        return simpleUser;
+            User user =  (User)  query.uniqueResult();
+        return convertUserToSimpleUser(user);
     }
+
+    @Transactional
+    public List<SimpleUser> getSimpleUserList () throws HibernateException {
+        Query query = openSession().createQuery("FROM User");
+        if (query.list().isEmpty()) return null;
+        else {
+            List<User> userList = (List<User>) query.list();
+            List<SimpleUser> simpleUserList = new ArrayList<SimpleUser>();
+            for (User user : userList) {
+                simpleUserList.add(convertUserToSimpleUser(user));
+            }
+            return simpleUserList;
+        }
+    }
+
+    ///
+    private SimpleUser convertUserToSimpleUser(User user){
+        if(user!=null){
+            SimpleUser simpleUser =new SimpleUser();
+            simpleUser.setFirstName(user.getFirstName());
+            simpleUser.setLastName(user.getLastName());
+            simpleUser.setLogin(user.getLogin());
+            simpleUser.setAddress(user.getAddress());
+            simpleUser.setRole(user.getRole());
+            simpleUser.setId(user.getId());
+            return simpleUser;
+        }
+        else return  null;
+    }
+    ///
 
     @Transactional
     public long getUserIdByLogin(String login) {

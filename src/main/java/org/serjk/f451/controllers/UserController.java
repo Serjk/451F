@@ -4,9 +4,11 @@ import org.serjk.f451.dao.UserDAO;
 import org.serjk.f451.error.ErrorInfo;
 import org.serjk.f451.model.User;
 import org.serjk.f451.model.SimpleUser;
+import org.serjk.f451.model.enums.UserType;
 import org.serjk.f451.service.InitService;
 import org.serjk.f451.service.UserService;
 import org.serjk.f451.service.impl.UserLoginService;
+import org.serjk.f451.util.UserTypeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
@@ -33,7 +35,9 @@ public class UserController {
 
     @RequestMapping("/admin/user")
     public String listUser(Model model) {
+        User loginUser  = userLoginService.getLoginUser();
 
+        model.addAttribute("loginUser",loginUser);
         model.addAttribute("user", new User());
         model.addAttribute("listUser", userService.listUser());
         model.addAttribute("roles", userLoginService.getRoles());
@@ -44,7 +48,7 @@ public class UserController {
     public @ResponseBody
     String startInitService () {
         initService.initUsersTable();
-        return  "Started...";
+        return  "Default users inserted...";
     }
 
     @RequestMapping(value = "/admin/user/add", method = RequestMethod.POST)
@@ -109,15 +113,34 @@ public class UserController {
 
     }
 
-
-    @RequestMapping("/admin/user/delete/{userId}")
-    public String deleteUser(@PathVariable("userId") long userId) {
-        userService.removeUser(userId);
-        return "redirect:/admin/user";
+    @RequestMapping(value = "/rest/admin/user/add", method = RequestMethod.POST)
+    public @ResponseBody
+    ErrorInfo setUserRole(@RequestParam(value ="userId") long  userId,
+                          @RequestParam(value ="roleId") int roleId) {
+        User user = userService.getUserById(userId);
+        UserType userType = UserTypeUtil.getUserTypeById(roleId);
+        if ( user ==null ){
+            ErrorInfo errorInfo = new ErrorInfo("user.doesnotexist", "Пользователь не существует");
+            return errorInfo;
+        }
+        else  {
+            ErrorInfo errorInfo = new ErrorInfo("user.role.updated", "Роль обновлена");
+            user.setRole(userType.getDbRoleId());
+            userService.addUser(user);
+            return errorInfo;
+        }
     }
 
-    @RequestMapping("/user/report/user/{userId}")
-    public @ResponseBody SimpleUser getSimpleUserInJSON(@PathVariable("userId") long userId) {
+    @RequestMapping("/user/rest/user/{userId}")
+    public @ResponseBody SimpleUser getSimpleUser(@PathVariable("userId") long userId) {
        return userService.getSimpleUserById(userId);
     }
+
+    @RequestMapping("/user/rest/user/all")
+    public @ResponseBody
+    List <SimpleUser> getSimpleUserList(){
+        return userService.getSimpleUserList();
+    }
+
+
 }

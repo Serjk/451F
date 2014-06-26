@@ -10,6 +10,7 @@ import org.serjk.f451.service.impl.UserLoginService;
 import org.serjk.f451.service.ReportService;
 import org.serjk.f451.service.UserService;
 import org.serjk.f451.util.StepUtil;
+import org.serjk.f451.util.TransitionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -185,7 +186,7 @@ public class ReportController {
         String role = userLoginService.getLoginUser().getRole();
         Report report  = reportService.getReport(reportId);
         List<Transition> transitions =
-                reportService.getOutgoingTransitionsID(report.getStepId(),role);
+                TransitionUtil.getOutgoingTransitionsID(report.getStepId(), role);
         User fireman =  userService.getUserById(report.getFiremanId());
         User policeman =  userService.getUserById(report.getPolicemanId());
         User reporter =  userService.getUserById(report.getReporterId());

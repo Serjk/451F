@@ -110,18 +110,4 @@ public class ReportServiceImpl implements ReportService {
          return  reportDAO.getByStepSimpleReportList(stepId);
     }
 
-    @Override
-    public List <Transition> getOutgoingTransitionsID(int stepId, String role){
-
-
-        List <Transition>  transitionList  =  new ArrayList<Transition>();
-
-        for (Transition transition : Transition.values()){
-            if(transition.getStepIn()==stepId && transition.getPermission().equals(role))
-                transitionList.add(transition);
-        }
-         if (transitionList.isEmpty() )return  null;
-            else  return  transitionList;
-
-    }
 }

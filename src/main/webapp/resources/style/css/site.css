@@ -557,7 +557,7 @@ div.pager span.active {
     background: #c00;
 }
 
-.info, .success, .warning, .error, .validation {
+.info, .success, .warning, .error, .validation, .new_user {
     border: 1px solid;
     margin: 5px 5px;
     padding:5px 5px 5px 5px;
@@ -575,6 +575,14 @@ div.pager span.active {
     background-color: #DFF2BF;
 }
 .warning {
+    color: #9F6000;
+    background-color: #FEEFB3;
+
+}
+
+.new_user {
+    font-size:12px;
+    width:350px;
     color: #9F6000;
     background-color: #FEEFB3;
 

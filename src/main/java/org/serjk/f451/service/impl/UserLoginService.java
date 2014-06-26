@@ -32,11 +32,10 @@ public class UserLoginService implements UserDetailsService {
 
     public UserLoginService()
     {
-        roles.put(UserType.ROLE_USER.toString(),"User");
-        roles.put(UserType.ROLE_OFFICIAL.toString(),"Official");
-        roles.put(UserType.ROLE_FIREMAN.toString(),"Fireman");
-        roles.put(UserType.ROLE_POLICE.toString(),"Police");
-        roles.put(UserType.ROLE_ADMIN.toString(),"Administrator");
+        roles.put(UserType.ROLE_USER.getDbRoleId(),UserType.ROLE_USER.getRuName());
+        roles.put(UserType.ROLE_OFFICIAL.getDbRoleId(),UserType.ROLE_OFFICIAL.getRuName());
+        roles.put(UserType.ROLE_FIREMAN.getDbRoleId(),UserType.ROLE_FIREMAN.getRuName());
+        roles.put(UserType.ROLE_POLICE.getDbRoleId(),UserType.ROLE_POLICE.getRuName());
     }
 
     public Map<String,String> getRoles()

@@ -25,4 +25,6 @@ public interface UserDAO {
     public User getUserByLogin(String login)throws HibernateException;
 
     public List<User> getUsersByRole(String role)throws HibernateException;
+
+    public List<SimpleUser> getSimpleUserList ();
 }

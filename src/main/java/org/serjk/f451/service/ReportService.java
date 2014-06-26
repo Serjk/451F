@@ -45,5 +45,4 @@ public interface ReportService {
 
     public void setReport(Report report);
 
-    public List <Transition> getOutgoingTransitionsID(int stepId, String role);
 }

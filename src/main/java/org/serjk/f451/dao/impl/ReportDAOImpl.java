@@ -152,7 +152,7 @@ public  class ReportDAOImpl implements ReportDAO {
     @Transactional
     public List<SimpleReport>  getDateRangeSimpleReportList(long starttimestamp,
                                                             long endtimestamp){
-        List <Report> reportList = getDateRangeReportList(starttimestamp,endtimestamp);
+        List <Report> reportList = getDateRangeReportList(starttimestamp, endtimestamp);
         return checkNull(reportList);
     }
 
@@ -174,7 +174,7 @@ public  class ReportDAOImpl implements ReportDAO {
     }
 
     @Transactional
-    public List<SimpleReport>  getByStepSimpleReportList(int stepId){
+    public List<SimpleReport> getReportsByStep(int stepId){
         List <Report> reportList = getByStepReportList(stepId);
         return checkNull(reportList);
     }
@@ -236,7 +236,7 @@ public  class ReportDAOImpl implements ReportDAO {
     }
 
     @Transactional
-    public void setReport(Report report)
+    public void updateReport(Report report)
     {
         openSession().update(report);
     }

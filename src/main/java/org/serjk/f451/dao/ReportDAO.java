@@ -27,7 +27,7 @@ public interface ReportDAO {
 
     public List<Report> getAssignedToMeReportList(User user);
 
-    public void setReport(Report report);
+    public void updateReport(Report report);
 
     public void removeReport(long id);
 
@@ -46,7 +46,7 @@ public interface ReportDAO {
 
     public List<SimpleReport>  getUnasigneedSimpleReportList();
 
-    public List<SimpleReport>  getByStepSimpleReportList(int stepId);
+    public List<SimpleReport> getReportsByStep(int stepId);
 
 
 }

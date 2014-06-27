@@ -5,6 +5,7 @@ import org.serjk.f451.model.SimpleReport;
 import org.serjk.f451.model.User;
 import org.serjk.f451.model.enums.Transition;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,8 +35,7 @@ public interface ReportService {
 
     public List<SimpleReport> getSimpleReportList();
 
-    public List<SimpleReport>  getDateRangeSimpleReportList(long starttimestamp,
-                                                            long endtimestamp);
+    public List<SimpleReport>  getDateRangeSimpleReportList(Date startDate, Date endDate);
 
     public List<SimpleReport>  getUnasigneedSimpleReportList();
 

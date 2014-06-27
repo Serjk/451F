@@ -41,8 +41,8 @@ public interface ReportDAO {
 
     public List<SimpleReport> getSimpleReportList();
 
-    public List<SimpleReport>  getDateRangeSimpleReportList(long starttimestamp,
-                                                            long endtimestamp);
+    public List<SimpleReport>  getDateRangeSimpleReportList(Date startDate,
+                                                            Date endDate);
 
     public List<SimpleReport>  getUnasigneedSimpleReportList();
 

@@ -150,9 +150,8 @@ public  class ReportDAOImpl implements ReportDAO {
     }
 
     @Transactional
-    public List<SimpleReport>  getDateRangeSimpleReportList(long starttimestamp,
-                                                            long endtimestamp){
-        List <Report> reportList = getDateRangeReportList(starttimestamp, endtimestamp);
+    public List<SimpleReport>  getDateRangeSimpleReportList(Date startDate, Date endDate){
+        List <Report> reportList = getDateRangeReportList(startDate, endDate);
         return checkNull(reportList);
     }
 
@@ -182,36 +181,7 @@ public  class ReportDAOImpl implements ReportDAO {
     //////////
 
     @Transactional
-    public List<Report> getInProgressPoliceReportList(){
-        Query query = openSession()
-                .createQuery("FROM Report  AS r WHERE" +
-                        " r.stepId=:step1 OR r.stepId=:step2" +
-                        " OR  r.stepId=:step3");
-        query.setParameter("step1", 1);
-        query.setParameter("step2", 2);
-        query.setParameter("step3", 3);
-        if (query.list().isEmpty()) return null; else
-            return (List<Report>) query.list();
-    }
-
-    @Transactional
-    public List<Report>  getInProgressFiremanReportList(){
-        Query query = openSession()
-                .createQuery("FROM Report  AS r WHERE" +
-                        " r.stepId=:step1 OR r.stepId=:step2" +
-                        " OR  r.stepId=:step3");
-        query.setParameter("step1", 4);
-        query.setParameter("step2", 4);
-        query.setParameter("step3", 6);
-        if (query.list().isEmpty()) return null; else
-            return (List<Report>) query.list();
-    }
-
-    @Transactional
-    public List<Report>  getDateRangeReportList(long starttimestamp,
-                                                long endtimestamp){
-        Date startDate = new Date(starttimestamp);
-        Date endDate = new Date(endtimestamp);
+    public List<Report>  getDateRangeReportList (Date startDate, Date endDate){
         Query query = openSession().createQuery("FROM Report  AS r WHERE r.date>=:startDate AND r.date <=:endDate ");
         query.setParameter("startDate",  startDate);
         query.setParameter("endDate",  endDate);

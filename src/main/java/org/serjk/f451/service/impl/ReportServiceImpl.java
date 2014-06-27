@@ -11,6 +11,7 @@ import org.serjk.f451.model.Report;
 import org.serjk.f451.service.ReportService;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -92,9 +93,8 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public List<SimpleReport>  getDateRangeSimpleReportList(long starttimestamp,
-                                                            long endtimestamp){
-        return reportDAO.getDateRangeSimpleReportList(starttimestamp,endtimestamp);
+    public List<SimpleReport>  getDateRangeSimpleReportList(Date startDate, Date endDate){
+        return reportDAO.getDateRangeSimpleReportList(startDate,endDate);
     }
 
     @Override

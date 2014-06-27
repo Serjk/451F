@@ -75,13 +75,12 @@
     <c:if test="${!empty loginUser}">
         <div id="block_menu">
             <a href="<c:url value="/user/report/find"/>" class="block_menu_button"> <spring:message code="label.title.find" /> </a>
-            <a href="<c:url value="/"/>" class="block_menu_button"> <spring:message code="label.title.news"/></a>
+            <a href="<c:url value="/user/news/"/>" class="block_menu_button"> <spring:message code="label.title.news"/></a>
             <a href="<c:url value="/user/report/archive"/>" class="block_menu_button"><spring:message code="label.title.arcive"/> </a>
-
             <c:if test="${loginUser.role=='ROLE_ADMIN'}">
                 <a href="<c:url value="/admin/user"/>" class="block_menu_button"><spring:message code="label.title.manageUser"/></a>
-                <a href="<c:url value="/admin/workflow"/>" class="block_menu_button"><spring:message code="label.title.manageWorkFlow"/></a>
             </c:if>
+            <a href="<c:url value="/user/profile"/>" class="block_menu_button">Профиль</a>
         </div>
     </c:if>
 
@@ -138,7 +137,7 @@
             <input type="hidden" id="myDiv" name="id" value="">
             <p><spring:message code="label.report.summary"/> <input type="text" name="summary" value=""> </p>
             <p><spring:message code="label.report.description"/> <textarea type="text" name="description" value=""cols="40" rows="5"></textarea> </p>
-            <input type="submit" value="<spring:message code="label.find.find"/>"/>
+            <input type="submit" value="Отправить донос" />
             <input type="button" value="Отмена" id="cancel"/>
         </form>
     </div>
@@ -149,6 +148,7 @@
 </div>
 </body>
 <script>
+
     function setFormValue(id,first,last,addres){
         $("#blackblock").show();
         $("#confirm_denun").show();
@@ -156,6 +156,7 @@
         $("#myDiv").val(id);
         $("#lastFirst").text("Донос на гражданина"+" "+first+" "+last);
         $("#address").text(addres);
-         }
+    }
+
 </script>
 </html>

@@ -36,11 +36,7 @@ public class UserController {
     @RequestMapping("/admin/user")
     public String listUser(Model model) {
         User loginUser  = userLoginService.getLoginUser();
-
         model.addAttribute("loginUser",loginUser);
-        model.addAttribute("user", new User());
-        model.addAttribute("listUser", userService.listUser());
-        model.addAttribute("roles", userLoginService.getRoles());
         return "user";
     }
 
@@ -49,29 +45,6 @@ public class UserController {
     String startInitService () {
         initService.initUsersTable();
         return  "Default users inserted...";
-    }
-
-    @RequestMapping(value = "/admin/user/add", method = RequestMethod.POST)
-    public String addUser(@RequestParam(value ="firstName") String firstName,
-                          @RequestParam(value ="lastName") String lastName,
-                          @RequestParam(value ="login") String login,
-                          @RequestParam(value ="address") String address,
-                          @RequestParam(value ="role") String role,
-                          @RequestParam(value ="password") String password) {
-
-        User user = new User();
-        PasswordEncoder passwordEncoder = new Md5PasswordEncoder();
-
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setAddress(address);
-        user.setLogin(login);
-
-        user.setPassword(passwordEncoder.encodePassword(password,null));
-        user.setRole(role);
-
-        userService.addUser(user);
-        return "redirect:/admin/user";
     }
 
     @RequestMapping(value = "/rest/admin/user/add", method = RequestMethod.POST)

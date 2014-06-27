@@ -376,6 +376,25 @@ div .block {
     box-shadow: -8px 15px 59px 16px rgba(0, 0, 0, 0.75), inset 0 1px 0 #ffffff;
 }
 
+
+#news_denun {
+    z-index: 100;
+    width: 320px;
+    height: 240px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -250px;
+    margin-top: -115px;
+    background-color: white;
+    font-size: 15px;
+    padding: 10px;
+    border-radius: 11px;
+    -webkit-box-shadow: -8px 15px 59px 16px rgba(0, 0, 0, 0.75), inset 0 1px 0 #ffffff;
+    -moz-box-shadow: -8px 15px 59px 16px rgba(0, 0, 0, 0.75), inset 0 1px 0 #ffffff;
+    box-shadow: -8px 15px 59px 16px rgba(0, 0, 0, 0.75), inset 0 1px 0 #ffffff;
+}
+
 #assign_police_denun {
     z-index: 100;
     width: 500px;
@@ -499,7 +518,7 @@ div .block {
 #validate_workflow_denun {
     z-index: 100;
     width: 500px;
-    height: 230px;
+    height: 100px;
     position: absolute;
     left: 50%;
     top: 50%;

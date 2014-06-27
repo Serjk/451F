@@ -43,6 +43,7 @@
                 <c:if test="${loginUser.role=='ROLE_OFFICIAL'}">
                     <a href="<c:url value="/admin/user"/>" class="block_menu_button"><spring:message code="label.title.manageUser"/></a>
                 </c:if>
+                <a href="<c:url value="/user/profile"/>" class="block_menu_button">Профиль</a>
             </div>
         </c:if>
 
@@ -59,7 +60,6 @@
                             <th><spring:message code="label.user.login" /></th>
                             <th><spring:message code="label.user.role" /></th>
                             <th>Действия</th>
-                            <th></th>
                         </tr>
                         </thead>
                         <tbody class="tbody">
@@ -68,7 +68,6 @@
                     <div class="pager"></div>
             </div>
         </div>
-
 
     <div id="footer">
         <div>
@@ -92,7 +91,7 @@
     function setPagination(){
         $('table.paginated').each(function() {
             var currentPage = 0;
-            var numPerPage = 5;
+            var numPerPage = 10;
             var $table = $(this);
             $table.bind('repaginate', function() {
                 $table.find('tbody tr').hide().slice(currentPage * numPerPage, (currentPage + 1) * numPerPage).show();
@@ -169,16 +168,9 @@
                                 type: "POST",
                                 data: dataIn,
                                 success: function (data, textStatus) { // вешаем свой обработчик на функцию success
-                                   if (!$.isEmptyObject(data)) {
-                                       console.log(data);
-                                       $("#reg_result").text(data.message);
-                                       if (data.errorCode == "rest.createuser.success") {
-                                           $(".reg_input").val("");
-
-                                       }
-                                   }
+                                    console.log(data);
                                 }
-                                });
+                            });
                         });
                     });
                     setPagination();

@@ -12,7 +12,10 @@ http://www.springframework.org/schema/security/spring-security-3.0.xsd">
         <intercept-url pattern="/user/rest/report/archive" access="hasAnyRole('ROLE_OFFICIAL','ROLE_USER','ROLE_FIREMAN','ROLE_POLICE', 'ROLE_ADMIN')" />
         <intercept-url pattern="/user/rest/report/assignee/policeman" access="hasAnyRole('ROLE_OFFICIAL','ROLE_USER','ROLE_FIREMAN','ROLE_POLICE', 'ROLE_ADMIN')" />
         <intercept-url pattern="/admin/user/add*" access="hasRole('ROLE_OFFICIAL')"/>
-        <intercept-url pattern="/admin/user/" access="hasRole('ROLE_OFFICIAL')"/>
+        <intercept-url pattern="/admin/user/*" access="hasRole('ROLE_OFFICIAL')"/>
+        <intercept-url pattern="/user/news*" access="hasAnyRole('ROLE_OFFICIAL','ROLE_USER','ROLE_FIREMAN','ROLE_POLICE', 'ROLE_ADMIN')"/>
+        <intercept-url pattern="/user/rest*" access="hasAnyRole('ROLE_OFFICIAL','ROLE_USER','ROLE_FIREMAN','ROLE_POLICE', 'ROLE_ADMIN')"/>
+
         <intercept-url pattern="/admin/user/delete/*" access="hasRole('ROLE_OFFICIAL')" />
         <form-login login-page="/login.jsp" default-target-url="/user/index"
                     authentication-failure-url="/login.jsp?error=true" />

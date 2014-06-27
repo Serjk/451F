@@ -243,7 +243,9 @@ public class ReportController {
     public @ResponseBody
     List<SimpleReport>  getDateRangeSimpleReportList(@PathVariable("starttimestamp") long starttimestamp,
                                                      @PathVariable("endtimestamp") long endtimestamp) {
-        return  reportService.getDateRangeSimpleReportList(starttimestamp, endtimestamp);
+        Date startDate = new Date(starttimestamp);
+        Date endDate = new Date(endtimestamp);
+        return  reportService.getDateRangeSimpleReportList(startDate, endDate);
     }
 
     @RequestMapping(value = "/user/rest/report/assignee/empty")

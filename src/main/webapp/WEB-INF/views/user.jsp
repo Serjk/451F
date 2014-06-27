@@ -118,6 +118,12 @@
 
     function getSimpleUserList(id){
         var url = "/user/rest/user/all";
+
+        optionValues0 = {"1": {id: "ROLE_USER", value: "Гражданин"},
+                         "2": {id: "ROLE_POLICE", value: "Полицейский"},
+                         "3": {id: "ROLE_FIREMAN", value: "Пожарный"},
+                         "4": {id: "ROLE_OFFICIAL", value: "Чиновник"}};
+
         $.ajax({
             url: url,  // указываем URL и
             dataType : "json",
@@ -125,40 +131,57 @@
             success: function (data, textStatus) { // вешаем свой обработчик на функцию success
 
                 if (!$.isEmptyObject(data)){
+
                     $('#filter_result').show();
                     $('.pager').show();
                     $("#filter_result").find('tbody').empty();
+
                     $.each(data, function(i, val) {    // обрабатываем полученные данные
                         console.log(val);
+                        var id = "mySelect"+val.id
                         $("#filter_result").find('tbody')
-                                .append($('<tr>')
-                                        .append(
-                                        $('<td>').text(val.id),
-                                        $('<td>').text(val.firstName +" "+ val.lastName),
-                                        $('<td>').text(val.login),
-                                        $('<td>').append($('<select>').addClass( 'mySelect')),
-
-                                        $('<td>')
-                                                .append(
-                                                $('<a>').text("Удалить пользователя...").attr('href',"/user/report/find/"+val.id)
-                                        )
+                            .append($('<tr>')
+                                .append(
+                                $('<td id=idCell'+val.id+'>').text(val.id),
+                                $('<td>').text(val.firstName +" "+ val.lastName),
+                                $('<td>').text(val.login),
+                                $('<td>').append($('<select>').attr("id",id)),
+                                $('<td>')
+                                    .append(
+                                    $('<a>').text("Удалить пользователя...").attr('href',"/user/report/find/"+val.id)
                                 )
+                            )
                         );
-                        optionValues0 = {"1": {id: "4321", value: "option 1"}, "2": {id: "1234", value: "option 2"}};
-
                         $.each(optionValues0, function(order, object) {
-                            key = object.id;
-                            value = object.value;
-                            $('.mySelect').append($('<option>', { value : key }).text(value));
+                        key = object.id;
+                        value = object.value;
+                        $('#'+id).append($('<option>', { value : key }).text(value)); }),
+                        $('#'+id).val(val.role).change(),
+                        $('#'+id).change(function() {
+                            var role =  $('#mySelect'+val.id).val();
+                            var id = $('#idCell'+val.id).text();
+                            var dataIn = "userId="+id+"&roleId="+role;
+                            console.log(dataIn);
+                            $.ajax({
+                                url: "/rest/admin/user/updaterole",  // указываем URL и
+                                dataType: "json",
+                                async: false,
+                                type: "POST",
+                                data: dataIn,
+                                success: function (data, textStatus) { // вешаем свой обработчик на функцию success
+                                   if (!$.isEmptyObject(data)) {
+                                       console.log(data);
+                                       $("#reg_result").text(data.message);
+                                       if (data.errorCode == "rest.createuser.success") {
+                                           $(".reg_input").val("");
 
+                                       }
+                                   }
+                                }
+                                });
                         });
-                        $('.mySelect').val(2).change();
-
                     });
                     setPagination();
-
-
-
                 }
                 else {
                     $('#filter_result').hide();
@@ -171,7 +194,6 @@
 
         SetSize();
     }
-
 
     function SetSize() {
         var content = ($("#content").height() + $("#header").height() + $("#footer").height() + $("#block_menu").height());

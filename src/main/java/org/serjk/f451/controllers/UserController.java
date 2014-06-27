@@ -113,14 +113,18 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/rest/admin/user/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/rest/admin/user/updaterole", method = RequestMethod.POST)
     public @ResponseBody
     ErrorInfo setUserRole(@RequestParam(value ="userId") long  userId,
-                          @RequestParam(value ="roleId") int roleId) {
+                          @RequestParam(value ="roleId") String dbRoleId) {
         User user = userService.getUserById(userId);
-        UserType userType = UserTypeUtil.getUserTypeById(roleId);
-        if ( user ==null ){
+        UserType userType = UserTypeUtil.getUserTypeByDbRoleId(dbRoleId);
+        if ( user == null ){
             ErrorInfo errorInfo = new ErrorInfo("user.doesnotexist", "Пользователь не существует");
+            return errorInfo;
+        }
+        else if (userType == null){
+            ErrorInfo errorInfo = new ErrorInfo("user.role.doesnotexist", "Роль не существует");
             return errorInfo;
         }
         else  {

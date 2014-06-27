@@ -41,7 +41,7 @@ public class InitServiceImpl implements InitService {
                             "Новоизмайловский 16 к4",
                             "Новоизмайловский 16 к1" };
 
-        String [] role = {"ROLE_ADMIN",
+        String [] role = {"ROLE_OFFICIAL",
                           "ROLE_USER",
                           "ROLE_FIREMAN",
                           "ROLE_POLICE"};

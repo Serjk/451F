@@ -6,25 +6,18 @@ package org.serjk.f451.model.enums;
 
 public enum UserType {
 
-    ROLE_USER(1,"Гражданин","ROLE_USER"),
-    ROLE_POLICE(2, "Полицейский", "ROLE_POLICE"),
-    ROLE_FIREMAN(3,"Пожарный", "ROLE_FIREMAN"),
-    ROLE_OFFICIAL(4, "Чиновник", "ROLE_OFFICIAL");
+    ROLE_USER("Гражданин","ROLE_USER"),
+    ROLE_POLICE("Полицейский", "ROLE_POLICE"),
+    ROLE_FIREMAN("Пожарный", "ROLE_FIREMAN"),
+    ROLE_OFFICIAL("Чиновник", "ROLE_OFFICIAL");
 
-    private final int roleId;
     private final String ruName;
     private final String dbRoleId;
 
 
-    private UserType(int roleId,
-                     String  ruName, String dbRoleId) {
-        this.roleId = roleId;
+    private UserType(String  ruName, String dbRoleId) {
         this.ruName  = ruName;
         this.dbRoleId = dbRoleId;
-    }
-
-    public int getRoleId() {
-        return roleId;
     }
 
     public String   getRuName() {

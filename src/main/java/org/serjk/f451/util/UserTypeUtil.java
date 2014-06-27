@@ -10,10 +10,9 @@ import java.util.List;
  */
 public class UserTypeUtil {
 
-
-    public static UserType getUserTypeById(int roleId){
+    public static UserType getUserTypeByDbRoleId(String DbRoleId){
         for (UserType userType : UserType.values() ){
-            if(userType.getRoleId()==roleId)
+            if(userType.getDbRoleId().equals(DbRoleId))
                 return userType;
         }
         return  null;

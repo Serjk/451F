@@ -60,4 +60,5 @@ public class Bank {
     public void setDate(Date date){
         this.date =  date;
     }
+
 }

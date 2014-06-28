@@ -34,23 +34,26 @@
                         <p><spring:message code="label.header.login"/></p>
                     </div>
                 </c:if>
+
                 <div class="login-form">
-                    <form action="<c:url value='j_spring_security_check' />" method='POST'>
-                        <div class="inputs-block">
-                            <input type="text" name="j_username" placeholder="Логин"/>
-                            <input type="password" name="j_password" placeholder="Пароль"/>
-                            <div>
-                                <input type="submit" value="Войти" />
-                            </div>
+
+                     <div class="inputs-block">
+                        <input type="text" id="j_login" placeholder="Логин"/>
+                        <input type="password" id="j_password" placeholder="Пароль"/>
+                        <div>
+                            <input type="submit" value="Войти" onclick="loginUser()"/>
                         </div>
-                    </form>
+                         <p id="login_error"> </p>
+                     </div>
                 </div>
             </div>
+
             <c:if test="${!empty loginUser}">
                 <div style="display: table-cell;">
                     <a href="<c:url value="/logout" />" class="header_button"><spring:message code="label.login.logout"/></a>
                 </div>
             </c:if>
+
             <div style="display: table-cell;">
                 <c:if test="${empty loginUser}">
                     <div class="header_button" id="reg_button">
@@ -124,6 +127,43 @@
 </body>
 
 <script>
+
+    function loginUser() {
+        var login = $("#j_login").val();
+        var password = $("#j_password").val();
+
+        var dataIn = "j_username=" + login + "&j_password=" + password;
+
+        console.log(dataIn);
+        if (login == "" || password == "") {
+            $("#login_error").text("Заполните поля")
+        }
+
+        else {
+            $.ajax({
+                url: "j_spring_security_check",  // указываем URL и
+
+                async: false,
+                type: "POST",
+                data: dataIn,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("X-Ajax-call", "true");
+                },
+                success: function(result) {
+                    if(result=="UserDetailsService returned null, which is an interface contract violation"){
+                        $("#login_error").text("Пользователь не найден в системе")
+                    }
+
+                    else if(result=="Bad credentials"){
+                        $("#login_error").text("Неверный пароль")
+                    }
+                    else(location.reload());
+                }
+            });
+        }
+
+    }
+
     function addUser() {
 
         var firstName = $("#input_firstName").val();
@@ -156,7 +196,6 @@
                         $("#reg_result").text(data.message);
                         if (data.errorCode == "rest.createuser.success") {
                             $(".reg_input").val("");
-
                         }
                     }
                 }

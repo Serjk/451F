@@ -22,7 +22,7 @@ public class NewsServiceImpl implements NewsService {
     @Autowired
     NewsDAO newsDAO;
 
-    public void  addNew(News news){
+    public void  addNews(News news){
         newsDAO.addNew(news);
     }
 

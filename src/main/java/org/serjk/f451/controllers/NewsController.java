@@ -33,7 +33,7 @@ public class NewsController {
 
     @RequestMapping(value = "/user/rest/news/new", method = RequestMethod.POST)
     public @ResponseBody
-    ErrorInfo addNew(@RequestParam(value ="title") String title,
+    ErrorInfo addNews(@RequestParam(value ="title") String title,
                             @RequestParam(value ="summary") String summary,
                             @RequestParam(value ="description") String description){
 
@@ -45,7 +45,7 @@ public class NewsController {
             news.setSummary(summary);
             news.setText(description);
             news.setTitle(title);
-            newsService.addNew(news);
+            newsService.addNews(news);
             return new ErrorInfo("news.add.succses","Новость успешно добавлена");
         }
         else {

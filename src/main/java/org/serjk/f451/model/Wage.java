@@ -28,7 +28,7 @@ public class Wage {
         return this.cash;
     }
 
-    public void setCash(long cash){
+    public void setCash(double cash){
         this.cash = cash;
     }
 

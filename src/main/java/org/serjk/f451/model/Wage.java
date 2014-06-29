@@ -11,7 +11,7 @@ public class Wage {
     private long id;
 
     @Column(name = "Cash")
-    private long  cash;
+    private double  cash;
 
     @Column(name = "Type")
     private String  type;
@@ -26,16 +26,18 @@ public class Wage {
 
     public double getCash(){
         return this.cash;
-    public long getCash(){
-        return this.cash;
     }
 
-    public void setCash(double cash){
+    public void setCash(long cash){
         this.cash = cash;
     }
 
     public String getType(){
         return this.type;
+    }
+
+    public void setCash(String type){
+        this.type = type;
     }
 
 }

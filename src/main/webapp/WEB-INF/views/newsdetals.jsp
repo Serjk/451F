@@ -13,7 +13,7 @@
     <link href="<c:url value="/resources/style/css/site.css" />" rel="stylesheet">
     <script src="<c:url value="/resources/js/jquery.min.js"/>"></script>
     <script src="<c:url value="/resources/js/TextSelect.js"/>"></script>
-    <title><spring:message code="label.title.detals"/> ${report.id}</title>
+    <title>Подрробности новости №${news.id}</title>
 </head>
 
 <body>
@@ -43,6 +43,8 @@
                 <a href="<c:url value="/user/report/archive"/>" class="block_menu_button"><spring:message code="label.title.arcive"/> </a>
                 <c:if test="${loginUser.role=='ROLE_OFFICIAL'}">
                     <a href="<c:url value="/admin/user"/>" class="block_menu_button"><spring:message code="label.title.manageUser"/></a>
+                    <a href="<c:url value="admin/wage"/>" class="block_menu_button">Ставки ЗП</a>
+                    <a href="<c:url value="admin/bank"/>" class="block_menu_button">Бюджет</a>
                 </c:if>
                 <a href="<c:url value="/user/profile"/>" class="block_menu_button">Профиль</a>
             </div>
@@ -73,9 +75,6 @@
                         <td>${autor.firstName} ${autor.lastName}</td>
                     </tr>
                 </table>
-                <div id="buttons_menu">
-                    <a href="/" class="transition_button">Удалить</a>
-                </div>
             </div>
         </div>
     </div>
@@ -89,7 +88,9 @@
 </body>
 
 <script>
-
+    $(document).ready(function () {
+        SetSize();
+    });
 
     $(window).resize(function () {
         SetSize();

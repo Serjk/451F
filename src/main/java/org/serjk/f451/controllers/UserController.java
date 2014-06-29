@@ -40,6 +40,15 @@ public class UserController {
         return "user";
     }
 
+    @RequestMapping("/user/profile")
+    public String getUserProfile(Model model) {
+        User loginUser  = userLoginService.getLoginUser();
+        UserType role = UserTypeUtil.getUserTypeByDbRoleId(loginUser.getRole());
+        model.addAttribute("loginUser",loginUser);
+        model.addAttribute("role",role);
+        return "userprofile";
+    }
+
     @RequestMapping("/admin/services/startinit/")
     public @ResponseBody
     String startInitService () {
@@ -83,7 +92,6 @@ public class UserController {
                     "Пользователь уже существует в системе");
             return errorInfo;
         }
-
     }
 
     @RequestMapping(value = "/rest/admin/user/updaterole", method = RequestMethod.POST)
@@ -118,6 +126,7 @@ public class UserController {
     List <SimpleUser> getSimpleUserList(){
         return userService.getSimpleUserList();
     }
+
 
 
 }

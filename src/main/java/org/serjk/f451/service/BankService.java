@@ -11,8 +11,8 @@ import java.util.List;
 public interface BankService {
 
     public void addBank(Bank bank);
-    public void increaseBudget(Wage wage, Double value);
-    public void decrBudget(Wage wage, Double value);
+    public void increaseBudget(Wage wage, double value);
+    public void decreaseBudget(Wage wage, double value);
     public List<Bank> getBankList();
 
 }

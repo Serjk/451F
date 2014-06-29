@@ -25,16 +25,19 @@ public class BankDAOImpl implements BankDAO {
         return sessionFactory.getCurrentSession();
     }
 
+    @Transactional
     public void addBank(Bank bank){
         openSession().saveOrUpdate(bank);
     }
 
+    @Transactional
     public Bank getBankByWageId(long wageId){
         Query query = openSession().createQuery("FROM Bank as b where b.wageId=:wageId");
         query.setParameter("wageId", wageId);
         return (Bank)query.list().get(0);
     }
 
+    @Transactional
     public List<Bank> getBankList(){
         Query query = openSession().createQuery("FROM Bank");
         return (List<Bank>) query.list();

@@ -12,7 +12,7 @@ public interface WageService {
 
     public void addWage(Wage wage);
     public void editWage(Wage wage);
-    public Wage getWageByType(String  type);
+    public Wage getWageById(long  wageId);
     public List<Wage> getWageList();
 
 }

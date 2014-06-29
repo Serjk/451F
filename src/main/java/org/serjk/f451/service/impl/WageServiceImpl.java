@@ -26,8 +26,8 @@ public class WageServiceImpl implements WageService{
         wageDAO.addWage(wage);
     }
 
-    public Wage getWageByType(String  type){
-        return wageDAO.getWageByType(type);
+    public Wage getWageById(long wageId){
+        return wageDAO.getWageById(wageId);
     }
 
     public List<Wage> getWageList(){

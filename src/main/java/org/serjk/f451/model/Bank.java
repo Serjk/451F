@@ -21,13 +21,11 @@ public class Bank {
     private long id;
 
     @Column(name = "Buget")
-    private long buget;
+    private double buget;
 
     @Column(name = "WageID")
     private long wageId ;
 
-    @Column(name = "Date")
-    private Date date;
 
     public long getId(){
         return this.id;
@@ -37,11 +35,11 @@ public class Bank {
         this.id = id;
     }
 
-    public long getBuget(){
+    public double getBuget(){
         return this.buget;
     }
 
-    public void setBuget(long buget){
+    public void setBuget(double buget){
         this.buget = buget;
     }
 
@@ -51,14 +49,6 @@ public class Bank {
 
     public void setWageId(long wageId){
         this.wageId =  wageId;
-    }
-
-    public Date getDate(){
-        return this.date;
-    }
-
-    public void setDate(Date date){
-        this.date =  date;
     }
 
 }

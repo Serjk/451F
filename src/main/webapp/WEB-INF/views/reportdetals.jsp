@@ -41,10 +41,12 @@
                 <a href="<c:url value="/user/report/find"/>" class="block_menu_button"> <spring:message code="label.title.find" /> </a>
                 <a href="<c:url value="/user/news"/>" class="block_menu_button"> <spring:message code="label.title.news"/></a>
                 <a href="<c:url value="/user/report/archive"/>" class="block_menu_button"><spring:message code="label.title.arcive"/> </a>
-                  <a href="<c:url value="/user/profile"/>" class="block_menu_button">Профиль пользователя</a>
                 <c:if test="${loginUser.role=='ROLE_OFFICIAL'}">
                     <a href="<c:url value="/admin/user"/>" class="block_menu_button"><spring:message code="label.title.manageUser"/></a>
+                    <a href="<c:url value="/admin/wage"/>" class="block_menu_button">Ставки ЗП</a>
+                    <a href="<c:url value="/admin/bank"/>" class="block_menu_button">Бюджет</a>
                 </c:if>
+                <a href="<c:url value="/user/profile"/>" class="block_menu_button">Профиль</a>
             </div>
         </c:if>
 
@@ -131,9 +133,6 @@
                         <td>${step.stepName}</td>
                     </tr>
                 </table>
-                <div id="buttons_menu">
-                    <a href="/" class="transition_button"><spring:message code="label.user.delete" /></a>
-                </div>
             </div>
         </div>
 

@@ -34,8 +34,8 @@ public class NewsController {
     @RequestMapping(value = "/user/rest/news/new", method = RequestMethod.POST)
     public @ResponseBody
     ErrorInfo addNews(@RequestParam(value ="title") String title,
-                            @RequestParam(value ="summary") String summary,
-                            @RequestParam(value ="description") String description){
+                      @RequestParam(value ="summary") String summary,
+                      @RequestParam(value ="description") String description){
 
         if(title!="" || summary != "" || description!=""){
             User user = userLoginService.getLoginUser();

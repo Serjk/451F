@@ -11,7 +11,7 @@ import java.util.List;
 public interface WageDAO {
 
     public void addWage(Wage wage);
-    public Wage getWageByType(String  type);
+    public Wage getWageById(long wageId);
     public List<Wage> getWageList();
 
 }

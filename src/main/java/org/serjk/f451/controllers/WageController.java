@@ -40,7 +40,6 @@ public class WageController {
         }
     }
 
-
     public Wage getWageByType(String  type){
         return null;
     }
@@ -57,4 +56,5 @@ public class WageController {
         model.addAttribute("loginUser",loginUser);
         return "wage";
     }
+
 }

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf8"
-	pageEncoding="utf8"%>
+         pageEncoding="utf8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -15,76 +15,76 @@
 </head>
 
 <body>
-    <div id="header">
-        <div style="float: left;">
-            <a class="header_logo" href="/">
-                <div style="display: table-cell;"><img src="/resources/img/flame.ico" width="50px" height="50px"/></div>
-                <div style="display: table-cell; vertical-align: middle; padding-left: 10px"><p>Главная</p></div>
-            </a>
-        </div>
-
-        <div></div>
-        <div style="float: right;">
-            <c:if test="${!empty loginUser}">
-                <div style="display: table-cell;">
-                    <a href="<c:url value="/logout" />" class="header_button"><spring:message code="label.login.logout"/></a>
-                </div>
-            </c:if>
-        </div>
+<div id="header">
+    <div style="float: left;">
+        <a class="header_logo" href="/">
+            <div style="display: table-cell;"><img src="/resources/img/flame.ico" width="50px" height="50px"/></div>
+            <div style="display: table-cell; vertical-align: middle; padding-left: 10px"><p>Главная</p></div>
+        </a>
     </div>
 
-
-    <div id="page">
+    <div></div>
+    <div style="float: right;">
         <c:if test="${!empty loginUser}">
-            <div id="block_menu">
-                <a href="<c:url value="/user/report/find"/>" class="block_menu_button"> <spring:message code="label.title.find" /> </a>
-                <a href="<c:url value="/user/news"/>" class="block_menu_button"> <spring:message code="label.title.news"/></a>
-                <a href="<c:url value="/user/report/archive"/>" class="block_menu_button"><spring:message code="label.title.arcive"/> </a>
-                <c:if test="${loginUser.role=='ROLE_OFFICIAL'}">
-                    <a href="<c:url value="/admin/user"/>" class="block_menu_button"><spring:message code="label.title.manageUser"/></a>
-                    <a href="<c:url value="/admin/wage"/>" class="block_menu_button">Ставки ЗП</a>
-                    <a href="<c:url value="/admin/bank"/>" class="block_menu_button">Бюджет</a>
-                </c:if>
-                <a href="<c:url value="/user/profile"/>" class="block_menu_button">Профиль</a>
+            <div style="display: table-cell;">
+                <a href="<c:url value="/logout" />" class="header_button"><spring:message code="label.login.logout"/></a>
             </div>
         </c:if>
+    </div>
+</div>
 
-        <div id="content" style="text-align: left;">
-            <div class="block">
-                    <c:if test="${loginUser.role=='ROLE_OFFICIAL'}">
-                        <div class="warning">
-                            <p3>Действия:</p>
-                             <a href="#" class="transition_button" onclick="setFormValue()">Создание новости</a>
-                             <a href="#" class="transition_button" onclick="getNewsList(1)">Все новости</a>
-                             <a href="#" class="transition_button" onclick="getNewsList(2)">Новости за день</a>
-                        </div>
-                    </c:if>
 
-                    <c:if test="${loginUser.role!='ROLE_OFFICIAL'}">
-                        <div class="warning">
-                             <p3>Быстрый фильтр:</p>
-                             <a href="#" class="transition_button" onclick="getNewsList(1)">Все новости</a>
-                             <a href="#" class="transition_button" onclick="getNewsList(2)">Новости за день</a>
-                        </div>
-                    </c:if>
+<div id="page">
+    <c:if test="${!empty loginUser}">
+    <div id="block_menu">
+        <a href="<c:url value="/user/report/find"/>" class="block_menu_button"> <spring:message code="label.title.find" /> </a>
+        <a href="<c:url value="/user/news"/>" class="block_menu_button"> <spring:message code="label.title.news"/></a>
+        <a href="<c:url value="/user/report/archive"/>" class="block_menu_button"><spring:message code="label.title.arcive"/> </a>
+        <c:if test="${loginUser.role=='ROLE_OFFICIAL'}">
+            <a href="<c:url value="/admin/user"/>" class="block_menu_button"><spring:message code="label.title.manageUser"/></a>
+            <a href="<c:url value="admin/wage"/>" class="block_menu_button">Ставки ЗП</a>
+            <a href="<c:url value="admin/bank"/>" class="block_menu_button">Бюджет</a>
+        </c:if>
+        <a href="<c:url value="/user/profile"/>" class="block_menu_button">Профиль</a>
+    </div>
+    </c:if>
 
-                     <p id ="res_hed" >Результат запроса:</p>
-                    <table id ="filter_result"  style="font-size:16px;" class="paginated">
-                        <thead>
-                        <tr>
-                            <th>id</th>
-                            <th>Заголовок</th>
-                            <th>Текст</th>
-                            <th>Дата</th>
-                            <th>Действия</th>
-                        </tr>
-                        </thead>
-                        <tbody class="tbody">
-                        </tbody>
-                    </table>
-                    <div class="pager"></div>
-            </div>
+    <div id="content" style="text-align: left;">
+        <div class="block">
+            <c:if test="${loginUser.role=='ROLE_OFFICIAL'}">
+                <div class="warning">
+                    <p3>Действия:</p>
+                        <a href="#" class="transition_button" onclick="setFormValue()">Создание новости</a>
+                        <a href="#" class="transition_button" onclick="getNewsList(1)">Все новости</a>
+                        <a href="#" class="transition_button" onclick="getNewsList(2)">Новости за день</a>
+                </div>
+            </c:if>
+
+            <c:if test="${loginUser.role!='ROLE_OFFICIAL'}">
+                <div class="warning">
+                    <p3>Быстрый фильтр:</p>
+                        <a href="#" class="transition_button" onclick="getNewsList(1)">Все новости</a>
+                        <a href="#" class="transition_button" onclick="getNewsList(2)">Новости за день</a>
+                </div>
+            </c:if>
+
+            <p id ="res_hed" >Результат запроса:</p>
+            <table id ="filter_result"  style="font-size:16px;" class="paginated">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Заголовок</th>
+                    <th>Текст</th>
+                    <th>Дата</th>
+                    <th>Действия</th>
+                </tr>
+                </thead>
+                <tbody class="tbody">
+                </tbody>
+            </table>
+            <div class="pager"></div>
         </div>
+    </div>
 
 
     <div id="footer">
@@ -115,15 +115,15 @@
 
 <script>
 
-     function setFormValue(){
+    function setFormValue(){
         $("#blackblock").show();
         $("#news_denun").show();
-     }
+    }
 
     $(cancel).click(function () {
-         $("#blackblock").hide();
-         $("#news_denun").hide();
-      });
+        $("#blackblock").hide();
+        $("#news_denun").hide();
+    });
 
 
     $("#blackblock").click(function () {
@@ -138,7 +138,7 @@
         var text = $('#description').val();
 
         if($.isEmptyObject(title)||$.isEmptyObject(title)||$.isEmptyObject(title)){
-           $('#error_p').text("Пожалуйста, заполните все поля");
+            $('#error_p').text("Пожалуйста, заполните все поля");
         }
         else{
             var dataIn = "title="+title+"&summary="+summary+"&description="+text;
@@ -150,12 +150,12 @@
                 type: "POST",
                 data: dataIn,
                 success: function (data, textStatus) { // вешаем свой обработчик на функцию success
-                   if (!$.isEmptyObject(data)) {
-                       console.log(data);
-                         $("#blackblock").hide();
-                         $("#news_denun").hide();
-                         location.reload();
-                   }
+                    if (!$.isEmptyObject(data)) {
+                        console.log(data);
+                        $("#blackblock").hide();
+                        $("#news_denun").hide();
+                        location.reload();
+                    }
                 }
             });
         }
@@ -164,7 +164,7 @@
     $(document).ready(function () {
         $("#blackblock").hide();
         $("#news_denun").hide();
-         getNewsList();
+        getNewsList();
     })
 
     $(window).resize(function () {
@@ -202,13 +202,13 @@
         var url;
 
         if (id==1 || id == null){
-                    url = "/user/rest/news/all/";
-                    $('#res_hed').text("Общий архив новостей:");
-                }
-                else if(id==2){
-                    url = "/user/rest/news/last";
-                    $('#res_hed').text("Новости за день:");
-                }
+            url = "/user/rest/news/all/";
+            $('#res_hed').text("Общий архив новостей:");
+        }
+        else if(id==2){
+            url = "/user/rest/news/last";
+            $('#res_hed').text("Новости за день:");
+        }
 
         $.ajax({
             url: url,  // указываем URL и
@@ -230,14 +230,14 @@
                         var curr_year = date.getFullYear();
 
                         $("#filter_result").find('tbody')
-                            .append($('<tr>')
-                                .append(
-                                $('<td id=idCell'+val.id+'>').text(val.id),
-                                $('<td>').text(val.title),
-                                $('<td>').text(val.summary),
-                                $('<td>').text(curr_date + "-" + curr_month + "-" + curr_year),
-                                $('<td>').append($('<a>').text("Подробно...").attr('href',"/user/news/find/"+val.id))
-                            )
+                                .append($('<tr>')
+                                        .append(
+                                        $('<td id=idCell'+val.id+'>').text(val.id),
+                                        $('<td>').text(val.title),
+                                        $('<td>').text(val.summary),
+                                        $('<td>').text(curr_date + "-" + curr_month + "-" + curr_year),
+                                        $('<td>').append($('<a>').text("Подробно...").attr('href',"/user/news/find/"+val.id))
+                                )
                         );
                     });
                     setPagination();

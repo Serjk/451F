@@ -25,7 +25,7 @@ public class Wage {
     }
 
     public long getCash(){
-        return this.id;
+        return this.cash;
     }
 
     public void setCash(long cash){

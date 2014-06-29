@@ -11,6 +11,7 @@
         <mapping class="org.serjk.f451.model.Bank"/>
         <mapping class="org.serjk.f451.model.News"/>
         <mapping class="org.serjk.f451.model.Wage"/>
+        <mapping class="org.serjk.f451.model.Payment"/>
     </session-factory>
 
 </hibernate-configuration>

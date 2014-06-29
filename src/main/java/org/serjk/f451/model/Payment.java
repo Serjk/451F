@@ -22,7 +22,7 @@ public class Payment {
     private Date date;
 
     @Column(name = "Count")
-    private int count ;
+    private double count ;
 
 
     public long getId(){
@@ -57,11 +57,11 @@ public class Payment {
         this.date =  date;
     }
 
-    public int getCount(){
+    public double getCount(){
         return this.count;
     }
 
-    public void setId(int count){
+    public void setCount(double count){
         this.count = count;
     }
 }

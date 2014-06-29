@@ -39,6 +39,11 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
+    public Bank getBankByWageId(Wage wage){
+       return  bankDAO.getBankByWageId(wage.getId());
+    }
+
+    @Override
     public List<Bank> getBankList(){
        return  bankDAO.getBankList();
     }

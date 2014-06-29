@@ -3,6 +3,8 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -52,34 +54,57 @@
 
     <div id="content" style="text-align: left;">
         <div class="block">
-            <p id ="res_hed" >Тарифы ставок:</p>
+            <p id ="res_hed" >Расходы:</p>
             <table   style="font-size:16px;" class="paginated">
                 <thead>
                 <tr>
                     <th>id</th>
+                    <th>Пользователь</th>
                     <th>Тип ставки</th>
-                    <th>Тариф</th>
-                    <th>Действие...</th>
+                    <th>Дата</th>
+                    <th>Время</th>
+                    <th>Списано средств</th>
                 </tr>
                 </thead>
-                <c:if test="${!empty wageList}">
-                    <c:forEach items="${wageList}" var="wage">
-                        <tr>
-                            <th>
-                                    ${wage.id}
-                            </th>
-                            <th>
-                                    ${wage.type}
-                            </th>
-                            <th>
-                                    ${wage.cash}
-                            </th>
-                            <th>
-                                <a href="#" onClick="setFormValue(${wage.id})">Редактировать</a>
-                            </th>
-                        </tr>
-                    </c:forEach>
-                </c:if>
+                <tbody class="tbody">
+
+                    <c:if test="${!empty paymentList}">
+                        <c:forEach items="${paymentList}" var="payment">
+                            <tr>
+                                <th>
+                                        ${payment.id}
+                                </th>
+                                <c:if test="${!empty userList}">
+                                    <c:forEach items="${userList}" var="user">
+                                        <c:if test="${user.id==payment.userId}">
+                                            <th>
+                                                  ${user.firstName} ${user.lastName}
+                                            </th>
+                                        </c:if>
+                                    </c:forEach>
+                                </c:if>
+                                <c:if test="${!empty wageList}">
+                                    <c:forEach items="${wageList}" var="wage">
+                                        <c:if test="${wage.id==payment.wageId}">
+                                            <th>
+                                                    ${wage.type}
+                                            </th>
+                                        </c:if>
+                                    </c:forEach>
+                                </c:if>
+                                <th>
+                                    <fmt:formatDate value="${payment.date}" pattern="yyyy-MM-dd"/>
+                                </th>
+                                <th>
+                                    <fmt:formatDate value="${payment.date}" pattern="HH:mm:ss"/>
+                                </th>
+                                <th>
+                                    ${payment.count}
+                                </th>
+                            </tr>
+                        </c:forEach>
+                    </c:if>
+
                 </tbody>
             </table>
             <div class="pager"></div>
@@ -130,6 +155,7 @@
     $(document).ready(function () {
         $("#blackblock").hide();
         $("#bank_denun").hide();
+        setPagination();
         SetSize();
     });
 
@@ -151,41 +177,31 @@
         }
     }
 
-    function editWage() {
-        var wage = $('#wage').val();
-        var value = $('#value').val();
-        console.log(value);
-        var operation = $('#operation_type').val();
-        var url = "";
-        url = "/admin/wage/edit/"
-        if ($.isEmptyObject(value)) {
-            $("#error_p").text("Заполните все поля")
-        }
-        else {
-            var dataIn = "value=" + value + "&wageId=" + wage;
-            console.log(dataIn);
-            $.ajax({
-                url: url,  // указываем URL и
-                dataType: "json",
-                async: false,
-                type: "POST",
-                data: dataIn,
-                success: function (data, textStatus) { // вешаем свой обработчик на функцию success
-                    if (!$.isEmptyObject(data)) {
-
-                        console.log(data);
-                        if (data.errorCode != "wage.add.succses") {
-                            $("#error_p").text(data.message);
-                        }
-                        else {
-                            $("#blackblock").hide();
-                            $("#bank_denun").hide();
-                            location.reload();
-                        }
-                    }
-                }
+    function setPagination(){
+        $('table.paginated').each(function() {
+            var currentPage = 0;
+            var numPerPage = 10;
+            var $table = $(this);
+            $table.bind('repaginate', function() {
+                $table.find('tbody tr').hide().slice(currentPage * numPerPage, (currentPage + 1) * numPerPage).show();
             });
-        }
+            $table.trigger('repaginate');
+            var numRows = $table.find('tbody tr').length;
+            var numPages = Math.ceil(numRows / numPerPage);
+            $('.pager').empty();
+            var $pager = $('<div class="pager"></div>');
+
+            for (var page = 0; page < numPages; page++) {
+                $('<span class="page-number"></span>').text(page + 1).bind('click', {
+                    newPage: page
+                }, function(event) {
+                    currentPage = event.data['newPage'];
+                    $table.trigger('repaginate');
+                    $(this).addClass('active').siblings().removeClass('active');
+                }).appendTo($pager).addClass('clickable');
+            }
+            $pager.insertAfter($table).find('span.page-number:first').addClass('active');
+        });
     }
 </script>
 

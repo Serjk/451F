@@ -6,6 +6,8 @@ import org.serjk.f451.error.ErrorInfo;
 import org.serjk.f451.model.*;
 import org.serjk.f451.model.enums.Step;
 import org.serjk.f451.model.enums.Transition;
+import org.serjk.f451.service.PaymentService;
+import org.serjk.f451.service.WageService;
 import org.serjk.f451.service.impl.UserLoginService;
 import org.serjk.f451.service.ReportService;
 import org.serjk.f451.service.UserService;
@@ -36,6 +38,12 @@ public class ReportController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PaymentService paymentService;
+
+    @Autowired
+    private WageService wageService;
 
 
     static final Logger logger = Logger.getLogger(ReportController.class);
@@ -105,6 +113,7 @@ public class ReportController {
         Report report = reportService.getReport(reportId);
         ErrorInfo errorInfo = new ErrorInfo();
         int RejectedStepID = 6;
+        long WageId=11L;
 
         //Когда офицер полиции берёт в работу он должен назаначить исполнителя
         logger.info(String.format("Step id -  %s, start validation",stepId));
@@ -136,13 +145,36 @@ public class ReportController {
                 logger.error(String.format("Step id -  %s, electric dof find books",report.getStepId()));
                 return errorInfo;
             }
-
         }
-        else if(stepId==4 && userService.getUserById(report.getFiremanId())==null){
-            errorInfo.setErrorCode("label.workflow.validation.error.firemanid.empty");
-            errorInfo.setMessage("Не установлен пожарный офицер, пожарный расчет не может выехать, пока не установлен пожарный офицер");
-            logger.error(String.format("Step id -  %s, validation filed - no fireman ID",report.getStepId()));
-            return errorInfo;
+        else if(stepId==4){
+            if( userService.getUserById(report.getFiremanId())==null) {
+                errorInfo.setErrorCode("label.workflow.validation.error.firemanid.empty");
+                errorInfo.setMessage("Не установлен пожарный офицер, пожарный расчет не может выехать, пока не установлен пожарный офицер");
+                logger.error(String.format("Step id -  %s, validation filed - no fireman ID", report.getStepId()));
+                return errorInfo;
+            }
+            else if(userService.getUserById(report.getFiremanId())!=null) {
+                Wage wage =wageService.getWageById(WageId);
+                User fireman = userService.getUserById(report.getFiremanId());
+                if(paymentService.payUser(fireman,wage)==false){
+                    errorInfo.setErrorCode("label.workflow.validation.error.fuel.empty");
+                    errorInfo.setMessage("Расчет не может выехать - нет топлива");
+                    return errorInfo;
+                }
+                else{
+                    report.setStepId(stepId);
+                    reportService.setReport(report);
+                    errorInfo.setErrorCode("label.workflow.validation.info.ok");
+                    errorInfo.setMessage("Валидация прошла нормально");
+                    logger.error("Step id -  ${report.getStepId()}, validation passed, new step ${stepId}");
+                    return errorInfo;
+                }
+            }
+            else{
+                errorInfo.setErrorCode("label.workflow.validation.error.firemanid.sgw");
+                errorInfo.setMessage("Чтото пошло не так");
+                return errorInfo;
+            }
         }
         else{
             report.setStepId(stepId);
@@ -152,7 +184,6 @@ public class ReportController {
             logger.error("Step id -  ${report.getStepId()}, validation passed, new step ${stepId}");
             return errorInfo;
         }
-        //необходима проверка на наличие бюджета, необходимого на выполнение задания
     }
 
     @RequestMapping("/user/report/archive")
@@ -260,11 +291,22 @@ public class ReportController {
         return  reportService.getByStepSimpleReportList(stepId);
     }
 
-
     @RequestMapping("/user/workflow/step/{stepId}")
     public @ResponseBody
     Step getStepInJSON(@PathVariable("stepId") int stepId) {
         return StepUtil.getStepById(stepId);
     }
 
+    @RequestMapping(value = "/admin/payment")
+    public String getPayment( Model model){
+        User loginUser  = userLoginService.getLoginUser();
+        List<Payment> paymentList = paymentService.getPaymentList();
+        List<User> userList = userService.listUser();
+        List<Wage> wageList = wageService.getWageList();
+        model.addAttribute("loginUser", loginUser);
+        model.addAttribute("paymentList", paymentList);
+        model.addAttribute("userList", userList);
+        model.addAttribute("wageList", wageList);
+        return "payment";
+    }
 }

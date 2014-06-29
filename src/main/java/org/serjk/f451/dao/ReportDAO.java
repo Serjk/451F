@@ -48,5 +48,5 @@ public interface ReportDAO {
 
     public List<SimpleReport> getReportsByStep(int stepId);
 
-
+    public  void  runSqlQery(String sqlQuery);
 }

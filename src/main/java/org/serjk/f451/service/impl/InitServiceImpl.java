@@ -1,5 +1,6 @@
 package org.serjk.f451.service.impl;
 
+import org.serjk.f451.dao.ReportDAO;
 import org.serjk.f451.dao.UserDAO;
 import org.serjk.f451.model.User;
 import org.serjk.f451.service.InitService;
@@ -19,6 +20,9 @@ public class InitServiceImpl implements InitService {
 
     @Autowired
     UserDAO userDAO;
+
+    @Autowired
+    ReportDAO reportDAO;
 
     @Override
     public void initUsersTable(){
@@ -55,6 +59,32 @@ public class InitServiceImpl implements InitService {
             user.setAddress(addres[i]);
             user.setRole(role[i]);
             userDAO.addUser(user);
+        }
+    }
+
+    @Override
+    public void initBankTable(){
+        long id[] = {10};
+        double buget[] = {100};
+        long wageId[] = { 11};
+
+        for (int i = 0; i<id.length; i++){
+            String sqlQuery = "INSERT INTO f_bank(id, buget, wageid) " +
+                    "VALUES ("+id[i]+", "+buget[i]+ ", "+wageId[i]+");";
+            reportDAO.runSqlQery(sqlQuery);
+        }
+    }
+
+    @Override
+    public void initWageTable(){
+        long id[] = {11};
+        double cash[] = {100};
+        String type[] = {"Топливо"};
+
+        for (int i = 0; i<id.length; i++){
+            String sqlQuery = "INSERT INTO f_wage(id, cash, type) " +
+                   "VALUES ("+id[i]+", "+cash[i]+ ", '"+type[i]+"');";
+            reportDAO.runSqlQery(sqlQuery);
         }
     }
 }

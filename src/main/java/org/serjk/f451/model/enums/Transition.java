@@ -12,7 +12,7 @@ public enum  Transition {
     TRANSITION1("Взять в работу",    1, 2, "ROLE_POLICE"),
     TRANSITION4("Передать пожарным", 2, 3, "ROLE_POLICE"),
     TRANSITION5("Сжечь книги",       3, 4, "ROLE_FIREMAN"),
-    TRANSITION6("Подготовить отчет", 4, 5, "ROLE_FIREMAN");
+    TRANSITION6("Закрыть", 4, 5, "ROLE_FIREMAN");
 
     private final String name;
     private final int stepIn;

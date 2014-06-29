@@ -42,8 +42,9 @@
                 <a href="<c:url value="/user/report/archive"/>" class="block_menu_button"><spring:message code="label.title.arcive"/> </a>
                 <c:if test="${loginUser.role=='ROLE_OFFICIAL'}">
                     <a href="<c:url value="/admin/user"/>" class="block_menu_button"><spring:message code="label.title.manageUser"/></a>
-                    <a href="<c:url value="/admin/wage"/>" class="block_menu_button">Ставки ЗП</a>
+                    <a href="<c:url value="/admin/wage"/>" class="block_menu_button">Ставки</a>
                     <a href="<c:url value="/admin/bank"/>" class="block_menu_button">Бюджет</a>
+                    <a href="<c:url value="/admin/payment"/>" class="block_menu_button">Расходы</a>
                 </c:if>
                 <a href="<c:url value="/user/profile"/>" class="block_menu_button">Профиль</a>
             </div>

@@ -12,5 +12,7 @@ import org.serjk.f451.service.impl.InitServiceImpl;
 public interface InitService {
 
     public void initUsersTable();
+    public void initWageTable();
+    public void initBankTable();
 
 }

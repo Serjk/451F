@@ -53,6 +53,8 @@ public class UserController {
     public @ResponseBody
     String startInitService () {
         initService.initUsersTable();
+        initService.initBankTable();
+        initService.initWageTable();
         return  "Default users inserted...";
     }
 

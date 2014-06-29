@@ -43,8 +43,9 @@
                 <a href="<c:url value="/user/report/archive"/>" class="block_menu_button"><spring:message code="label.title.arcive"/> </a>
                 <c:if test="${loginUser.role=='ROLE_OFFICIAL'}">
                     <a href="<c:url value="/admin/user"/>" class="block_menu_button"><spring:message code="label.title.manageUser"/></a>
-                    <a href="<c:url value="/admin/wage"/>" class="block_menu_button">Ставки ЗП</a>
+                    <a href="<c:url value="/admin/wage"/>" class="block_menu_button">Ставки</a>
                     <a href="<c:url value="/admin/bank"/>" class="block_menu_button">Бюджет</a>
+                    <a href="<c:url value="/admin/payment"/>" class="block_menu_button">Расходы</a>
                 </c:if>
                 <a href="<c:url value="/user/profile"/>" class="block_menu_button">Профиль</a>
             </div>
@@ -86,7 +87,6 @@
                         <td><spring:message code="label.reportdetals.reporterId"/></td>
                         <td>${reporter.firstName} ${reporter.lastName}</td>
                     </tr>
-
                     <tr>
                         <td><spring:message code="label.reportdetals.data"/></td>
                         <td><fmt:formatDate value="${report.date}" pattern="yyyy-MM-dd"/></td>
@@ -222,7 +222,8 @@
     function validateWorkFlowTransition(reportId, transitionStepOut){
         var errorCodeArray = ["label.workflow.validation.error.firemanid.empty",
                               "label.workflow.validation.error.policeman.empty",
-                              "label.workflow.validation.error.dogvalidation.empty"];
+                              "label.workflow.validation.error.dogvalidation.empty",
+                              "label.workflow.validation.error.fuel.empty"];
         $('#errorbox').empty();
         $.ajax({
             url: "/user/report/step/"+reportId+"/"+transitionStepOut,             // указываем URL и

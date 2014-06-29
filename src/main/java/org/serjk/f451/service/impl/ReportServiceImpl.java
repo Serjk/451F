@@ -73,6 +73,7 @@ public class ReportServiceImpl implements ReportService {
         return  reportDAO.getAssignedToMeReportList(user);
     }
 
+    @Override
     public List<SimpleReport>  getToMeSimpleReportList(User user){
         return  reportDAO.getToMeSimpleReportList(user);
     }

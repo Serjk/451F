@@ -226,4 +226,10 @@ public  class ReportDAOImpl implements ReportDAO {
         }
     }
 
+    @Transactional
+    public  void  runSqlQery(String sqlQuery){
+            Query query = openSession().createSQLQuery(sqlQuery);
+            query.executeUpdate();
+        }
+
 }

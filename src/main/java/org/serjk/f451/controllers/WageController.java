@@ -28,11 +28,14 @@ public class WageController {
     @Autowired
     WageService wageService;
 
-    @RequestMapping(value = "/user/rest/wage/new", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/wage/edit/", method = RequestMethod.POST)
     public @ResponseBody
-    ErrorInfo addWage(@RequestParam(value ="type") String type,
-                     @RequestParam(value ="wageId") String wageId){
-        if(wageId!=null||type!=null){
+    ErrorInfo addWage(@RequestParam(value ="value") Double value,
+                      @RequestParam(value ="wageId") long wageId){
+        Wage wage =wageService.getWageById(wageId);
+        if(value>0 && wage!=null){
+            wage.setCash(value);
+            wageService.addWage(wage);
             return new ErrorInfo("wage.add.succses","Ставка успешно добавлена");
         }
         else {
@@ -40,20 +43,12 @@ public class WageController {
         }
     }
 
-    public Wage getWageByType(String  type){
-        return null;
-    }
-
-    @RequestMapping(value = "/user/rest/wage/all")
-    public @ResponseBody
-    List<Wage> getWageList(){
-       return wageService.getWageList();
-    }
-
-    @RequestMapping(value = "/user/wage")
+    @RequestMapping(value = "/admin/wage")
     public String getNews( Model model){
         User loginUser  = userLoginService.getLoginUser();
+        List <Wage> wageList = wageService.getWageList();
         model.addAttribute("loginUser",loginUser);
+        model.addAttribute("wageList",wageList);
         return "wage";
     }
 

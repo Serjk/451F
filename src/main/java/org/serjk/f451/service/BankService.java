@@ -14,5 +14,5 @@ public interface BankService {
     public void increaseBudget(Wage wage, double value);
     public void decreaseBudget(Wage wage, double value);
     public List<Bank> getBankList();
-
+    public Bank getBankByWageId(Wage wage);
 }

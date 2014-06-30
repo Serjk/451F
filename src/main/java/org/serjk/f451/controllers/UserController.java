@@ -52,9 +52,9 @@ public class UserController {
     @RequestMapping("/admin/services/startinit/")
     public @ResponseBody
     String startInitService () {
-        initService.initUsersTable();
         initService.initBankTable();
         initService.initWageTable();
+        initService.initUsersTable();
         return  "Default users inserted...";
     }
 

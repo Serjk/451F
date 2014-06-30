@@ -136,7 +136,6 @@ public  class ReportDAOImpl implements ReportDAO {
 
         simpleReport.setCountBook(report.getCountBook());
         simpleReport.setSummary(report.getSummary());
-        simpleReport.setDescription(report.getDescription());
         simpleReport.setDate(report.getDate());
         simpleReport.setStepName(step.getStepName());
         return simpleReport;

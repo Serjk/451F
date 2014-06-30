@@ -55,6 +55,7 @@
     <div id="content" style="text-align: left;">
         <div class="block">
             <p id ="res_hed" >Расходы:</p>
+            <c:if test="${!empty paymentList}">
             <table   style="font-size:16px;" class="paginated">
                 <thead>
                 <tr>
@@ -67,46 +68,46 @@
                 </tr>
                 </thead>
                 <tbody class="tbody">
-
-                    <c:if test="${!empty paymentList}">
-                        <c:forEach items="${paymentList}" var="payment">
-                            <tr>
-                                <th>
-                                        ${payment.id}
-                                </th>
-                                <c:if test="${!empty userList}">
-                                    <c:forEach items="${userList}" var="user">
-                                        <c:if test="${user.id==payment.userId}">
-                                            <th>
-                                                  ${user.firstName} ${user.lastName}
-                                            </th>
-                                        </c:if>
-                                    </c:forEach>
-                                </c:if>
-                                <c:if test="${!empty wageList}">
-                                    <c:forEach items="${wageList}" var="wage">
-                                        <c:if test="${wage.id==payment.wageId}">
-                                            <th>
-                                                    ${wage.type}
-                                            </th>
-                                        </c:if>
-                                    </c:forEach>
-                                </c:if>
-                                <th>
-                                    <fmt:formatDate value="${payment.date}" pattern="yyyy-MM-dd"/>
-                                </th>
-                                <th>
-                                    <fmt:formatDate value="${payment.date}" pattern="HH:mm:ss"/>
-                                </th>
-                                <th>
-                                    ${payment.count}
-                                </th>
-                            </tr>
-                        </c:forEach>
-                    </c:if>
-
+                    <c:forEach items="${paymentList}" var="payment">
+                        <tr>
+                            <th>
+                                    ${payment.id}
+                            </th>
+                            <c:if test="${!empty userList}">
+                                <c:forEach items="${userList}" var="user">
+                                    <c:if test="${user.id==payment.userId}">
+                                        <th>
+                                              ${user.firstName} ${user.lastName}
+                                        </th>
+                                    </c:if>
+                                </c:forEach>
+                            </c:if>
+                            <c:if test="${!empty wageList}">
+                                <c:forEach items="${wageList}" var="wage">
+                                    <c:if test="${wage.id==payment.wageId}">
+                                        <th>
+                                                ${wage.type}
+                                        </th>
+                                    </c:if>
+                                </c:forEach>
+                            </c:if>
+                            <th>
+                                <fmt:formatDate value="${payment.date}" pattern="yyyy-MM-dd"/>
+                            </th>
+                            <th>
+                                <fmt:formatDate value="${payment.date}" pattern="HH:mm:ss"/>
+                            </th>
+                            <th>
+                                ${payment.count}
+                            </th>
+                        </tr>
+                    </c:forEach>
                 </tbody>
             </table>
+            </c:if>
+            <c:if test="${empty paymentList}">
+            <p id ="res_hed" >Таблица пуста</p>
+            </c:if>
             <div class="pager"></div>
         </div>
     </div>

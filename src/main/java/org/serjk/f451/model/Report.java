@@ -19,9 +19,6 @@ public class Report {
     @Column(name = "Summary")
     private String summary;
 
-    @Column(name = "Description")
-    private String description;
-
     @Column(name = "Date")
     private Date date;
 
@@ -50,14 +47,6 @@ public class Report {
 
     public void setId(long id){
         this.id = id;
-    }
-
-    public String getDescription(){
-        return this.description;
-    }
-
-    public void setDescription(String description){
-        this.description = description;
     }
 
     public String getSummary(){

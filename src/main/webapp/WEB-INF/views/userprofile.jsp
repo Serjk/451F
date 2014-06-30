@@ -67,7 +67,7 @@
 
                 <tr>
                     <td>Логин</td>
-                    <td>${loginUser.lastName}</td>
+                    <td>${loginUser.login}</td>
                 </tr>
 
                 <tr>

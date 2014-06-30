@@ -72,10 +72,6 @@
                         <td>${report.summary}</td>
                     </tr>
                     <tr>
-                        <td><spring:message code="label.reportdetals.description"/></td>
-                        <td>${report.description}</td>
-                    </tr>
-                    <tr>
                         <td><spring:message code="label.reportdetals.suspectId"/></td>
                         <td>  ${suspect.firstName} ${suspect.lastName} </td>
                     </tr>

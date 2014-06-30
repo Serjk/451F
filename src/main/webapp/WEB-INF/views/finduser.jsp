@@ -99,7 +99,6 @@
         <form action="/user/report/add" method="post">
             <input type="hidden" id="myDiv" name="id" value="">
             <p><spring:message code="label.report.summary"/> <input type="text" name="summary" value=""> </p>
-            <p><spring:message code="label.report.description"/> <textarea type="text" name="description" value=""cols="40" rows="5"></textarea> </p>
             <input type="submit" value="Отправить донос" />
             <input type="button" value="Отмена" id="cancel"/>
         </form>

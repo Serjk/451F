@@ -70,7 +70,9 @@
             <div>
                 Быстрый запрос:
                 <a href="#" class="transition_button" onclick="getSimpleReportList(1)">Общий архив доносов</a>
-                <a href="#" class="transition_button" onclick="getSimpleReportList(2)">Назначенные на меня</a> &nbsp;
+                <c:if test="${loginUser.role!='ROLE_OFFICIAL'}">
+                    <a href="#" class="transition_button" onclick="getSimpleReportList(2)">Назначенные на меня</a> &nbsp;
+                </c:if>
                 <a href="#" class="transition_button" onclick="getSimpleReportList(3)">Созданные мной</a> &nbsp;
                 <a href="#" class="transition_button" onclick="getSimpleReportList(4)">Без исполнителя</a>
             </div>

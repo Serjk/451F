@@ -113,6 +113,12 @@
             <version>2.42.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc7</artifactId>
+            <version>12.2.0</version>
+        </dependency>
+
     </dependencies>
     <repositories>
         <repository>

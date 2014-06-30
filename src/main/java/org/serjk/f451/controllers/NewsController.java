@@ -12,8 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.jws.soap.SOAPBinding;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,7 +39,7 @@ public class NewsController {
             User user = userLoginService.getLoginUser();
             News news = new News();
             news.setDate(DateUtils.getNow());
-            news.setAutorId(user.getId());
+            news.setAuthorId(user.getId());
             news.setSummary(summary);
             news.setText(description);
             news.setTitle(title);
@@ -76,7 +74,7 @@ public class NewsController {
     public String getNewsById(@PathVariable("newsId") long newsId, Model model){
         User loginUser = userLoginService.getLoginUser();
         News news = newsService.getNewsById(newsId);
-        User autor = userService.getUserById(news.getAutorId());
+        User autor = userService.getUserById(news.getAuthorId());
         model.addAttribute("autor",autor);
         model.addAttribute("news", news);
         model.addAttribute("loginUser",  loginUser);

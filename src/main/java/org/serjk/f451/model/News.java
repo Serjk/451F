@@ -1,7 +1,6 @@
 package org.serjk.f451.model;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -29,11 +28,11 @@ public class News {
     @Column(name = "Text")
     private String text;
 
-    @Column(name = "Date")
+    @Column(name = "Date_f")
     private Date date;
 
-    @Column(name = "AutorId")
-    private long  autorId;
+    @Column(name = "AuthorId")
+    private long authorId;
 
     public long getId(){
         return this.id;
@@ -75,11 +74,11 @@ public class News {
         return this.summary;
     }
 
-    public  void  setAutorId (long autorId) {
-        this.autorId = autorId;
+    public  void setAuthorId(long authorId) {
+        this.authorId = authorId;
     }
 
-    public long getAutorId() {
-        return  this.autorId;
+    public long getAuthorId() {
+        return  this.authorId;
     }
 }

@@ -22,7 +22,7 @@ public class Report {
     @Column(name = "Description")
     private String description;
 
-    @Column(name = "Date")
+    @Column(name = "Date_f")
     private Date date;
 
     @Column(name = "ReportId")

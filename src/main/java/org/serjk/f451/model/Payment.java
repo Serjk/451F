@@ -18,7 +18,7 @@ public class Payment {
     @Column(name = "WageID")
     private long wageId ;
 
-    @Column(name = "Date")
+    @Column(name = "Date_f")
     private Date date;
 
     @Column(name = "Count")

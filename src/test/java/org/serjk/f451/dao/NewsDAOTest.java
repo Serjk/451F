@@ -31,7 +31,7 @@ public class NewsDAOTest extends BaseTest {
     public void testAddNews() {
         createNewsDefault();
         News news = newsDAO.getNewsById(1);
-        assertEquals(news.getAutorId(),AUTHOR_ID);
+        assertEquals(news.getAuthorId(),AUTHOR_ID);
         assertEquals(news.getTitle(),TITLE);
         assertEquals(news.getSummary(),SUMMATY);
     }
@@ -50,12 +50,12 @@ public class NewsDAOTest extends BaseTest {
         createNewsDefault();
         Date date = new Date(System.currentTimeMillis()-10000);
         News news = new News();
-        news.setAutorId(AUTHOR_ID);
+        news.setAuthorId(AUTHOR_ID);
         news.setDate(date);
         news.setTitle(TITLE);
         news.setSummary(SUMMATY);
         newsDAO.addNew(news);
-        Date startDate = new Date(System.currentTimeMillis()-100);
+        Date startDate = new Date(System.currentTimeMillis()-1000);
         Date finishDate = new Date();
         List<News> newsList = newsDAO.getNewsByDate(startDate, finishDate);
         assertEquals(newsList.size(), 1);
@@ -63,7 +63,7 @@ public class NewsDAOTest extends BaseTest {
 
     private void createNewsDefault() {
         News news = new News();
-        news.setAutorId(AUTHOR_ID);
+        news.setAuthorId(AUTHOR_ID);
         news.setDate(new Date());
         news.setTitle(TITLE);
         news.setSummary(SUMMATY);

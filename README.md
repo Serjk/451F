@@ -60,3 +60,10 @@ mvn keytool:generateKeyPair
 #clean ssl certificate
 mvn keytool:clean
 
+#add oracle jdbc driver 
+
+mvn install:install-file -Dfile=ojdbc7.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.2.0 -Dpackaging=jar
+
+#forward ssh ports
+ssh -p 22222 -L 1521:localhost:1521 s153307@helios.cs.ifmo.ru
+

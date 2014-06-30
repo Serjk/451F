@@ -23,7 +23,7 @@ public class WageDAOTest extends BaseTest {
     @Autowired
     private WageDAO wageDAO;
 
-    private long cashValue = 100L;
+    private double cashValue = 100;
     private String cashType = "type";
 
     @Test

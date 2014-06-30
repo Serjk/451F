@@ -92,16 +92,18 @@
     </div>
 
     <div id="blackblock"></div>
+
     <div id="confirm_denun">
         <p id="lastFirst"></p>
         <p>проживающего по адресу</p>
         <div id="address"></div>
-        <form action="/user/report/add" method="post">
+        <form id ="inp_form">
             <input type="hidden" id="myDiv" name="id" value="">
-            <p><spring:message code="label.report.summary"/> <input type="text" name="summary" value=""> </p>
-            <input type="submit" value="Отправить донос" />
+            <p><spring:message code="label.report.summary"/> <input type="text" id="summary_id" name="summary" value=""> </p>
+            <input type="button"  value="Отправить донос"  id="submit" />
             <input type="button" value="Отмена" id="cancel"/>
         </form>
+        <p id= "error_p"></p>
     </div>
 
     <div id="confirm_denun2">
@@ -119,6 +121,35 @@
         $("#lastFirst").text("Донос на гражданина"+" "+first+" "+last);
         $("#address").text(addres);
     }
+
+    $("#submit").click(function (){
+
+        var summary = $('#summary_id').val();
+
+        if($.isEmptyObject(summary)){
+            $('#error_p').text("Пожалуйста, заполните все поля");
+        }
+        else{
+            var dataIn = $('#inp_form').serialize();
+            console.log(dataIn);
+            $.ajax({
+                url: "/user/report/add",  // указываем URL и
+                dataType: "json",
+                async: false,
+                type: "POST",
+                data: dataIn,
+                success: function (data, textStatus) { // вешаем свой обработчик на функцию success
+                    if (!$.isEmptyObject(data)) {
+                        console.log(data);
+                        $("#blackblock").hide();
+                        $("#confirm_denun").hide();
+                        $("#confirm_denun2").show();
+
+                    }
+                }
+            });
+        }
+    });
 
 </script>
 </html>

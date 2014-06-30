@@ -10,7 +10,7 @@ http://www.springframework.org/schema/security/spring-security-3.0.xsd">
         <intercept-url pattern="/user/report/find/*" access="hasAnyRole('ROLE_OFFICIAL','ROLE_USER','ROLE_FIREMAN','ROLE_POLICE', 'ROLE_ADMIN')" />
         <intercept-url pattern="/user/rest/*" access="hasAnyRole('ROLE_OFFICIAL','ROLE_USER','ROLE_FIREMAN','ROLE_POLICE', 'ROLE_ADMIN')" />
         <intercept-url pattern="/rest/admin/user/add*" access="permitAll"/>
-        <intercept-url pattern="/admin/user*" access="hasRole('ROLE_OFFICIAL')"/>
+        <intercept-url pattern="/admin/*" access="hasRole('ROLE_OFFICIAL')"/>
         <intercept-url pattern="/user/*" access="hasAnyRole('ROLE_OFFICIAL','ROLE_USER','ROLE_FIREMAN','ROLE_POLICE', 'ROLE_ADMIN')"/>
         <intercept-url pattern="/admin/user/delete/*" access="hasRole('ROLE_OFFICIAL')" />
         <form-login login-page="/" default-target-url="/user/index"

@@ -66,7 +66,8 @@ public class ReportController {
     }
 
     @RequestMapping(value = "/user/report/add", method = RequestMethod.POST)
-    public String addNewReport(@RequestParam("id") String id,
+    public  @ResponseBody
+    ErrorInfo addNewReport(@RequestParam("id") String id,
                                @RequestParam("summary") String summary) {
         Report report = new Report();
         long reporterId = userLoginService.getLoginUser().getId();
@@ -78,7 +79,7 @@ public class ReportController {
         report.setStepId(1);
 
         reportService.addReport(report);
-        return "redirect:/user/report/find/"+String.valueOf(report.getId());
+        return new ErrorInfo("added","Добавлен");
     }
 
     @RequestMapping(value = "/user/report/assignee/fireman/{reportId}/{firemanId}")

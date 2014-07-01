@@ -219,7 +219,8 @@
         var errorCodeArray = ["label.workflow.validation.error.firemanid.empty",
                               "label.workflow.validation.error.policeman.empty",
                               "label.workflow.validation.error.dogvalidation.empty",
-                              "label.workflow.validation.error.fuel.empty"];
+                              "label.workflow.validation.error.fuel.empty",
+                              "label.workflow.validation.error.wronguser"];
         $('#errorbox').empty();
         $.ajax({
             url: "/user/report/step/"+reportId+"/"+transitionStepOut,             // указываем URL и

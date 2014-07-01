@@ -62,7 +62,6 @@
                             <th><spring:message code="label.user.firstname" /></th>
                             <th><spring:message code="label.user.login" /></th>
                             <th><spring:message code="label.user.role" /></th>
-                            <th>Действия</th>
                         </tr>
                         </thead>
                         <tbody class="tbody">
@@ -147,10 +146,7 @@
                                 $('<td id=idCell'+val.id+'>').text(val.id),
                                 $('<td>').text(val.firstName +" "+ val.lastName),
                                 $('<td>').text(val.login),
-                                $('<td>').append($('<select>').attr("id",id)),
-                                $('<td>')
-                                    .append(
-                                    $('<a>').text("Удалить пользователя...").attr('href',"/user/report/find/"+val.id)
+                                $('<td>').append($('<select>').attr("id",id)
                                 )
                             )
                         );

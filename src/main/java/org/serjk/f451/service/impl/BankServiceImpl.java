@@ -33,9 +33,13 @@ public class BankServiceImpl implements BankService {
     @Override
     public void decreaseBudget(Wage wage, double value){
         Bank bank = bankDAO.getBankByWageId(wage.getId());
-        bank.setBuget( bank.getBuget() - value);
+        if(bank.getBuget() - value>=0){
+            bank.setBuget( bank.getBuget() - value);
+        } else
+        {
+            bank.setBuget(0);
+        }
         bankDAO.addBank(bank);
-
     }
 
     @Override

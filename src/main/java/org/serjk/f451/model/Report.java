@@ -112,4 +112,5 @@ public class Report {
     public void setPolicemanId(long policemanId){
         this.policemanId = policemanId;
     }
+
 }

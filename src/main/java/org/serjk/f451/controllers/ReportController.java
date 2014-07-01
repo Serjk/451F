@@ -111,6 +111,8 @@ public class ReportController {
                                                     @PathVariable("stepId") int stepId) {
         Report report = reportService.getReport(reportId);
         ErrorInfo errorInfo = new ErrorInfo();
+        User loginUser = userLoginService.getLoginUser();
+
         int RejectedStepID = 6;
         long WageId=11L;
 
@@ -121,6 +123,7 @@ public class ReportController {
             errorInfo.setMessage("Не установлен полицейский офицер, ответственный за расследование");
             logger.error(String.format("Step id -  %s, validation filed - no policeman ID",report.getStepId()));
             return errorInfo;
+
         }
         else if(stepId==3){
 

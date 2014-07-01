@@ -124,6 +124,9 @@
     $(cancel).click(function () {
          $("#blackblock").hide();
          $("#news_denun").hide();
+         $('#title').empty();
+         $('#summary').empty();
+         $('#description').empty();
       });
 
 
@@ -138,8 +141,11 @@
         var summary = $('#summary').val();
         var text = $('#description').val();
 
-        if($.isEmptyObject(title)||$.isEmptyObject(title)||$.isEmptyObject(title)){
+        if($.isEmptyObject(title)||$.isEmptyObject(summary)||$.isEmptyObject(text)){
            $('#error_p').text("Пожалуйста, заполните все поля");
+        }
+        else if(title.length>254||summary.length>254||text.length>254){
+            $('#error_p').text("Слишком длинная новоть.");
         }
         else{
             var dataIn = "title="+title+"&summary="+summary+"&description="+text;
@@ -155,6 +161,7 @@
                        console.log(data);
                          $("#blackblock").hide();
                          $("#news_denun").hide();
+
                          location.reload();
                    }
                 }

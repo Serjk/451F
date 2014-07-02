@@ -55,9 +55,9 @@
                     <c:if test="${loginUser.role=='ROLE_OFFICIAL'}">
                         <div class="warning">
                             <p3>Действия:</p>
-                             <a href="#" class="transition_button" onclick="setFormValue()">Создание новости</a>
+                             <a href="#" class="transition_button" id="cr_new" onclick="setFormValue()">Создание новости</a>
                              <a href="#" class="transition_button" onclick="getNewsList(1)">Все новости</a>
-                             <a href="#" class="transition_button" onclick="getNewsList(2)">Новости за день</a>
+                             <a href="#" class="transition_button"  onclick="getNewsList(2)">Новости за день</a>
                         </div>
                     </c:if>
 
@@ -65,7 +65,7 @@
                         <div class="warning">
                              <p3>Быстрый фильтр:</p>
                              <a href="#" class="transition_button" onclick="getNewsList(1)">Все новости</a>
-                             <a href="#" class="transition_button" onclick="getNewsList(2)">Новости за день</a>
+                             <a href="#" class="transition_button" id="news_day" onclick="getNewsList(2)">Новости за день</a>
                         </div>
                     </c:if>
 
@@ -107,7 +107,7 @@
         <div>
             <textarea type="text" id="description" value=""cols="40" rows="5"></textarea>
         </div>
-        <input type="submit" value="Добавить новость" onClick ="addNews()"/>
+        <input type="submit" id="add_new" value="Добавить новость" onClick ="addNews()"/>
         <input type="button" value="Отмена" id="cancel"/>
         <p id="error_p"></p>
     </div>

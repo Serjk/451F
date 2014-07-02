@@ -77,7 +77,7 @@
                                         ${bank.buget}
                                     </th>
                                     <th>
-                                        <a href="#" onClick="setFormValue(${wage.id})">Редактировать</a>
+                                        <a href="#" id="add_bal" onClick="setFormValue(${wage.id})">Редактировать</a>
                                     </th>
                                 </c:if>
                             </c:forEach>
@@ -116,7 +116,7 @@
         </select></p>
 
         <div>
-            <input type="submit" value="Выполнить транзакцию" onClick ="editBank()"/>
+            <input type="submit" id="put" value="Выполнить транзакцию" onClick ="editBank()"/>
             <input type="button" value="Отмена" id="cancel"/>
         </div>
          <p id="error_p"></p>

@@ -85,15 +85,15 @@
     <c:if test="${!empty loginUser}">
         <div id="block_menu">
             <a href="<c:url value="/user/report/find"/>" id ="wow" class="block_menu_button"> <spring:message code="label.title.find" /> </a>
-            <a href="<c:url value="/user/news"/>" class="block_menu_button"> <spring:message code="label.title.news"/></a>
-            <a href="<c:url value="/user/report/archive"/>" class="block_menu_button"><spring:message code="label.title.arcive"/> </a>
+            <a href="<c:url value="/user/news"/>" id="news" class="block_menu_button"> <spring:message code="label.title.news"/></a>
+            <a href="<c:url value="/user/report/archive"/>" id="arch" class="block_menu_button"><spring:message code="label.title.arcive"/> </a>
             <c:if test="${loginUser.role=='ROLE_OFFICIAL'}">
                 <a href="<c:url value="/admin/user"/>" class="block_menu_button"><spring:message code="label.title.manageUser"/></a>
-                <a href="<c:url value="/admin/wage"/>" class="block_menu_button">Ставки</a>
-                <a href="<c:url value="/admin/bank"/>" class="block_menu_button">Бюджет</a>
-                <a href="<c:url value="/admin/payment"/>" class="block_menu_button">Расходы</a>
+                <a href="<c:url value="/admin/wage"/>" id="rate" class="block_menu_button">Ставки</a>
+                <a href="<c:url value="/admin/bank"/>" id="bank" class="block_menu_button">Бюджет</a>
+                <a href="<c:url value="/admin/payment"/>" id="payment" class="block_menu_button">Расходы</a>
             </c:if>
-            <a href="<c:url value="/user/profile"/>" class="block_menu_button">Профиль</a>
+            <a href="<c:url value="/user/profile"/>" id="profile" class="block_menu_button">Профиль</a>
 
         </div>
     </c:if>

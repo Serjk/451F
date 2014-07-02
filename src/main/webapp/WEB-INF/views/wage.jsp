@@ -75,7 +75,7 @@
                                     ${wage.cash}
                             </th>
                             <th>
-                                <a href="#" onClick="setFormValue(${wage.id})">Редактировать</a>
+                                <a href="#" id="change" onClick="setFormValue(${wage.id})">Редактировать</a>
                             </th>
                         </tr>
                     </c:forEach>
@@ -100,7 +100,7 @@
         <p>Значение </p>
         <input id="value" type="number" value="">
         <div>
-            <input type="submit" value="Изменить" onClick ="editWage()"/>
+            <input type="submit" value="Изменить" id="change2" onClick ="editWage()"/>
             <input type="button" value="Отмена" id="cancel"/>
         </div>
         <p id="error_p"></p>

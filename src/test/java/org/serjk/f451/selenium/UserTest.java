@@ -31,7 +31,7 @@ public class UserTest extends TestCase {
     @Test
     public void testCreateUser() throws Exception {
         driver.get(baseUrl + "/user/index#");
-        driver.findElement(By.cssSelector("#reg_button > p")).click();
+        driver.findElement(By.id("reg_button")).click();
         driver.findElement(By.id("input_firstName")).sendKeys("Иван");
         driver.findElement(By.id("input_lastName")).sendKeys("Иванов");
         driver.findElement(By.id("input_address")).sendKeys("Москва");
@@ -105,6 +105,97 @@ public class UserTest extends TestCase {
         driver.findElement(By.id("summary_id")).sendKeys("Читает книги");
         driver.findElement(By.id("submit")).click();
         driver.findElement(By.id("thanks")).click();
+    }
+
+    @Test
+    public void testViewArchive() throws Exception {
+        driver.get(baseUrl + "/user/index");
+        driver.findElement(By.cssSelector("#login_button > p")).click();
+        driver.findElement(By.id("j_login")).sendKeys("user");
+        driver.findElement(By.id("j_password")).sendKeys("user");
+        driver.findElement(By.id("sub_buton")).click();
+        driver.findElement(By.id("arch")).click();
+        //driver.findElement(By.linkText("Подробно...")).click();
+    }
+
+    @Test
+    public void testViewNews() throws Exception {
+        driver.get(baseUrl + "/user/index");
+        driver.findElement(By.cssSelector("#login_button > p")).click();
+        driver.findElement(By.id("j_login")).sendKeys("user");
+        driver.findElement(By.id("j_password")).sendKeys("user");
+        driver.findElement(By.id("sub_buton")).click();
+        driver.findElement(By.id("news")).click();
+        driver.findElement(By.id("news_day")).click();
+        //driver.findElement(By.linkText("Подробно...")).click();
+    }
+
+    @Test
+    public void testProfile() throws Exception {
+        driver.get(baseUrl + "/user/index");
+        driver.findElement(By.cssSelector("#login_button > p")).click();
+        driver.findElement(By.id("j_login")).sendKeys("user");
+        driver.findElement(By.id("j_password")).sendKeys("user");
+        driver.findElement(By.id("sub_buton")).click();
+        driver.findElement(By.id("profile")).click();
+    }
+
+    @Test
+    public void testCreateNew() throws Exception {
+        driver.get(baseUrl + "/user/index");
+        driver.findElement(By.cssSelector("#login_button > p")).click();
+        driver.findElement(By.id("j_login")).sendKeys("admin");
+        driver.findElement(By.id("j_password")).sendKeys("admin");
+        driver.findElement(By.id("sub_buton")).click();
+        driver.findElement(By.id("news")).click();
+        driver.findElement(By.id("cr_new")).click();
+        driver.findElement(By.id("title")).sendKeys("Приезд губернатора");
+        driver.findElement(By.id("summary")).sendKeys("5 июн 2014 года город посетил губернатор Каштанов А.В.");
+        driver.findElement(By.id("description")).sendKeys("Ну приехал губернатор, ну и что?");
+        driver.findElement(By.id("add_new")).click();
+    }
+
+    @Test
+    public void testRateChange() throws Exception {
+        driver.get(baseUrl + "/user/index");
+        driver.findElement(By.cssSelector("#login_button > p")).click();
+        driver.findElement(By.id("j_login")).sendKeys("admin");
+        driver.findElement(By.id("j_password")).sendKeys("admin");
+        driver.findElement(By.id("sub_buton")).click();
+        driver.findElement(By.id("rate")).click();
+        driver.findElement(By.id("change")).click();
+        driver.findElement(By.id("value")).sendKeys("dmkiog");
+        driver.findElement(By.id("change2")).click();
+        driver.findElement(By.id("value")).clear();
+        driver.findElement(By.id("value")).sendKeys("200");
+        driver.findElement(By.id("change2")).click();
+    }
+
+    @Test
+    public void testBank() throws Exception {
+        driver.get(baseUrl + "/user/index");
+        driver.findElement(By.cssSelector("#login_button > p")).click();
+        driver.findElement(By.id("j_login")).sendKeys("admin");
+        driver.findElement(By.id("j_password")).sendKeys("admin");
+        driver.findElement(By.id("sub_buton")).click();
+        driver.findElement(By.id("bank")).click();
+        driver.findElement(By.id("add_bal")).click();
+        driver.findElement(By.id("put")).click();
+        driver.findElement(By.id("add_bal")).click();
+        new Select(driver.findElement(By.id("value"))).selectByVisibleText("400");
+        driver.findElement(By.id("put")).click();
+        driver.findElement(By.id("add_bal")).click();
+        driver.findElement(By.id("cancel")).click();
+    }
+
+    @Test
+    public void testPayment() throws Exception {
+        driver.get(baseUrl + "/user/index");
+        driver.findElement(By.cssSelector("#login_button > p")).click();
+        driver.findElement(By.id("j_login")).sendKeys("admin");
+        driver.findElement(By.id("j_password")).sendKeys("admin");
+        driver.findElement(By.id("sub_buton")).click();
+        driver.findElement(By.id("payment")).click();
     }
 
 //    @Test

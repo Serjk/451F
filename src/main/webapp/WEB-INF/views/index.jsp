@@ -41,7 +41,7 @@
                     <input type="text" id="j_login" placeholder="Логин"/>
                     <input type="password" id="j_password" placeholder="Пароль"/>
                     <div>
-                        <input type="submit" value="Войти" onclick="loginUser()"/>
+                        <input type="submit" value="Войти" id="sub_buton" onclick="loginUser()"/>
                     </div>
                     <p id="login_error"> </p>
                 </div>
@@ -84,7 +84,7 @@
 
     <c:if test="${!empty loginUser}">
         <div id="block_menu">
-            <a href="<c:url value="/user/report/find"/>" class="block_menu_button"> <spring:message code="label.title.find" /> </a>
+            <a href="<c:url value="/user/report/find"/>" id ="wow" class="block_menu_button"> <spring:message code="label.title.find" /> </a>
             <a href="<c:url value="/user/news"/>" class="block_menu_button"> <spring:message code="label.title.news"/></a>
             <a href="<c:url value="/user/report/archive"/>" class="block_menu_button"><spring:message code="label.title.arcive"/> </a>
             <c:if test="${loginUser.role=='ROLE_OFFICIAL'}">

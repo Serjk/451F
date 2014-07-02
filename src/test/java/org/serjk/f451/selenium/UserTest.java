@@ -62,6 +62,51 @@ public class UserTest extends TestCase {
         assertEquals("Пользователь уже существует в системе", driver.findElement(By.id("reg_result")).getText());
     }
 
+    @Test
+    public void testAutenticationUser1() throws Exception {
+        driver.get(baseUrl + "/user/index");
+        driver.findElement(By.cssSelector("#login_button > p")).click();
+        driver.findElement(By.id("j_login")).sendKeys("userrr");
+        driver.findElement(By.id("j_password")).sendKeys("user");
+        driver.findElement(By.id("sub_buton")).click();
+        assertEquals("Пользователь не найден в системе", driver.findElement(By.id("login_error")).getText());
+    }
+
+    @Test
+    public void testAutenticationUser2() throws Exception {
+        driver.get(baseUrl + "/user/index");
+        driver.findElement(By.cssSelector("#login_button > p")).click();
+        driver.findElement(By.id("j_login")).sendKeys("user");
+        driver.findElement(By.id("j_password")).sendKeys("12345");
+        driver.findElement(By.id("sub_buton")).click();
+        assertEquals("Неверный пароль", driver.findElement(By.id("login_error")).getText());
+    }
+
+    @Test
+    public void testAutenticationUser3() throws Exception {
+        driver.get(baseUrl + "/user/index");
+        driver.findElement(By.cssSelector("#login_button > p")).click();
+        driver.findElement(By.id("j_login")).sendKeys("user");
+        driver.findElement(By.id("j_password")).sendKeys("user");
+        driver.findElement(By.id("sub_buton")).click();
+    }
+
+    @Test
+    public void testCreateDenun() throws Exception {
+        driver.get(baseUrl + "/user/index");
+        driver.findElement(By.cssSelector("#login_button > p")).click();
+        driver.findElement(By.id("j_login")).sendKeys("user");
+        driver.findElement(By.id("j_password")).sendKeys("user");
+        driver.findElement(By.id("sub_buton")).click();
+        driver.findElement(By.id("wow")).click();
+        driver.findElement(By.name("firstName")).sendKeys("Георгий");
+        driver.findElement(By.id("find")).click();
+        driver.findElement(By.id("but")).click();
+        driver.findElement(By.id("summary_id")).sendKeys("Читает книги");
+        driver.findElement(By.id("submit")).click();
+        driver.findElement(By.id("thanks")).click();
+    }
+
 //    @Test
 //    public void testCorrectLogin() throws Exception {
 //        driver.get(baseUrl + "/user/index");

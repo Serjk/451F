@@ -56,7 +56,7 @@
             <form action="/user/report/new" method="post">
                 <p> <spring:message code="label.find.firstname"/><input type="text" name="firstName" value="">
                     <spring:message code="label.find.lastname" /> <input type="text" name="lastName" value="">
-                    <input type="submit" value="<spring:message code="label.find.find"/>"/>
+                    <input type="submit" id = "find" value="<spring:message code="label.find.find"/>"/>
                 </p>
             </form>
             <div style="border-top: 1px dashed black; width: 95%; height: 0px; margin: 10px;"></div>
@@ -77,7 +77,7 @@
                             <td>${user.firstName}</td>
                             <td>${user.lastName}</td>
                             <td>${user.address}</td>
-                            <td style="width: 1%"><div class="denun"  onClick="setFormValue('${user.id}','${user.firstName}','${user.lastName}','${user.address}')"></div></td>
+                            <td style="width: 1%"><div class="denun" id="but" onClick="setFormValue('${user.id}','${user.firstName}','${user.lastName}','${user.address}')"></div></td>
                         </tr>
                     </c:forEach>
                 </table>

@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author Koyushev Sergey (mailto: serjk91@gmail.com)
  */
 
-@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations="file:src/test/resources/context.xml")
 public class BaseTest {
 

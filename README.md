@@ -67,3 +67,8 @@ mvn install:install-file -Dfile=ojdbc7.jar -DgroupId=com.oracle -DartifactId=ojd
 #forward ssh ports
 ssh -p 22222 -L 1521:localhost:1521 s153307@helios.cs.ifmo.ru
 
+#Init DB
+/admin/services/startinit/
+
+#git repo
+https://github.com/Serjk/451F/
